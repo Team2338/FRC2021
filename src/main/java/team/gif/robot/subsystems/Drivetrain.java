@@ -14,8 +14,10 @@ import team.gif.robot.RobotMap;
 
 @SuppressWarnings("PMD.ExcessiveImports")
 public class Drivetrain extends SubsystemBase {
+    private static Drivetrain instance = null;
+
     // Robot swerve modules
-    private final SwerveModule m_frontLeft =
+    private static final SwerveModule m_frontLeft =
             new SwerveModule(
                     RobotMap.kFrontLeftDriveMotorPort,
                     RobotMap.kFrontLeftTurningMotorPort,
@@ -24,7 +26,7 @@ public class Drivetrain extends SubsystemBase {
                     Constants.Drivetrain.kFrontLeftDriveEncoderReversed,
                     Constants.Drivetrain.kFrontLeftTurningEncoderReversed);
 
-    private final SwerveModule m_rearLeft =
+    private static final SwerveModule m_rearLeft =
             new SwerveModule(
                     RobotMap.kRearLeftDriveMotorPort,
                     RobotMap.kRearLeftTurningMotorPort,
@@ -33,7 +35,7 @@ public class Drivetrain extends SubsystemBase {
                     Constants.Drivetrain.kRearLeftDriveEncoderReversed,
                     Constants.Drivetrain.kRearLeftTurningEncoderReversed);
 
-    private final SwerveModule m_frontRight =
+    private static final SwerveModule m_frontRight =
             new SwerveModule(
                     RobotMap.kFrontRightDriveMotorPort,
                     RobotMap.kFrontRightTurningMotorPort,
@@ -42,7 +44,7 @@ public class Drivetrain extends SubsystemBase {
                     Constants.Drivetrain.kFrontRightDriveEncoderReversed,
                     Constants.Drivetrain.kFrontRightTurningEncoderReversed);
 
-    private final SwerveModule m_rearRight =
+    private static final SwerveModule m_rearRight =
             new SwerveModule(
                     RobotMap.kRearRightDriveMotorPort,
                     RobotMap.kRearRightTurningMotorPort,
@@ -52,11 +54,19 @@ public class Drivetrain extends SubsystemBase {
                     Constants.Drivetrain.kRearRightTurningEncoderReversed);
 
     // The gyro sensor
-    private final Gyro m_gyro = new ADXRS450_Gyro();
+    private static final Gyro m_gyro = new ADXRS450_Gyro();
 
     // Odometry class for tracking robot pose
     SwerveDriveOdometry m_odometry =
             new SwerveDriveOdometry(Constants.Drivetrain.kDriveKinematics, m_gyro.getRotation2d());
+
+    public static Drivetrain getInstance() {
+        if (instance == null) {
+            System.out.println("drivetrain init");
+            instance = new Drivetrain();
+        }
+        return instance;
+    }
 
     /** Creates a new DriveSubsystem. */
     public Drivetrain() {}
@@ -99,7 +109,7 @@ public class Drivetrain extends SubsystemBase {
      * @param fieldRelative Whether the provided x and y speeds are relative to the field.
      */
     @SuppressWarnings("ParameterName")
-    public void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
+    public static void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
         var swerveModuleStates =
                 Constants.Drivetrain.kDriveKinematics.toSwerveModuleStates(
                         fieldRelative
