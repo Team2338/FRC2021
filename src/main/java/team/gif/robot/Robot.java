@@ -15,9 +15,11 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand;
+  private Command m_autonomousCommand = null;
 
   private RobotContainer m_robotContainer;
+
+  public static OI oi;
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -77,6 +79,8 @@ public class Robot extends TimedRobot {
     if (m_autonomousCommand != null) {
       m_autonomousCommand.cancel();
     }
+
+    oi = new OI();
   }
 
   /** This function is called periodically during operator control. */
