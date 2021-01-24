@@ -42,14 +42,25 @@ public class SwerveModule {
             int[] turningEncoderPorts,
             boolean driveEncoderReversed,
             boolean turningEncoderReversed) {
-
+        
+        System.out.println("\n\n");
+        
+        System.out.println("driveMotor"+driveMotorChannel);
         m_driveMotor = new Spark(driveMotorChannel);
+        System.out.println("turningMotor"+turningMotorChannel);
         m_turningMotor = new Spark(turningMotorChannel);
+        
+        System.out.println("driveEncoder "+driveEncoderPorts[0]+"    "+driveEncoderPorts[1]);
+        m_driveEncoder = new Encoder(driveEncoderPorts[0], driveEncoderPorts[1]);
+        System.out.println("turningEncoder "+turningEncoderPorts[0]+"    "+turningEncoderPorts[1]);
+        m_turningEncoder = new Encoder(turningEncoderPorts[0], turningEncoderPorts[1]);
+        
 
-        this.m_driveEncoder = new Encoder(driveEncoderPorts[0], driveEncoderPorts[1]);
-
-        this.m_turningEncoder = new Encoder(turningEncoderPorts[0], turningEncoderPorts[1]);
-
+/*
+        this.m_driveEncoder = new Encoder(15, 16);
+        
+        this.m_turningEncoder = new Encoder(17, 18);
+*/
         // Set the distance per pulse for the drive encoder. We can simply use the
         // distance traveled for one rotation of the wheel divided by the encoder
         // resolution.
