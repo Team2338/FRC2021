@@ -18,6 +18,8 @@ import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 public final class Constants {
 
     public static final class Drivetrain {
+        public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
+
         public static final boolean kFrontLeftTurningEncoderReversed = false;
         public static final boolean kRearLeftTurningEncoderReversed = true;
         public static final boolean kFrontRightTurningEncoderReversed = false;
