@@ -37,7 +37,10 @@ public class Pigeon {
         tab.add("BotHead",(x)->{x.setSmartDashboardType("Gyro");x.addDoubleProperty("Value", ()-> getCompassHeading(),null);});
     }
 
-    // returns Rotation2d object for swerve, from radians
+    /**
+     * returns Rotation2d object for swerve, from radians
+     * Added by Josh, 2/6/2021
+     */
     public Rotation2d getRotation2d() {
         Rotation2d rotation = new Rotation2d(getHeading() * 0.0174533);
         return rotation;
