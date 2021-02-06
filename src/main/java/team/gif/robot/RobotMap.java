@@ -22,6 +22,9 @@ public abstract class RobotMap {
     public static final int[] kFrontRightDriveEncoderPorts = new int[] {11, 12};
     public static final int[] kRearRightDriveEncoderPorts = new int[] {13, 14};
 
+    // Pigeon
+    public static final int PIGEON = 0;
+
     // Controllers
     public static final int DRIVER_CONTROLLER_ID = 0;
     public static final int AUX_CONTROLLER_ID = 1;

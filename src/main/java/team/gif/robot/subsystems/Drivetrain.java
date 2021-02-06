@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
+import team.gif.robot.subsystems.drivers.Pigeon;
 
 @SuppressWarnings("PMD.ExcessiveImports")
 public class Drivetrain extends SubsystemBase {
@@ -54,7 +55,7 @@ public class Drivetrain extends SubsystemBase {
                     Constants.Drivetrain.kRearRightTurningEncoderReversed);
 
     // The gyro sensor
-    private static final Gyro m_gyro = new ADXRS450_Gyro();
+    private static final Pigeon m_gyro = new Pigeon();
 
     // Odometry class for tracking robot pose
     SwerveDriveOdometry m_odometry =
@@ -147,7 +148,7 @@ public class Drivetrain extends SubsystemBase {
 
     /** Zeroes the heading of the robot. */
     public void zeroHeading() {
-        m_gyro.reset();
+        m_gyro.resetPigeonPosition();
     }
 
     /**
@@ -164,7 +165,7 @@ public class Drivetrain extends SubsystemBase {
      *
      * @return The turn rate of the robot, in degrees per second
      */
-    public double getTurnRate() {
+    /*public double getTurnRate() {
         return m_gyro.getRate() * (Constants.Drivetrain.kGyroReversed ? -1.0 : 1.0);
-    }
+    }*/
 }
