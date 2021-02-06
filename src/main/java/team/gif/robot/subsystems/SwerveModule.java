@@ -54,7 +54,7 @@ public class SwerveModule {
         m_driveMotor = new CANSparkMax(driveMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
         m_turningMotor = new WPI_TalonSRX(turningMotorChannel);
 
-        this.m_driveEncoder = m_driveMotor.getEncoder();
+        m_driveEncoder = m_driveMotor.getEncoder();
 
         m_turningMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute,0 ,0);
 
@@ -66,12 +66,13 @@ public class SwerveModule {
 
         // Set whether drive encoder should be reversed or not
         //m_driveEncoder.setReverseDirection(driveEncoderReversed);
-        m_driveEncoder.setInverted(driveEncoderReversed);
+        //m_driveEncoder.setInverted(driveEncoderReversed);
 
         // Set the distance (in this case, angle) per pulse for the turning encoder.
         // This is the the angle through an entire rotation (2 * wpi::math::pi)
         // divided by the encoder resolution.
         //m_turningEncoder.setDistancePerPulse(Constants.ModuleConstants.kTurningEncoderDistancePerPulse);
+        // TODO: do this
 
         // Set whether turning encoder should be reversed or not
         //m_turningEncoder.setReverseDirection(turningEncoderReversed);
@@ -88,6 +89,7 @@ public class SwerveModule {
      * @return The current state of the module.
      */
     public SwerveModuleState getState() {
+        System.out.println(m_turningMotor.getSelectedSensorPosition());
         return new SwerveModuleState(m_driveEncoder.getVelocity(), new Rotation2d(m_turningMotor.getSelectedSensorPosition()));
     }
 

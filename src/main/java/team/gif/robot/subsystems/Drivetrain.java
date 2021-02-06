@@ -1,5 +1,6 @@
 package team.gif.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -17,6 +18,8 @@ import team.gif.robot.subsystems.drivers.Pigeon;
 public class Drivetrain extends SubsystemBase {
     private static Drivetrain instance = null;
 
+    private static WPI_TalonSRX PigeonTalon = new WPI_TalonSRX(5);
+
     // Robot swerve modules
     private static final SwerveModule m_frontLeft =
             new SwerveModule(
@@ -27,7 +30,7 @@ public class Drivetrain extends SubsystemBase {
                     Constants.Drivetrain.kFrontLeftDriveEncoderReversed,
                     Constants.Drivetrain.kFrontLeftTurningEncoderReversed);
 
-    private static final SwerveModule m_rearLeft =
+    /*private static final SwerveModule m_rearLeft =
             new SwerveModule(
                     RobotMap.kRearLeftDriveMotorPort,
                     RobotMap.kRearLeftTurningMotorPort,
@@ -43,7 +46,7 @@ public class Drivetrain extends SubsystemBase {
                     RobotMap.kFrontRightDriveEncoderPorts,
                     RobotMap.kFrontRightTurningEncoderPorts,
                     Constants.Drivetrain.kFrontRightDriveEncoderReversed,
-                    Constants.Drivetrain.kFrontRightTurningEncoderReversed);
+                    Constants.Drivetrain.kFrontRightTurningEncoderReversed);*/
 
     private static final SwerveModule m_rearRight =
             new SwerveModule(
@@ -55,7 +58,7 @@ public class Drivetrain extends SubsystemBase {
                     Constants.Drivetrain.kRearRightTurningEncoderReversed);
 
     // The gyro sensor
-    private static final Pigeon m_gyro = new Pigeon();
+    private static final Pigeon m_gyro = new Pigeon(PigeonTalon);
 
     // Odometry class for tracking robot pose
     SwerveDriveOdometry m_odometry =
@@ -78,8 +81,8 @@ public class Drivetrain extends SubsystemBase {
         m_odometry.update(
                 new Rotation2d(getHeading()),
                 m_frontLeft.getState(),
-                m_rearLeft.getState(),
-                m_frontRight.getState(),
+                //m_rearLeft.getState(),
+                //m_frontRight.getState(),
                 m_rearRight.getState());
     }
 
@@ -119,9 +122,9 @@ public class Drivetrain extends SubsystemBase {
         SwerveDriveKinematics.normalizeWheelSpeeds(
                 swerveModuleStates, Constants.Drivetrain.kMaxSpeedMetersPerSecond);
         m_frontLeft.setDesiredState(swerveModuleStates[0]);
-        m_frontRight.setDesiredState(swerveModuleStates[1]);
-        m_rearLeft.setDesiredState(swerveModuleStates[2]);
-        m_rearRight.setDesiredState(swerveModuleStates[3]);
+        //m_frontRight.setDesiredState(swerveModuleStates[1]);
+        //m_rearLeft.setDesiredState(swerveModuleStates[2]);
+        m_rearRight.setDesiredState(swerveModuleStates[1]); //3
     }
 
     /**
@@ -133,16 +136,16 @@ public class Drivetrain extends SubsystemBase {
         SwerveDriveKinematics.normalizeWheelSpeeds(
                 desiredStates, Constants.Drivetrain.kMaxSpeedMetersPerSecond);
         m_frontLeft.setDesiredState(desiredStates[0]);
-        m_frontRight.setDesiredState(desiredStates[1]);
-        m_rearLeft.setDesiredState(desiredStates[2]);
-        m_rearRight.setDesiredState(desiredStates[3]);
+        //m_frontRight.setDesiredState(desiredStates[1]);
+        //m_rearLeft.setDesiredState(desiredStates[2]);
+        m_rearRight.setDesiredState(desiredStates[1]); //3
     }
 
     /** Resets the drive encoders to currently read a position of 0. */
     public void resetEncoders() {
         m_frontLeft.resetEncoders();
-        m_rearLeft.resetEncoders();
-        m_frontRight.resetEncoders();
+        //m_rearLeft.resetEncoders();
+        //m_frontRight.resetEncoders();
         m_rearRight.resetEncoders();
     }
 
