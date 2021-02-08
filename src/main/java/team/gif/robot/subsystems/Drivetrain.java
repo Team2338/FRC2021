@@ -171,4 +171,8 @@ public class Drivetrain extends SubsystemBase {
     /*public double getTurnRate() {
         return m_gyro.getRate() * (Constants.Drivetrain.kGyroReversed ? -1.0 : 1.0);
     }*/
+
+    public void setSpeedFL (double drive, double turn) {
+        m_frontLeft.setSpeed(drive, turn);
+    }
 }

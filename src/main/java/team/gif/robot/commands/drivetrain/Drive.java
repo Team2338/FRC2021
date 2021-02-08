@@ -40,7 +40,6 @@ public class Drive extends CommandBase {
             Robot.oi.driver.getX(GenericHID.Hand.kRight),
             Robot.oi.driver.getX(GenericHID.Hand.kLeft),
             false);*/
-    Drivetrain.
   }
 
   // Called once the command ends or is interrupted.

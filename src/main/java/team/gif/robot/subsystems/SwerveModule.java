@@ -72,11 +72,11 @@ public class SwerveModule {
         // This is the the angle through an entire rotation (2 * wpi::math::pi)
         // divided by the encoder resolution.
         //m_turningEncoder.setDistancePerPulse(Constants.ModuleConstants.kTurningEncoderDistancePerPulse);
-        // TODO: do this
+        m_turningMotor.configSelectedFeedbackCoefficient(1024.0);
 
         // Set whether turning encoder should be reversed or not
         //m_turningEncoder.setReverseDirection(turningEncoderReversed);
-        // Analog Potentiometers cannot be reversed?
+        /** Analog Potentiometers cannot be reversed? */
 
         // Limit the PID Controller's input range between -pi and pi and set the input
         // to be continuous.
@@ -116,5 +116,10 @@ public class SwerveModule {
     public void resetEncoders() {
         m_driveEncoder.setPosition(0.0);
         m_turningMotor.setSelectedSensorPosition(0.0, 0, 0);
+    }
+
+    public void setSpeed(double drive, double turn) {
+        m_driveMotor.set(drive);
+        m_turningMotor.set(turn);
     }
 }
