@@ -20,7 +20,7 @@ public final class Constants {
     public static final class Drivetrain {
         public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
 
-        public static final boolean kFrontLeftTurningEncoderReversed = false;
+        public static final boolean kFrontLeftTurningEncoderReversed = true; //false
         public static final boolean kRearLeftTurningEncoderReversed = true;
         public static final boolean kFrontRightTurningEncoderReversed = false;
         public static final boolean kRearRightTurningEncoderReversed = true;
@@ -59,7 +59,7 @@ public final class Constants {
         public static final double kMaxModuleAngularSpeedRadiansPerSecond = 2 * Math.PI;
         public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 2 * Math.PI;
 
-        public static final int kEncoderCPR = 1024;
+        public static final int kEncoderCPR = 4096; //1024
         public static final double kWheelDiameterMeters = 0.15;
         public static final double kDriveEncoderDistancePerPulse =
                 // Assumes the encoders are directly mounted on the wheel shafts

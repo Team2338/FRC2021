@@ -40,6 +40,11 @@ public class Drive extends CommandBase {
             Robot.oi.driver.getX(GenericHID.Hand.kRight),
             Robot.oi.driver.getX(GenericHID.Hand.kLeft),
             false);*/
+    Drivetrain.getInstance().setSpeedFL(
+            -Robot.oi.driver.getY(GenericHID.Hand.kLeft),
+            -Robot.oi.driver.getY(GenericHID.Hand.kRight)
+    );
+    System.out.println("INPUT: " + -Robot.oi.driver.getY(GenericHID.Hand.kRight));
   }
 
   // Called once the command ends or is interrupted.

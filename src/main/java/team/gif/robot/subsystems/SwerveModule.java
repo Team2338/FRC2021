@@ -21,6 +21,8 @@ public class SwerveModule {
     private final CANSparkMax m_driveMotor;
     private final WPI_TalonSRX m_turningMotor;
 
+    private boolean turningInverted;
+
     private final CANEncoder m_driveEncoder;
     //private final AnalogPotentiometer m_turningEncoder;
 
@@ -62,7 +64,8 @@ public class SwerveModule {
         // distance traveled for one rotation of the wheel divided by the encoder
         // resolution.
         //m_driveEncoder.setDistancePerPulse(Constants.ModuleConstants.kDriveEncoderDistancePerPulse);
-        m_driveEncoder.setVelocityConversionFactor(2.0 * Math.PI * Constants.Drivetrain.DRIVE_WHEEL_RADIUS); //circumference of drive wheels
+        m_driveEncoder.setVelocityConversionFactor(2.0 * Math.PI * Constants.Drivetrain.DRIVE_WHEEL_RADIUS / 60); //circumference of drive wheels
+        //2.0 * Math.PI * Constants.Drivetrain.DRIVE_WHEEL_RADIUS
 
         // Set whether drive encoder should be reversed or not
         //m_driveEncoder.setReverseDirection(driveEncoderReversed);
@@ -72,11 +75,12 @@ public class SwerveModule {
         // This is the the angle through an entire rotation (2 * wpi::math::pi)
         // divided by the encoder resolution.
         //m_turningEncoder.setDistancePerPulse(Constants.ModuleConstants.kTurningEncoderDistancePerPulse);
-        m_turningMotor.configSelectedFeedbackCoefficient(1024.0);
+        m_turningMotor.configSelectedFeedbackCoefficient(360.0 / Constants.ModuleConstants.kEncoderCPR);//1024.0
 
         // Set whether turning encoder should be reversed or not
         //m_turningEncoder.setReverseDirection(turningEncoderReversed);
         /** Analog Potentiometers cannot be reversed? */
+        turningInverted = turningEncoderReversed;
 
         // Limit the PID Controller's input range between -pi and pi and set the input
         // to be continuous.
@@ -89,8 +93,17 @@ public class SwerveModule {
      * @return The current state of the module.
      */
     public SwerveModuleState getState() {
-        System.out.println(m_turningMotor.getSelectedSensorPosition());
-        return new SwerveModuleState(m_driveEncoder.getVelocity(), new Rotation2d(m_turningMotor.getSelectedSensorPosition()));
+        return new SwerveModuleState(m_driveEncoder.getVelocity(), new Rotation2d(getTurningHeading()));
+    }
+
+    /**
+     *
+     * @return heading of module in degrees
+     */
+    public double getTurningHeading() {
+        double heading = m_turningMotor.getSelectedSensorPosition();
+        heading *= turningInverted ? -1 : 1;
+        return heading;
     }
 
     /**
@@ -105,7 +118,7 @@ public class SwerveModule {
 
         // Calculate the turning motor output from the turning PID controller.
         final var turnOutput =
-                m_turningPIDController.calculate(m_turningMotor.getSelectedSensorPosition(), state.angle.getRadians());
+                m_turningPIDController.calculate(getTurningHeading(), state.angle.getRadians());
 
         // Calculate the turning motor output from the turning PID controller.
         m_driveMotor.set(driveOutput);
@@ -121,5 +134,13 @@ public class SwerveModule {
     public void setSpeed(double drive, double turn) {
         m_driveMotor.set(drive);
         m_turningMotor.set(turn);
+    }
+
+    public double getTurnDegrees() {
+        return getTurningHeading();
+    }
+
+    public double getVelocity() {
+        return m_driveEncoder.getVelocity();
     }
 }
