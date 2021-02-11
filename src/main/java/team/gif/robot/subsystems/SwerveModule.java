@@ -67,7 +67,7 @@ public class SwerveModule {
         // distance traveled for one rotation of the wheel divided by the encoder
         // resolution.
         //m_driveEncoder.setDistancePerPulse(Constants.ModuleConstants.kDriveEncoderDistancePerPulse);
-        m_driveEncoder.setVelocityConversionFactor(Math.PI * Constants.ModuleConstants.kWheelDiameterMeters / 60); //circumference of drive wheels
+        m_driveEncoder.setVelocityConversionFactor((Math.PI * Constants.ModuleConstants.kWheelDiameterMeters) / (60.0 * Constants.ModuleConstants.kGearRatio));
         //2.0 * Math.PI * Constants.Drivetrain.DRIVE_WHEEL_RADIUS
 
         // Set whether drive encoder should be reversed or not
@@ -78,7 +78,7 @@ public class SwerveModule {
         // This is the the angle through an entire rotation (2 * wpi::math::pi)
         // divided by the encoder resolution.
         //m_turningEncoder.setDistancePerPulse(Constants.ModuleConstants.kTurningEncoderDistancePerPulse);
-        m_turningMotor.configSelectedFeedbackCoefficient(360.0 / Constants.ModuleConstants.kEncoderCPR);//1024.0
+        m_turningMotor.configSelectedFeedbackCoefficient(1);
 
         // Set whether turning encoder should be reversed or not
         //m_turningEncoder.setReverseDirection(turningEncoderReversed);
@@ -105,7 +105,8 @@ public class SwerveModule {
      */
     public double getTurningHeading() {
         double heading = m_turningMotor.getSelectedSensorPosition();
-        heading *= turningInverted ? -1 : 1;
+        heading *= turningInverted ? -1.0 : 1.0;
+        heading *= (2.0 * Math.PI) / Constants.ModuleConstants.kEncoderCPR;
         return heading;
     }
 
