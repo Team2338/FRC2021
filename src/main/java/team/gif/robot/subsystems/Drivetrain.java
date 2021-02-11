@@ -77,7 +77,7 @@ public class Drivetrain extends SubsystemBase {
 
     @Override
     public void periodic() {
-        System.out.println("TURN: " + m_frontLeft.getTurnDegrees());
+        System.out.println("TURN: " + m_rearRight.getTurnDegrees());
         System.out.println("DRIVE: " + m_frontLeft.getVelocity());
         //System.out.println("PIGEON: " + getHeading());
         // Update the odometry in the periodic block
@@ -177,5 +177,9 @@ public class Drivetrain extends SubsystemBase {
 
     public void setSpeedFL (double drive, double turn) {
         m_frontLeft.setSpeed(drive, turn);
+    }
+
+    public void setSpeedRR (double drive, double turn) {
+        m_rearRight.setSpeed(drive, turn);
     }
 }

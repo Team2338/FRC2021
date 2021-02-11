@@ -56,6 +56,9 @@ public class SwerveModule {
         m_driveMotor = new CANSparkMax(driveMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
         m_turningMotor = new WPI_TalonSRX(turningMotorChannel);
 
+        m_driveMotor.restoreFactoryDefaults();
+        m_driveMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+
         m_driveEncoder = m_driveMotor.getEncoder();
 
         m_turningMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute,0 ,0);
@@ -64,7 +67,7 @@ public class SwerveModule {
         // distance traveled for one rotation of the wheel divided by the encoder
         // resolution.
         //m_driveEncoder.setDistancePerPulse(Constants.ModuleConstants.kDriveEncoderDistancePerPulse);
-        m_driveEncoder.setVelocityConversionFactor(2.0 * Math.PI * Constants.Drivetrain.DRIVE_WHEEL_RADIUS / 60); //circumference of drive wheels
+        m_driveEncoder.setVelocityConversionFactor(Math.PI * Constants.ModuleConstants.kWheelDiameterMeters / 60); //circumference of drive wheels
         //2.0 * Math.PI * Constants.Drivetrain.DRIVE_WHEEL_RADIUS
 
         // Set whether drive encoder should be reversed or not

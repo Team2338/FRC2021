@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 public final class Constants {
 
     public static final class Drivetrain {
-        public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
+        //public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
 
         public static final boolean kFrontLeftTurningEncoderReversed = true; //false
         public static final boolean kRearLeftTurningEncoderReversed = true;
@@ -69,8 +69,8 @@ public final class Constants {
                 // Assumes the encoders are on a 1:1 reduction with the module shaft.
                 (2 * Math.PI) / (double) kEncoderCPR;
 
-        public static final double kPModuleTurningController = 1;
+        public static final double kPModuleTurningController = 0.075; // 1
 
-        public static final double kPModuleDriveController = 1;
+        public static final double kPModuleDriveController = 0.075; // 1
     }
 }

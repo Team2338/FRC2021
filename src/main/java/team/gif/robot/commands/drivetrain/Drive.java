@@ -35,16 +35,20 @@ public class Drive extends CommandBase {
   public void execute() {
     // A split-stick arcade command, with forward/backward controlled by the left
     // hand, and turning controlled by the right.
-    /*Drivetrain.drive(
+    Drivetrain.drive(
             Robot.oi.driver.getY(GenericHID.Hand.kLeft),
-            Robot.oi.driver.getX(GenericHID.Hand.kRight),
             Robot.oi.driver.getX(GenericHID.Hand.kLeft),
-            false);*/
+            Robot.oi.driver.getX(GenericHID.Hand.kRight),
+            false);
+    /*Drivetrain.getInstance().setSpeedRR(
+            -Robot.oi.driver.getY(GenericHID.Hand.kLeft),
+            -Robot.oi.driver.getY(GenericHID.Hand.kRight)
+    );
     Drivetrain.getInstance().setSpeedFL(
             -Robot.oi.driver.getY(GenericHID.Hand.kLeft),
             -Robot.oi.driver.getY(GenericHID.Hand.kRight)
     );
-    System.out.println("INPUT: " + -Robot.oi.driver.getY(GenericHID.Hand.kRight));
+    System.out.println("INPUT: " + -Robot.oi.driver.getY(GenericHID.Hand.kRight));*/
   }
 
   // Called once the command ends or is interrupted.
