@@ -24,6 +24,7 @@ public class ResetEncoders extends CommandBase {
     @Override
     public void initialize() {
         Drivetrain.getInstance().resetEncoders();
+        System.out.println("Working");
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -38,6 +39,11 @@ public class ResetEncoders extends CommandBase {
     // Returns true when the command should end.
     @Override
     public boolean isFinished() {
-        return false;
+        return true;
+    }
+
+    @Override
+    public boolean runsWhenDisabled() {
+        return true;
     }
 }

@@ -1,6 +1,7 @@
 package team.gif.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANEncoder;
@@ -22,6 +23,7 @@ public class SwerveModule {
     private final WPI_TalonSRX m_turningMotor;
 
     private boolean turningInverted;
+    private double turningOffset;
 
     private final CANEncoder m_driveEncoder;
     //private final AnalogPotentiometer m_turningEncoder;
@@ -48,18 +50,23 @@ public class SwerveModule {
     public SwerveModule(
             int driveMotorChannel,
             int turningMotorChannel,
-            int[] driveEncoderPorts,
-            int[] turningEncoderPorts,
-            boolean driveEncoderReversed,
-            boolean turningEncoderReversed) {
+            boolean turningMotorReversed,
+            boolean driveMotorReversed,
+            boolean turningEncoderReversed,
+            double turningMotorOffset) {
 
         m_driveMotor = new CANSparkMax(driveMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
         m_turningMotor = new WPI_TalonSRX(turningMotorChannel);
 
         m_driveMotor.restoreFactoryDefaults();
         m_driveMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        m_driveMotor.setInverted(driveMotorReversed);
 
         m_driveEncoder = m_driveMotor.getEncoder();
+
+        m_turningMotor.configFactoryDefault();
+        m_turningMotor.setNeutralMode(NeutralMode.Brake);
+        m_turningMotor.setInverted(turningMotorReversed);
 
         m_turningMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute,0 ,0);
 
@@ -84,6 +91,7 @@ public class SwerveModule {
         //m_turningEncoder.setReverseDirection(turningEncoderReversed);
         /** Analog Potentiometers cannot be reversed? */
         turningInverted = turningEncoderReversed;
+        turningOffset = turningMotorOffset;
 
         // Limit the PID Controller's input range between -pi and pi and set the input
         // to be continuous.
@@ -107,6 +115,7 @@ public class SwerveModule {
         double heading = m_turningMotor.getSelectedSensorPosition();
         heading *= turningInverted ? -1.0 : 1.0;
         heading *= (2.0 * Math.PI) / Constants.ModuleConstants.kEncoderCPR;
+        heading -= turningOffset;
         return heading;
     }
 
@@ -140,11 +149,15 @@ public class SwerveModule {
         m_turningMotor.set(turn);
     }
 
-    public double getTurnDegrees() {
+    /*public double getTurnDegrees() {
         return getTurningHeading();
-    }
+    }*/
 
     public double getVelocity() {
         return m_driveEncoder.getVelocity();
+    }
+
+    public double getDrivePercent() {
+        return m_driveMotor.get();
     }
 }

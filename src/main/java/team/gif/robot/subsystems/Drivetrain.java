@@ -1,10 +1,8 @@
 package team.gif.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
@@ -25,37 +23,37 @@ public class Drivetrain extends SubsystemBase {
             new SwerveModule(
                     RobotMap.kFrontLeftDriveMotorPort,
                     RobotMap.kFrontLeftTurningMotorPort,
-                    RobotMap.kFrontLeftDriveEncoderPorts,
-                    RobotMap.kFrontLeftTurningEncoderPorts,
-                    Constants.Drivetrain.kFrontLeftDriveEncoderReversed,
-                    Constants.Drivetrain.kFrontLeftTurningEncoderReversed);
+                    Constants.Drivetrain.kFrontLeftTurningMotorReversed,
+                    Constants.Drivetrain.kFrontLeftDriveMotorReversed,
+                    Constants.Drivetrain.kFrontLeftTurningEncoderReversed,
+                    Constants.Drivetrain.kFrontLeftOffset);
 
-    /*private static final SwerveModule m_rearLeft =
+    private static final SwerveModule m_rearLeft =
             new SwerveModule(
                     RobotMap.kRearLeftDriveMotorPort,
                     RobotMap.kRearLeftTurningMotorPort,
-                    RobotMap.kRearLeftDriveEncoderPorts,
-                    RobotMap.kRearLeftTurningEncoderPorts,
-                    Constants.Drivetrain.kRearLeftDriveEncoderReversed,
-                    Constants.Drivetrain.kRearLeftTurningEncoderReversed);
+                    Constants.Drivetrain.kRearLeftTurningMotorReversed,
+                    Constants.Drivetrain.kRearLeftDriveMotorReversed,
+                    Constants.Drivetrain.kRearLeftTurningEncoderReversed,
+                    Constants.Drivetrain.kRearLeftOffset);
 
     private static final SwerveModule m_frontRight =
             new SwerveModule(
                     RobotMap.kFrontRightDriveMotorPort,
                     RobotMap.kFrontRightTurningMotorPort,
-                    RobotMap.kFrontRightDriveEncoderPorts,
-                    RobotMap.kFrontRightTurningEncoderPorts,
-                    Constants.Drivetrain.kFrontRightDriveEncoderReversed,
-                    Constants.Drivetrain.kFrontRightTurningEncoderReversed);*/
+                    Constants.Drivetrain.kFrontRightTurningMotorReversed,
+                    Constants.Drivetrain.kFrontRightDriveMotorReversed,
+                    Constants.Drivetrain.kFrontRightTurningEncoderReversed,
+                    Constants.Drivetrain.kFrontRightOffset);
 
     private static final SwerveModule m_rearRight =
             new SwerveModule(
                     RobotMap.kRearRightDriveMotorPort,
                     RobotMap.kRearRightTurningMotorPort,
-                    RobotMap.kRearRightDriveEncoderPorts,
-                    RobotMap.kRearRightTurningEncoderPorts,
-                    Constants.Drivetrain.kRearRightDriveEncoderReversed,
-                    Constants.Drivetrain.kRearRightTurningEncoderReversed);
+                    Constants.Drivetrain.kRearRightTurningMotorReversed,
+                    Constants.Drivetrain.kRearRightDriveMotorReversed,
+                    Constants.Drivetrain.kRearRightTurningEncoderReversed,
+                    Constants.Drivetrain.kRearRightOffset);
 
     // The gyro sensor
     private static final Pigeon m_gyro = new Pigeon(PigeonTalon);
@@ -77,15 +75,15 @@ public class Drivetrain extends SubsystemBase {
 
     @Override
     public void periodic() {
-        System.out.println("TURN: " + m_rearRight.getTurnDegrees());
-        System.out.println("DRIVE: " + m_frontLeft.getVelocity());
+        //System.out.println("TURN: " + m_rearRight.getTurnDegrees());
+        //System.out.println("DRIVE: " + m_frontLeft.getVelocity());
         //System.out.println("PIGEON: " + getHeading());
         // Update the odometry in the periodic block
         m_odometry.update(
                 new Rotation2d(getHeading()),
                 m_frontLeft.getState(),
-                //m_rearLeft.getState(),
-                //m_frontRight.getState(),
+                m_rearLeft.getState(),
+                m_frontRight.getState(),
                 m_rearRight.getState());
     }
 
@@ -125,9 +123,9 @@ public class Drivetrain extends SubsystemBase {
         SwerveDriveKinematics.normalizeWheelSpeeds(
                 swerveModuleStates, Constants.Drivetrain.kMaxSpeedMetersPerSecond);
         m_frontLeft.setDesiredState(swerveModuleStates[0]);
-        //m_frontRight.setDesiredState(swerveModuleStates[1]);
-        //m_rearLeft.setDesiredState(swerveModuleStates[2]);
-        m_rearRight.setDesiredState(swerveModuleStates[1]); //3
+        m_frontRight.setDesiredState(swerveModuleStates[1]);
+        m_rearLeft.setDesiredState(swerveModuleStates[2]);
+        m_rearRight.setDesiredState(swerveModuleStates[3]);
     }
 
     /**
@@ -139,16 +137,16 @@ public class Drivetrain extends SubsystemBase {
         SwerveDriveKinematics.normalizeWheelSpeeds(
                 desiredStates, Constants.Drivetrain.kMaxSpeedMetersPerSecond);
         m_frontLeft.setDesiredState(desiredStates[0]);
-        //m_frontRight.setDesiredState(desiredStates[1]);
-        //m_rearLeft.setDesiredState(desiredStates[2]);
-        m_rearRight.setDesiredState(desiredStates[1]); //3
+        m_frontRight.setDesiredState(desiredStates[1]);
+        m_rearLeft.setDesiredState(desiredStates[2]);
+        m_rearRight.setDesiredState(desiredStates[3]);
     }
 
     /** Resets the drive encoders to currently read a position of 0. */
     public void resetEncoders() {
         m_frontLeft.resetEncoders();
-        //m_rearLeft.resetEncoders();
-        //m_frontRight.resetEncoders();
+        m_rearLeft.resetEncoders();
+        m_frontRight.resetEncoders();
         m_rearRight.resetEncoders();
     }
 
@@ -181,5 +179,29 @@ public class Drivetrain extends SubsystemBase {
 
     public void setSpeedRR (double drive, double turn) {
         m_rearRight.setSpeed(drive, turn);
+    }
+
+    public double getVelocity() {
+        return m_frontLeft.getVelocity();
+    }
+
+    public double[] getModuleHeadings() {
+        double[] headings = {
+                m_frontLeft.getTurningHeading() % (2.0 * Math.PI),
+                m_rearLeft.getTurningHeading() % (2.0 * Math.PI),
+                m_frontRight.getTurningHeading() % (2.0 * Math.PI),
+                m_rearRight.getTurningHeading() % (2.0 * Math.PI)
+        };
+        return headings;
+    }
+
+    public double[] getModulePercents() {
+        double[] headings = {
+                m_frontLeft.getDrivePercent(),
+                m_rearLeft.getDrivePercent(),
+                m_frontRight.getDrivePercent(),
+                m_rearRight.getDrivePercent()
+        };
+        return headings;
     }
 }
