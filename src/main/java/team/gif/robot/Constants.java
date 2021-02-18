@@ -64,7 +64,7 @@ public final class Constants {
         //public static final double kaVoltSecondsSquaredPerMeter = 0.15;
 
         public static final double kMaxSpeedMetersPerSecond = 30;//needs real number
-        public static double kMaxAccelerationMetersPerSecondSquared = 30;// needs real number
+        public static double kMaxAccelerationMetersPerSecondSquared = 5;// needs real number
 
     }
 
