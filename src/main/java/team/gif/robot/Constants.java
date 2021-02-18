@@ -6,6 +6,7 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -51,6 +52,8 @@ public final class Constants {
         public static final double kaVoltSecondsSquaredPerMeter = 0.15;
 
         public static final double kMaxSpeedMetersPerSecond = 3;
+        public static double kMaxAccelerationMetersPerSecondSquared = 1;// needs real number
+
     }
 
     public static class ModuleConstants {
@@ -70,5 +73,20 @@ public final class Constants {
         public static final double kPModuleTurningController = 1;
 
         public static final double kPModuleDriveController = 1;
+    }
+    public static final class AutoConstants {
+        public static final double kMaxSpeedMetersPerSecond = 3;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
+        public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
+
+        public static final double kPXController = 1;
+        public static final double kPYController = 1;
+        public static final double kPThetaController = 1;
+
+        // Constraint for the motion profilied robot angle controller
+        public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
+                new TrapezoidProfile.Constraints(
+                        kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
 }
