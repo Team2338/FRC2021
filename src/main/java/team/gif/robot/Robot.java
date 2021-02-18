@@ -20,7 +20,7 @@ import team.gif.robot.subsystems.Drivetrain;
  * project.
  */
 public class Robot extends TimedRobot {
-  private Command m_autonomousCommand = new mobility();
+  private Command m_autonomousCommand = null;
 
   private Command driveCommand = null;
 
@@ -39,6 +39,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     driveCommand = new Drive(Drivetrain.getInstance());
+    m_autonomousCommand = new mobility();
 
     SmartDashboard.putData("Reset Module Encoders", new ResetEncoders());
   }
