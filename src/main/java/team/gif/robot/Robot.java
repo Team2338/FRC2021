@@ -39,7 +39,7 @@ public class Robot extends TimedRobot {
     m_robotContainer = new RobotContainer();
 
     driveCommand = new Drive(Drivetrain.getInstance());
-    m_autonomousCommand = new mobility();
+
 
     SmartDashboard.putData("Reset Module Encoders", new ResetEncoders());
   }
@@ -83,7 +83,8 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    m_autonomousCommand = new mobility();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
