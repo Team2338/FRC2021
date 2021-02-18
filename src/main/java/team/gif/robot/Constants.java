@@ -19,26 +19,38 @@ import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 public final class Constants {
 
     public static final class Drivetrain {
-        public static final boolean kFrontLeftTurningEncoderReversed = false;
+        //public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
+
+        public static final boolean kFrontLeftTurningEncoderReversed = true; //false
         public static final boolean kRearLeftTurningEncoderReversed = true;
         public static final boolean kFrontRightTurningEncoderReversed = false;
         public static final boolean kRearRightTurningEncoderReversed = true;
 
-        public static final boolean kFrontLeftDriveEncoderReversed = false;
-        public static final boolean kRearLeftDriveEncoderReversed = true;
-        public static final boolean kFrontRightDriveEncoderReversed = false;
-        public static final boolean kRearRightDriveEncoderReversed = true;
+        public static final boolean kFrontLeftDriveMotorReversed = false;
+        public static final boolean kRearLeftDriveMotorReversed = false;
+        public static final boolean kFrontRightDriveMotorReversed = true;
+        public static final boolean kRearRightDriveMotorReversed = true;
 
-        public static final double kTrackWidth = 0.5;
+        public static final boolean kFrontLeftTurningMotorReversed = false;
+        public static final boolean kRearLeftTurningMotorReversed = false;
+        public static final boolean kFrontRightTurningMotorReversed = true;
+        public static final boolean kRearRightTurningMotorReversed = false;
+
+        public static final double kFrontLeftOffset = -4.635;
+        public static final double kRearLeftOffset = -2.315;
+        public static final double kFrontRightOffset = -5.032;
+        public static final double kRearRightOffset = -2.894;
+
+        public static final double kTrackWidth = 0.5588;
         // Distance between centers of right and left wheels on robot
-        public static final double kWheelBase = 0.7;
+        public static final double kWheelBase = 0.5588;
         // Distance between front and back wheels on robot
         public static final SwerveDriveKinematics kDriveKinematics =
                 new SwerveDriveKinematics(
-                        new Translation2d(kWheelBase / 2, kTrackWidth / 2),
-                        new Translation2d(kWheelBase / 2, -kTrackWidth / 2),
-                        new Translation2d(-kWheelBase / 2, kTrackWidth / 2),
-                        new Translation2d(-kWheelBase / 2, -kTrackWidth / 2));
+                        new Translation2d(kWheelBase / 2, -kTrackWidth / 2), // x was +, y was +
+                        new Translation2d(kWheelBase / 2, kTrackWidth / 2), // x was +, y was -
+                        new Translation2d(-kWheelBase / 2, -kTrackWidth / 2), // x was -, y was +
+                        new Translation2d(-kWheelBase / 2, kTrackWidth / 2)); // x was -, y was -
 
         public static final boolean kGyroReversed = false;
 
@@ -60,8 +72,8 @@ public final class Constants {
         public static final double kMaxModuleAngularSpeedRadiansPerSecond = 2 * Math.PI;
         public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 2 * Math.PI;
 
-        public static final int kEncoderCPR = 1024;
-        public static final double kWheelDiameterMeters = 0.15;
+        public static final double kEncoderCPR = 4096.0; //1024
+        public static final double kWheelDiameterMeters = 0.10338;
         public static final double kDriveEncoderDistancePerPulse =
                 // Assumes the encoders are directly mounted on the wheel shafts
                 (kWheelDiameterMeters * Math.PI) / (double) kEncoderCPR;
@@ -70,9 +82,11 @@ public final class Constants {
                 // Assumes the encoders are on a 1:1 reduction with the module shaft.
                 (2 * Math.PI) / (double) kEncoderCPR;
 
-        public static final double kPModuleTurningController = 1;
+        public static final double kPModuleTurningController = 1.25; // 1
 
-        public static final double kPModuleDriveController = 1;
+        public static final double kPModuleDriveController = 0.3; // 1
+
+        public static final double kGearRatio = 46080.0 / 6720.0;
     }
     public static final class AutoConstants {
         public static final double kMaxSpeedMetersPerSecond = 3;

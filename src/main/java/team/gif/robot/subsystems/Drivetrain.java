@@ -1,57 +1,64 @@
 package team.gif.robot.subsystems;
 
-import edu.wpi.first.wpilibj.ADXRS450_Gyro;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.kinematics.*;
+import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
+import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
+import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
+import team.gif.robot.subsystems.drivers.Pigeon;
 
 @SuppressWarnings("PMD.ExcessiveImports")
 public class Drivetrain extends SubsystemBase {
     private static Drivetrain instance = null;
+
+    private static WPI_TalonSRX PigeonTalon = new WPI_TalonSRX(5);
 
     // Robot swerve modules
     private static final SwerveModule m_frontLeft =
             new SwerveModule(
                     RobotMap.kFrontLeftDriveMotorPort,
                     RobotMap.kFrontLeftTurningMotorPort,
-                    RobotMap.kFrontLeftDriveEncoderPorts,
-                    RobotMap.kFrontLeftTurningEncoderPorts,
-                    Constants.Drivetrain.kFrontLeftDriveEncoderReversed,
-                    Constants.Drivetrain.kFrontLeftTurningEncoderReversed);
+                    Constants.Drivetrain.kFrontLeftTurningMotorReversed,
+                    Constants.Drivetrain.kFrontLeftDriveMotorReversed,
+                    Constants.Drivetrain.kFrontLeftTurningEncoderReversed,
+                    Constants.Drivetrain.kFrontLeftOffset);
 
     private static final SwerveModule m_rearLeft =
             new SwerveModule(
                     RobotMap.kRearLeftDriveMotorPort,
                     RobotMap.kRearLeftTurningMotorPort,
-                    RobotMap.kRearLeftDriveEncoderPorts,
-                    RobotMap.kRearLeftTurningEncoderPorts,
-                    Constants.Drivetrain.kRearLeftDriveEncoderReversed,
-                    Constants.Drivetrain.kRearLeftTurningEncoderReversed);
+                    Constants.Drivetrain.kRearLeftTurningMotorReversed,
+                    Constants.Drivetrain.kRearLeftDriveMotorReversed,
+                    Constants.Drivetrain.kRearLeftTurningEncoderReversed,
+                    Constants.Drivetrain.kRearLeftOffset);
 
     private static final SwerveModule m_frontRight =
             new SwerveModule(
                     RobotMap.kFrontRightDriveMotorPort,
                     RobotMap.kFrontRightTurningMotorPort,
-                    RobotMap.kFrontRightDriveEncoderPorts,
-                    RobotMap.kFrontRightTurningEncoderPorts,
-                    Constants.Drivetrain.kFrontRightDriveEncoderReversed,
-                    Constants.Drivetrain.kFrontRightTurningEncoderReversed);
+                    Constants.Drivetrain.kFrontRightTurningMotorReversed,
+                    Constants.Drivetrain.kFrontRightDriveMotorReversed,
+                    Constants.Drivetrain.kFrontRightTurningEncoderReversed,
+                    Constants.Drivetrain.kFrontRightOffset);
 
     private static final SwerveModule m_rearRight =
             new SwerveModule(
                     RobotMap.kRearRightDriveMotorPort,
                     RobotMap.kRearRightTurningMotorPort,
-                    RobotMap.kRearRightDriveEncoderPorts,
-                    RobotMap.kRearRightTurningEncoderPorts,
-                    Constants.Drivetrain.kRearRightDriveEncoderReversed,
-                    Constants.Drivetrain.kRearRightTurningEncoderReversed);
+                    Constants.Drivetrain.kRearRightTurningMotorReversed,
+                    Constants.Drivetrain.kRearRightDriveMotorReversed,
+                    Constants.Drivetrain.kRearRightTurningEncoderReversed,
+                    Constants.Drivetrain.kRearRightOffset);
 
     // The gyro sensor
-    private static final Gyro m_gyro = new ADXRS450_Gyro();
+    private static final Pigeon m_gyro = new Pigeon(PigeonTalon);
 
     // Odometry class for tracking robot pose
     SwerveDriveOdometry m_odometry =
@@ -70,6 +77,9 @@ public class Drivetrain extends SubsystemBase {
 
     @Override
     public void periodic() {
+        //System.out.println("TURN: " + m_rearRight.getTurnDegrees());
+        //System.out.println("DRIVE: " + m_frontLeft.getVelocity());
+        //System.out.println("PIGEON: " + getHeading());
         // Update the odometry in the periodic block
         m_odometry.update(
                 new Rotation2d(getHeading()),
@@ -144,7 +154,7 @@ public class Drivetrain extends SubsystemBase {
 
     /** Zeroes the heading of the robot. */
     public void zeroHeading() {
-        m_gyro.reset();
+        m_gyro.resetPigeonPosition();
     }
 
     /**
@@ -161,8 +171,39 @@ public class Drivetrain extends SubsystemBase {
      *
      * @return The turn rate of the robot, in degrees per second
      */
-    public double getTurnRate() {
+    /*public double getTurnRate() {
         return m_gyro.getRate() * (Constants.Drivetrain.kGyroReversed ? -1.0 : 1.0);
+    }*/
+
+    public void setSpeedFL (double drive, double turn) {
+        m_frontLeft.setSpeed(drive, turn);
     }
 
+    public void setSpeedRR (double drive, double turn) {
+        m_rearRight.setSpeed(drive, turn);
+    }
+
+    public double getVelocity() {
+        return m_frontLeft.getVelocity();
+    }
+
+    public double[] getModuleHeadings() {
+        double[] headings = {
+                m_frontLeft.getTurningHeading() % (2.0 * Math.PI),
+                m_rearLeft.getTurningHeading() % (2.0 * Math.PI),
+                m_frontRight.getTurningHeading() % (2.0 * Math.PI),
+                m_rearRight.getTurningHeading() % (2.0 * Math.PI)
+        };
+        return headings;
+    }
+
+    public double[] getModulePercents() {
+        double[] headings = {
+                m_frontLeft.getDrivePercent(),
+                m_rearLeft.getDrivePercent(),
+                m_frontRight.getDrivePercent(),
+                m_rearRight.getDrivePercent()
+        };
+        return headings;
+    }
 }

@@ -1,0 +1,258 @@
+{
+  "tabPane": [
+    {
+      "title": "Dashboard",
+      "autoPopulate": false,
+      "autoPopulatePrefix": "SmartDashboard/",
+      "widgetPane": {
+        "gridSize": 110.0,
+        "showGrid": true,
+        "hgap": 8.0,
+        "vgap": 8.0,
+        "tiles": {
+          "0,0": {
+            "size": [
+              7,
+              4
+            ],
+            "content": {
+              "_type": "Camera Stream",
+              "_source0": "camera_server://limelight",
+              "_title": "limelight",
+              "Crosshair/Show crosshair": false,
+              "Crosshair/Crosshair color": "#FFFFFFFF",
+              "Controls/Show controls": true,
+              "Controls/Rotation": "NONE",
+              "compression": -1.0,
+              "fps": -1,
+              "imageWidth": 0,
+              "imageHeight": 0
+            }
+          },
+          "11,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///FMSInfo/GameSpecificMessage",
+              "_title": "FMS Msg"
+            }
+          },
+          "7,5": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Limelight",
+              "Layout/Label position": "BOTTOM",
+              "_children": [
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/limelight_PipelineName",
+                  "_title": "limelight_PipelineName"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/limelight_Interface",
+                  "_title": "limelight_Interface"
+                },
+                {
+                  "_type": "Text View",
+                  "_source0": "network_table:///SmartDashboard/limelight_Stream",
+                  "_title": "limelight_Stream"
+                }
+              ]
+            }
+          },
+          "9,0": {
+            "size": [
+              2,
+              3
+            ],
+            "content": {
+              "_type": "List Layout",
+              "_title": "Heading",
+              "Layout/Label position": "HIDDEN",
+              "_children": [
+                {
+                  "_type": "Gyro",
+                  "_source0": "network_table:///Shuffleboard/SmartDashboard/BotHead",
+                  "_title": "Gyro",
+                  "Visuals/Major tick spacing": 45.0,
+                  "Visuals/Starting angle": 180.0,
+                  "Visuals/Show tick mark ring": true,
+                  "Visuals/Counter clockwise": false
+                },
+                {
+                  "_type": "Command",
+                  "_source0": "network_table:///SmartDashboard/ResetHead",
+                  "_title": "ResetHead"
+                }
+              ]
+            }
+          },
+          "11,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Goto",
+              "_title": "Goto"
+            }
+          },
+          "12,0": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Right",
+              "_title": "Right"
+            }
+          },
+          "7,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left",
+              "_title": "/SmartDashboard/Front Left"
+            }
+          },
+          "8,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right",
+              "_title": "/SmartDashboard/Front Right"
+            }
+          },
+          "7,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Left",
+              "_title": "/SmartDashboard/Rear Left"
+            }
+          },
+          "8,2": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Right",
+              "_title": "/SmartDashboard/Rear Right"
+            }
+          },
+          "7,0": {
+            "size": [
+              2,
+              1
+            ],
+            "content": {
+              "_type": "Command",
+              "_source0": "network_table:///SmartDashboard/Reset Module Encoders",
+              "_title": "/SmartDashboard/Reset Module Encoders"
+            }
+          },
+          "12,1": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Percent",
+              "_title": "/SmartDashboard/Front Left Percent"
+            }
+          },
+          "1,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Left Percent",
+              "_title": "/SmartDashboard/Front Left Percent"
+            }
+          },
+          "3,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Front Right Percent",
+              "_title": "/SmartDashboard/Front Right Percent"
+            }
+          },
+          "2,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Left Percent",
+              "_title": "/SmartDashboard/Rear Left Percent"
+            }
+          },
+          "4,4": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Text View",
+              "_source0": "network_table:///SmartDashboard/Rear Right Percent",
+              "_title": "SmartDashboard/Rear Right Percent"
+            }
+          },
+          "9,3": {
+            "size": [
+              1,
+              1
+            ],
+            "content": {
+              "_type": "Graph",
+              "_source0": "network_table:///SmartDashboard/Front Left Velocity",
+              "_title": "SmartDashboard/Front Left Velocity",
+              "Graph/Visible time": 30.0,
+              "Graph/X-axis auto scrolling": true,
+              "Y-axis/Automatic bounds": true,
+              "Y-axis/Upper bound": 1.0,
+              "Y-axis/Lower bound": -1.0,
+              "Y-axis/Unit": "ul",
+              "Visible data/SmartDashboard/Front Left Velocity": true
+            }
+          }
+        }
+      }
+    }
+  ],
+  "windowGeometry": {
+    "x": 49.599998474121094,
+    "y": 0.0,
+    "width": 1459.199951171875,
+    "height": 804.0
+  }
+}
