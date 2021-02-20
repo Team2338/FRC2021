@@ -9,14 +9,17 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
 import edu.wpi.first.wpilibj.AnalogPotentiometer;
 import edu.wpi.first.wpilibj.Encoder;
+import edu.wpi.first.wpilibj.RobotBase;
 import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.simulation.EncoderSim;
 import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 
 import team.gif.robot.Constants;
+import edu.wpi.first.hal.simulation.*;
 
 public class SwerveModule {
     private final CANSparkMax m_driveMotor;
@@ -63,6 +66,10 @@ public class SwerveModule {
         m_driveMotor.setInverted(driveMotorReversed);
 
         m_driveEncoder = m_driveMotor.getEncoder();
+        //if(!RobotBase.isReal()){
+        //    System.out.println("boop");
+        //    //EncoderSim m_driveEncodersim = new EncoderSim(m_driveEncoder);
+        //}
 
         m_turningMotor.configFactoryDefault();
         m_turningMotor.setNeutralMode(NeutralMode.Brake);

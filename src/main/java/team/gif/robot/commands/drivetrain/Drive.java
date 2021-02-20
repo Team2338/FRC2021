@@ -24,22 +24,27 @@ public class Drive extends CommandBase {
     //m_subsystem = subsystem;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(Drivetrain.getInstance());
+    System.out.println("drive command constructed");
   }
 
   // Called when the command is initially scheduled.
   @Override
-  public void initialize() {}
+  public void initialize() {
+    System.out.println("drive command initialize");
+  }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
     // A split-stick arcade command, with forward/backward controlled by the left
     // hand, and turning controlled by the right.
+    System.out.println("executing drive");
     Drivetrain.drive(
             10.0 * -Robot.oi.driver.getY(GenericHID.Hand.kLeft),
             10.0 * Robot.oi.driver.getX(GenericHID.Hand.kLeft),
             4.0 * Robot.oi.driver.getX(GenericHID.Hand.kRight),
             false);
+    System.out.println("executed drive");
     /*Drivetrain.getInstance().setSpeedRR(
             -Robot.oi.driver.getY(GenericHID.Hand.kLeft),
             -Robot.oi.driver.getY(GenericHID.Hand.kRight)

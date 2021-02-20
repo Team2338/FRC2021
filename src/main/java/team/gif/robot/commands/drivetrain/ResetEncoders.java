@@ -15,6 +15,7 @@ public class ResetEncoders extends CommandBase {
      * @param subsystem The subsystem used by this command.
      */
     public ResetEncoders() {
+        System.out.println("reset encoder class init");
         //m_subsystem = subsystem;
         // Use addRequirements() here to declare subsystem dependencies.
         //addRequirements(Drivetrain.getInstance());
@@ -23,6 +24,7 @@ public class ResetEncoders extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
+
         Drivetrain.getInstance().resetEncoders();
         System.out.println("Working");
     }

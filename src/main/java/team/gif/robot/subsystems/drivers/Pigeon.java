@@ -23,11 +23,14 @@ public class Pigeon {
     }
 
     public Pigeon(){
+
         _pigeon = new PigeonIMU(RobotMap.PIGEON);
         instance = this;
+
     }
 
     public Pigeon(TalonSRX talon){
+
         _pigeon = new PigeonIMU(talon);
         instance = this;
 

@@ -2,15 +2,16 @@ package team.gif.robot;
 
 public abstract class RobotMap {
 
-    public static final int kFrontLeftDriveMotorPort = 9;
-    public static final int kRearLeftDriveMotorPort = 10;
-    public static final int kFrontRightDriveMotorPort = 11;
-    public static final int kRearRightDriveMotorPort = 6;
+    // one of these motor ports conflicts with another, screwing with the simulation
+    public static final int kFrontLeftDriveMotorPort = 16;// 9;
+    public static final int kRearLeftDriveMotorPort = 17;//10;
+    public static final int kFrontRightDriveMotorPort = 18;//11;
+    public static final int kRearRightDriveMotorPort = 19;// 6;
 
-    public static final int kFrontLeftTurningMotorPort = 8;
-    public static final int kRearLeftTurningMotorPort = 7;
-    public static final int kFrontRightTurningMotorPort = 5;
-    public static final int kRearRightTurningMotorPort = 4;
+    public static final int kFrontLeftTurningMotorPort = 15;//8;
+    public static final int kRearLeftTurningMotorPort = 20;//7;
+    public static final int kFrontRightTurningMotorPort = 21;//5;
+    public static final int kRearRightTurningMotorPort = 22;//4;
 
     public static final int[] kFrontLeftTurningEncoderPorts = new int[] {0, 1};
     public static final int[] kRearLeftTurningEncoderPorts = new int[] {2, 3};

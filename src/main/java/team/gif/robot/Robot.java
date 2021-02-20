@@ -121,4 +121,39 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
+
+  @Override
+  public void simulationInit() {
+    System.out.println("sim init");
+
+    m_robotContainer = new RobotContainer();
+
+    driveCommand = new Drive(Drivetrain.getInstance());
+
+    SmartDashboard.putData("Reset Module Encoders", new ResetEncoders());
+
+    //super.simulationInit();
+  }
+
+  @Override
+  public void simulationPeriodic() {
+    System.out.println("sim periodic");
+
+    SmartDashboard.putNumber("Front Left", Drivetrain.getInstance().getModuleHeadings()[0]);
+    SmartDashboard.putNumber("Rear Left", Drivetrain.getInstance().getModuleHeadings()[1]);
+    SmartDashboard.putNumber("Front Right", Drivetrain.getInstance().getModuleHeadings()[2]);
+    SmartDashboard.putNumber("Rear Right", Drivetrain.getInstance().getModuleHeadings()[3]);
+
+    SmartDashboard.putNumber("Front Left Percent", Drivetrain.getInstance().getModulePercents()[0]);
+    SmartDashboard.putNumber("Rear Left Percent", Drivetrain.getInstance().getModulePercents()[1]);
+    SmartDashboard.putNumber("Front Right Percent", Drivetrain.getInstance().getModulePercents()[2]);
+    SmartDashboard.putNumber("Rear Right Percent", Drivetrain.getInstance().getModulePercents()[3]);
+
+    SmartDashboard.putNumber("Front Left Velocity", Drivetrain.getInstance().getVelocity());
+
+    CommandScheduler.getInstance().run();
+
+    //super.simulationPeriodic();
+
+  }
 }
