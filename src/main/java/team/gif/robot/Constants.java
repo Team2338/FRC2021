@@ -20,25 +20,25 @@ public final class Constants {
     public static final class Drivetrain {
         //public static final double DRIVE_WHEEL_RADIUS = 0.05; // meters? Must be unit of velocity
 
-        public static final boolean kFrontLeftTurningEncoderReversed = true; //false
+        public static final boolean kFrontLeftTurningEncoderReversed = false; //false
         public static final boolean kRearLeftTurningEncoderReversed = true;
-        public static final boolean kFrontRightTurningEncoderReversed = false;
+        public static final boolean kFrontRightTurningEncoderReversed = true;
         public static final boolean kRearRightTurningEncoderReversed = true;
 
         public static final boolean kFrontLeftDriveMotorReversed = false;
         public static final boolean kRearLeftDriveMotorReversed = false;
-        public static final boolean kFrontRightDriveMotorReversed = true;
+        public static final boolean kFrontRightDriveMotorReversed = false;
         public static final boolean kRearRightDriveMotorReversed = true;
 
-        public static final boolean kFrontLeftTurningMotorReversed = false;
+        public static final boolean kFrontLeftTurningMotorReversed = true;
         public static final boolean kRearLeftTurningMotorReversed = false;
-        public static final boolean kFrontRightTurningMotorReversed = true;
+        public static final boolean kFrontRightTurningMotorReversed = false;
         public static final boolean kRearRightTurningMotorReversed = false;
 
-        public static final double kFrontLeftOffset = -4.635;
-        public static final double kRearLeftOffset = -2.315;
-        public static final double kFrontRightOffset = -5.032;
-        public static final double kRearRightOffset = -2.894;
+        public static final double kFrontLeftOffset = 0.314466061516556 - 0.573;
+        public static final double kRearLeftOffset = -3.077165460498596;
+        public static final double kFrontRightOffset = 1.325359400733194 - 5.743;
+        public static final double kRearRightOffset = -3.830350027350446;
 
         public static final double kTrackWidth = 0.5588;
         // Distance between centers of right and left wheels on robot
@@ -84,5 +84,10 @@ public final class Constants {
         public static final double kPModuleDriveController = 0.3; // 1
 
         public static final double kGearRatio = 46080.0 / 6720.0;
+    }
+
+    public static class Shooter {
+        public static final double kP = 0.0007;
+        public static final double kF = 0.000175;
     }
 }

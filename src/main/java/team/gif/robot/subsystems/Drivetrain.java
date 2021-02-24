@@ -16,7 +16,7 @@ import team.gif.robot.subsystems.drivers.Pigeon;
 public class Drivetrain extends SubsystemBase {
     private static Drivetrain instance = null;
 
-    private static WPI_TalonSRX PigeonTalon = new WPI_TalonSRX(5);
+    //private static WPI_TalonSRX pigeonTalon = new WPI_TalonSRX(RobotMap.INDEXER_STOPPER_MOTOR);
 
     // Robot swerve modules
     private static final SwerveModule m_frontLeft =
@@ -56,7 +56,7 @@ public class Drivetrain extends SubsystemBase {
                     Constants.Drivetrain.kRearRightOffset);
 
     // The gyro sensor
-    private static final Pigeon m_gyro = new Pigeon(PigeonTalon);
+    private static final Pigeon m_gyro = new Pigeon(Indexer.indexerStopperMotor);
 
     // Odometry class for tracking robot pose
     SwerveDriveOdometry m_odometry =

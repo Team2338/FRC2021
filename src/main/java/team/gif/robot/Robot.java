@@ -12,6 +12,8 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.drivetrain.ResetEncoders;
 import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.Shooter;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -67,6 +69,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Rear Right Percent", Drivetrain.getInstance().getModulePercents()[3]);
 
     SmartDashboard.putNumber("Front Left Velocity", Drivetrain.getInstance().getVelocity());
+
+    SmartDashboard.putString("RPM", Shooter.getInstance().getVelocity_Shuffleboard());
 
     CommandScheduler.getInstance().run();
   }

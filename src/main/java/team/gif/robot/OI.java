@@ -5,6 +5,10 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import team.gif.lib.AxisButton;
 import team.gif.robot.commands.drivetrain.ResetEncoders;
+import team.gif.robot.commands.indexer.IndexerRun;
+import team.gif.robot.commands.indexer.IndexerStopperRun;
+import team.gif.robot.commands.shooter.Fire;
+import team.gif.robot.commands.shooter.RevFlywheel;
 
 public class OI {
     private static OI instance = null;
@@ -67,6 +71,9 @@ public class OI {
          *
          */
 
-        //dB.whenPressed(new ResetEncoders());
+        dX.whileHeld(new IndexerRun(0.3));
+        //dY.whileHeld(new IndexerStopperRun(0.5));
+        dLB.whileHeld(new RevFlywheel(2500));
+        dRT.whileHeld(new Fire());
     }
 }
