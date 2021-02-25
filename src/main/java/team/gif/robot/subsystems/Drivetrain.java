@@ -124,6 +124,7 @@ public class Drivetrain extends SubsystemBase {
                                 : new ChassisSpeeds(xSpeed, ySpeed, rot));
         SwerveDriveKinematics.normalizeWheelSpeeds(
                 swerveModuleStates, Constants.Drivetrain.kMaxSpeedMetersPerSecond);
+
         m_frontLeft.setDesiredState(swerveModuleStates[0]);
         m_frontRight.setDesiredState(swerveModuleStates[1]);
         m_rearLeft.setDesiredState(swerveModuleStates[2]);
@@ -142,6 +143,11 @@ public class Drivetrain extends SubsystemBase {
         m_frontRight.setDesiredState(desiredStates[1]);
         m_rearLeft.setDesiredState(desiredStates[2]);
         m_rearRight.setDesiredState(desiredStates[3]);
+
+        System.out.println(desiredStates[0].speedMetersPerSecond);
+        System.out.println(desiredStates[1].speedMetersPerSecond);
+        System.out.println(desiredStates[2].speedMetersPerSecond);
+        System.out.println(desiredStates[3].speedMetersPerSecond);
     }
 
     /** Resets the drive encoders to currently read a position of 0. */

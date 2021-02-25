@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.PrintCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import team.gif.robot.Constants;
@@ -20,11 +21,17 @@ import java.util.List;
 public class mobility extends SequentialCommandGroup {
 
     public mobility(){
-        System.out.println("mobility constructed");
+        //System.out.println("mobility constructed");
+        addCommands(new PrintCommand("mobility Started -------------------------------------------------------------------------->>>>>>>>>>>>>>>>>>>"));
         addCommands(forward());
+        addCommands(new PrintCommand("mobility ended----------------------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>"));
     }
 
     public Command forward() {
+
+        //TODO: print Pose2D in autonomous as well as setStates to find out more about after auto drift and during auto drift
+
+
         // Create config for trajectory
         TrajectoryConfig config =
                 new TrajectoryConfig(
