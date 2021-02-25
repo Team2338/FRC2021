@@ -18,7 +18,7 @@ import team.gif.robot.subsystems.drivers.Pigeon;
 public class Drivetrain extends SubsystemBase {
     private static Drivetrain instance = null;
 
-    private static WPI_TalonSRX PigeonTalon = new WPI_TalonSRX(5);
+    private static WPI_TalonSRX PigeonTalon = new WPI_TalonSRX(4);
 
     // Robot swerve modules
     private static final SwerveModule m_frontLeft =

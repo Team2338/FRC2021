@@ -6,6 +6,8 @@ package team.gif.robot;
 
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -13,6 +15,8 @@ import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.drivetrain.ResetEncoders;
 import team.gif.robot.commands.mobility;
 import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.drivers.Pigeon;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -40,8 +44,8 @@ public class Robot extends TimedRobot {
 
     driveCommand = new Drive(Drivetrain.getInstance());
 
-
     SmartDashboard.putData("Reset Module Encoders", new ResetEncoders());
+    Pigeon.getInstance().resetPigeonPosition();
   }
 
   /**
@@ -85,6 +89,8 @@ public class Robot extends TimedRobot {
   public void autonomousInit() {
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
     m_autonomousCommand = new mobility();
+    Pigeon.getInstance().resetPigeonPosition();
+    Drivetrain.getInstance().resetOdometry(new Pose2d(0,0, new Rotation2d(0)));
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
@@ -94,7 +100,9 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    System.out.println(Drivetrain.getInstance().getPose());
+  }
 
   @Override
   public void teleopInit() {
