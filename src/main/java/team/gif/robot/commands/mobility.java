@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import team.gif.robot.Constants;
 import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.drivers.Pigeon;
 
 import java.util.List;
 
@@ -39,8 +40,8 @@ public class mobility extends SequentialCommandGroup {
                         new Pose2d(0, 0, new Rotation2d(0)),
                         // Pass through these two interior waypoints, making an 's' curve path
                         List.of(
-                                new Translation2d(1, 1),
-                                new Translation2d(2, -1)),
+                                new Translation2d(1, 0),
+                                new Translation2d(2, 0)),
                         // End 3 meters straight ahead of where we started, facing forward
                         new Pose2d(3, 0, new Rotation2d(0)),
                         config);
@@ -64,6 +65,7 @@ public class mobility extends SequentialCommandGroup {
                         Drivetrain.getInstance());
 
         // Reset odometry to the starting pose of the trajectory.
+        Pigeon.getInstance().resetPigeonPosition();
         Drivetrain.getInstance().resetOdometry(exampleTrajectory.getInitialPose());
 
         // Run path following command, then stop at the end.
