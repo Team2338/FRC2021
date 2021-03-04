@@ -116,7 +116,13 @@ public class SwerveModule {
         heading *= turningInverted ? -1.0 : 1.0;
         heading *= (2.0 * Math.PI) / Constants.ModuleConstants.kEncoderCPR;
         heading -= turningOffset;
+        //heading %= (2.0 * Math.PI);
+        //System.out.println(heading);
         return heading;
+    }
+
+    public double getRawHeading() {
+        return m_turningMotor.getSelectedSensorPosition();
     }
 
     /**

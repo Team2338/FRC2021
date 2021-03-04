@@ -11,8 +11,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.drivetrain.ResetEncoders;
+import team.gif.robot.commands.drivetrain.ResetHeading;
 import team.gif.robot.commands.mobility;
 import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.drivers.Pigeon;
+
 /**
  * The VM is configured to automatically run this class, and to call the functions corresponding to
  * each mode, as described in the TimedRobot documentation. If you change the name of this class or
@@ -63,6 +66,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Front Right", Drivetrain.getInstance().getModuleHeadings()[2]);
     SmartDashboard.putNumber("Rear Right", Drivetrain.getInstance().getModuleHeadings()[3]);
 
+    SmartDashboard.putNumber("Raw FL", Drivetrain.getInstance().getRawModuleHeadings()[0]);
+    SmartDashboard.putNumber("Raw RL", Drivetrain.getInstance().getRawModuleHeadings()[1]);
+    SmartDashboard.putNumber("Raw FR", Drivetrain.getInstance().getRawModuleHeadings()[2]);
+    SmartDashboard.putNumber("Raw RR", Drivetrain.getInstance().getRawModuleHeadings()[3]);
+
     SmartDashboard.putNumber("Front Left Percent", Drivetrain.getInstance().getModulePercents()[0]);
     SmartDashboard.putNumber("Rear Left Percent", Drivetrain.getInstance().getModulePercents()[1]);
     SmartDashboard.putNumber("Front Right Percent", Drivetrain.getInstance().getModulePercents()[2]);
@@ -75,6 +83,7 @@ public class Robot extends TimedRobot {
     //System.out.println(Drivetrain.getInstance().getModulePercents()[2]);
     //System.out.println(Drivetrain.getInstance().getModulePercents()[3]);
 
+    SmartDashboard.putData("ResetHead", new ResetHeading());
 
       CommandScheduler.getInstance().run();
   }
@@ -119,7 +128,8 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+  }
 
   @Override
   public void testInit() {

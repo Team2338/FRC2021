@@ -41,14 +41,14 @@ public class Drive extends CommandBase {
     y = Robot.oi.driver.getX(GenericHID.Hand.kLeft);
     rot = Robot.oi.driver.getX(GenericHID.Hand.kRight);
 
-    x = Math.abs(x) > 0.07 ? x : 0;
-    y = Math.abs(y) > 0.07 ? y : 0;
-    rot = Math.abs(rot) > 0.07 ? rot : 0;
+    x = Math.abs(x) > 0.1 ? x : 0;
+    y = Math.abs(y) > 0.1 ? y : 0;
+    rot = Math.abs(rot) > 0.1 ? rot : 0;
     // A split-stick arcade command, with forward/backward controlled by the left
     // hand, and turning controlled by the right.
     Drivetrain.drive(
-            10.0 * -Robot.oi.driver.getY(GenericHID.Hand.kLeft),
-            10.0 * Robot.oi.driver.getX(GenericHID.Hand.kLeft),
+            6.0 * -Robot.oi.driver.getY(GenericHID.Hand.kLeft),
+            6.0 * Robot.oi.driver.getX(GenericHID.Hand.kLeft),
             4.0 * Robot.oi.driver.getX(GenericHID.Hand.kRight),
             false);
     /*Drivetrain.getInstance().setSpeedRR(

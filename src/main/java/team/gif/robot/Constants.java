@@ -87,6 +87,7 @@ public final class Constants {
         public static final double kPModuleDriveController = 0.3; // 1
 
         public static final double kGearRatio = 46080.0 / 6720.0;
+        //public static final double kGearRatio = 6720.0 / 46080.0; // WRONG
     }
     public static final class AutoConstants {
         public static final double kMaxSpeedMetersPerSecond = 3;

@@ -18,7 +18,7 @@ import team.gif.robot.subsystems.drivers.Pigeon;
 public class Drivetrain extends SubsystemBase {
     private static Drivetrain instance = null;
 
-    private static WPI_TalonSRX PigeonTalon = new WPI_TalonSRX(5);
+    private static WPI_TalonSRX PigeonTalon = new WPI_TalonSRX(4);
 
     // Robot swerve modules
     private static final SwerveModule m_frontLeft =
@@ -62,7 +62,7 @@ public class Drivetrain extends SubsystemBase {
 
     // Odometry class for tracking robot pose
     SwerveDriveOdometry m_odometry =
-            new SwerveDriveOdometry(Constants.Drivetrain.kDriveKinematics, m_gyro.getRotation2d());
+            new SwerveDriveOdometry(Constants.Drivetrain.kDriveKinematics, m_gyro.getRotation2d()); //m_gyro.getRotation2d()
 
     public static Drivetrain getInstance() {
         if (instance == null) {
@@ -82,11 +82,13 @@ public class Drivetrain extends SubsystemBase {
         //System.out.println("PIGEON: " + getHeading());
         // Update the odometry in the periodic block
         m_odometry.update(
-                new Rotation2d(getHeading()),
+                Rotation2d.fromDegrees(m_gyro.get180Heading()),
                 m_frontLeft.getState(),
                 m_rearLeft.getState(),
                 m_frontRight.getState(),
                 m_rearRight.getState());
+
+        System.out.println(getPose()); //Drivetrain.getInstance().getPose()
     }
 
     /**
@@ -105,6 +107,10 @@ public class Drivetrain extends SubsystemBase {
      */
     public void resetOdometry(Pose2d pose) {
         m_odometry.resetPosition(pose, m_gyro.getRotation2d());
+    }
+
+    public void resetPose(){
+        m_odometry.resetPosition(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), Rotation2d.fromDegrees(0));
     }
 
     /**
@@ -199,6 +205,16 @@ public class Drivetrain extends SubsystemBase {
                 m_rearLeft.getTurningHeading() % (2.0 * Math.PI),
                 m_frontRight.getTurningHeading() % (2.0 * Math.PI),
                 m_rearRight.getTurningHeading() % (2.0 * Math.PI)
+        };
+        return headings;
+    }
+
+    public double[] getRawModuleHeadings() {
+        double[] headings = {
+                m_frontLeft.getRawHeading() % Constants.ModuleConstants.kEncoderCPR,
+                m_rearLeft.getRawHeading() % Constants.ModuleConstants.kEncoderCPR,
+                m_frontRight.getRawHeading() % Constants.ModuleConstants.kEncoderCPR,
+                m_rearRight.getRawHeading() % Constants.ModuleConstants.kEncoderCPR
         };
         return headings;
     }
