@@ -82,7 +82,7 @@ public class Drivetrain extends SubsystemBase {
         //System.out.println("PIGEON: " + getHeading());
         // Update the odometry in the periodic block
         m_odometry.update(
-                Rotation2d.fromDegrees(m_gyro.get180Heading()),
+                Rotation2d.fromDegrees(-m_gyro.get180Heading()),
                 m_frontLeft.getState(),
                 m_rearLeft.getState(),
                 m_frontRight.getState(),
@@ -186,6 +186,13 @@ public class Drivetrain extends SubsystemBase {
     /*public double getTurnRate() {
         return m_gyro.getRate() * (Constants.Drivetrain.kGyroReversed ? -1.0 : 1.0);
     }*/
+
+    public void setVoltage(double voltage) {
+        m_frontLeft.setVoltage(voltage, voltage);
+        m_rearLeft.setVoltage(voltage, voltage);
+        m_frontRight.setVoltage(voltage, voltage);
+        m_rearRight.setVoltage(voltage, voltage);
+    }
 
     public void setSpeedFL (double drive, double turn) {
         m_frontLeft.setSpeed(drive, turn);

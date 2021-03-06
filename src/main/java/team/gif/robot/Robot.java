@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import team.gif.robot.commands.autos.MobilityFwd;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.drivetrain.ResetEncoders;
 import team.gif.robot.commands.drivetrain.ResetHeading;
@@ -99,7 +100,7 @@ public class Robot extends TimedRobot {
   @Override
   public void autonomousInit() {
     //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    m_autonomousCommand = new mobility();
+    m_autonomousCommand = new MobilityFwd();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {

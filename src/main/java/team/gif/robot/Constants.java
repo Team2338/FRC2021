@@ -59,18 +59,22 @@ public final class Constants {
         // for *your* robot's drive.
         // The RobotPy Characterization Toolsuite provides a convenient tool for obtaining these
         // values for your robot.
-        //public static final double ksVolts = 1;
-        //public static final double kvVoltSecondsPerMeter = 0.8;
-        //public static final double kaVoltSecondsSquaredPerMeter = 0.15;
+        public static final double ksVolts = 0.126;
+        public static final double kvVoltSecondsPerMeter = 0.0185;
+        public static final double kaVoltSecondsSquaredPerMeter = 0.00227;
 
-        public static final double kMaxSpeedMetersPerSecond = 3;
+        public static final double kMaxDriveRPM = 4800;
+
+        public static final double kMaxSpeedMetersPerSecond = kMaxDriveRPM *
+                (Math.PI * Constants.ModuleConstants.kWheelDiameterMeters) /
+                (60.0 * Constants.ModuleConstants.kGearRatio);
         public static double kMaxAccelerationMetersPerSecondSquared = 1;// needs real number
 
     }
 
     public static class ModuleConstants {
-        public static final double kMaxModuleAngularSpeedRadiansPerSecond = 2 * Math.PI;
-        public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 2 * Math.PI;
+        public static final double kMaxModuleAngularSpeedRadiansPerSecond = 2 * (2 * Math.PI);
+        public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 2 * (2 * Math.PI);
 
         public static final double kEncoderCPR = 4096.0; //1024
         public static final double kWheelDiameterMeters = 0.10338;
