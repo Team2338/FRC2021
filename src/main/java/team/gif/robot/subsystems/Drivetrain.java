@@ -88,7 +88,7 @@ public class Drivetrain extends SubsystemBase {
                 m_frontRight.getState(),
                 m_rearRight.getState());
 
-        System.out.println(getPose()); //Drivetrain.getInstance().getPose()
+        //System.out.println(getPose()); //Drivetrain.getInstance().getPose()
     }
 
     /**

@@ -70,7 +70,7 @@ public class RobotTrajectory {
                         Drivetrain.getInstance());
 
         // Reset odometry to the starting pose of the trajectory.
-        Drivetrain.getInstance().resetOdometry(trajectory.getInitialPose());
+        //Drivetrain.getInstance().resetOdometry(trajectory.getInitialPose());
 
         // Run path following command, then stop at the end.
         return swerveControllerCommand;
