@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.autoMode;
 import team.gif.robot.commands.autos.BarrelRacing;
+import team.gif.robot.commands.autos.Bounce;
 import team.gif.robot.commands.autos.MobilityFwd;
 import team.gif.robot.commands.autos.Slalom;
 import team.gif.robot.commands.drivetrain.Drive;
@@ -113,10 +114,15 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
+    chosenAuto = autoModeChooser.getSelected();
+
     updateauto();
+
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
+    } else {
+      System.out.println("NOT SCHEDULING AUTO");
     }
   }
 
@@ -159,7 +165,8 @@ public class Robot extends TimedRobot {
 
         autoTab = Shuffleboard.getTab("PreMatch");
 
-        autoModeChooser.setDefaultOption("Mobility", autoMode.MOBILITY_FWD);
+        autoModeChooser.setDefaultOption("Mobility Forward", autoMode.MOBILITY_FWD);
+      autoModeChooser.addOption("Mobility", autoMode.MOBILITY);
         autoModeChooser.addOption("Barrel Racing", autoMode.BARREL_RACING);
         autoModeChooser.addOption("Slalom", autoMode.SLALOM);
         autoModeChooser.addOption("Bounce", autoMode.BOUNCE);
@@ -173,12 +180,14 @@ public class Robot extends TimedRobot {
     public void updateauto(){
         if(chosenAuto == autoMode.MOBILITY_FWD){
             m_autonomousCommand = new MobilityFwd();
-    /*    } else if (chosenAuto == autoMode.BARREL_RACING){
+        } else if (chosenAuto == autoMode.BARREL_RACING){
             m_autonomousCommand = new BarrelRacing();
         } else if(chosenAuto == autoMode.SLALOM) {
             m_autonomousCommand = new Slalom();
         } else if(chosenAuto == autoMode.BOUNCE){
-            m_autonomousCommand = new Bounce(); */
+            m_autonomousCommand = new Bounce();
+        } else if (chosenAuto == autoMode.MOBILITY) {
+          m_autonomousCommand = new mobility();
         } else if(chosenAuto ==null) {
             System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
         }

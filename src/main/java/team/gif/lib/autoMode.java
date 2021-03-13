@@ -2,6 +2,7 @@ package team.gif.lib;
 
 public enum autoMode {
 
+    MOBILITY(0),
     MOBILITY_FWD(0),
     BARREL_RACING(0),
     SLALOM (0),
