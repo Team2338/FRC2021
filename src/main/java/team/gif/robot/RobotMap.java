@@ -26,6 +26,9 @@ public abstract class RobotMap {
     public static final int INDEXER_MOTOR = 1;
     public static final int INDEXER_STOPPER_MOTOR = 4;
     public static final int FLYWHEEL_MOTOR = 13;
+    public static final int FLYWHEEL_MOTOR_2 = 14;
+    public static final int INTAKE_MOTOR = 3;
+    public static final int SHOOTER_HOOD_MOTOR = 2;
 
     // Pigeon
     public static final int PIGEON = 4;

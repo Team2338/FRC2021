@@ -6,6 +6,7 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
+import team.gif.lib.Gains;
 
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
@@ -89,5 +90,62 @@ public final class Constants {
     public static class Shooter {
         public static final double kP = 0.0007;
         public static final double kF = 0.000175;
+    }
+
+    public static class Hood {
+        /**
+         * Which PID slot to pull gains from. Starting 2018, you can choose from
+         * 0,1,2 or 3. Only the first two (0,1) are visible in web-based
+         * configuration.
+         */
+        public static final int kSlotIdx = 0;
+
+        /**
+         * Talon SRX/ Victor SPX will supported multiple (cascaded) PID loops. For
+         * now we just want the primary one.
+         */
+        public static final int kPIDLoopIdx = 0;
+
+        /**
+         * Set to zero to skip waiting for confirmation, set to nonzero to wait and
+         * report to DS if action fails.
+         */
+        public static final int kTimeoutMs = 30;
+
+        /* Choose so that Talon does not report sensor out of phase */
+        public static boolean kSensorPhase = false;
+
+        /**
+         * Choose based on what direction you want to be positive,
+         * this does not affect motor invert.
+         */
+        public static boolean kMotorInvert = true;
+
+        // F-gain = ([Percent Output] x 1023) / [Velocity]
+        public static double kF = (0.25 * 1023) / 28800;
+
+        /**
+         * Gains used in Positon Closed Loop, to be adjusted accordingly
+         * Gains(kp, ki, kd, kf, izone, peak output);
+         */
+        public static final Gains kGains = new Gains(0.01023 * 16, 0.0, 0.0, kF, 0, 0.5);
+        // 0.15, 0.0, 1.0, 0.0, 0, 1.0
+
+        /* Motion Magic
+        public static final double ALLOWABLE_ERROR = 500;
+        public static final double P = 0.5;
+        public static final double I = 0;
+        public static final double D = 0;
+        public static final double F = 0.2;
+
+        public static final int MAX_VELOCITY = 1000; // Hood velocity (ticks/100ms)
+        public static final int MAX_ACCELERATION = 1000; // Hood acceleration (ticks/100ms/s)
+        public static final double GRAV_FEED_FORWARD = 0;
+        public static final int REV_MAX_VELOCITY = MAX_VELOCITY;
+        public static final double REV_F = 0.1;
+        public static final double REV_GRAV_FEED_FORWARD = 0;
+
+        public static final int MAX_POS = 10000;
+        public static final int MIN_POS = 0;*/
     }
 }

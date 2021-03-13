@@ -9,20 +9,17 @@ import team.gif.robot.subsystems.Indexer;
 
 public class IndexerRun extends CommandBase {
 
-  double percentOutput = 0.0;
-
-  public IndexerRun(double percent) {
+  public IndexerRun() {
     // Use addRequirements() here to declare subsystem dependencies.
     //addRequirements(Indexer.getInstance());
-
-    percentOutput = percent;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Indexer.getInstance().setSpeedIndexer(percentOutput);
+    Indexer.getInstance().setSpeedIndexer(0.3);
     Indexer.getInstance().setSpeedIndexerStopper(-0.2);
+    Indexer.getInstance().setSpeedIntake(0.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -34,6 +31,7 @@ public class IndexerRun extends CommandBase {
   public void end(boolean interrupted) {
     Indexer.getInstance().setSpeedIndexer(0);
     Indexer.getInstance().setSpeedIndexerStopper(0);
+    Indexer.getInstance().setSpeedIntake(0);
   }
 
   // Returns true when the command should end.

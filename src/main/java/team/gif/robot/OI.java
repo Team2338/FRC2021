@@ -8,6 +8,7 @@ import team.gif.robot.commands.drivetrain.ResetEncoders;
 import team.gif.robot.commands.indexer.IndexerRun;
 import team.gif.robot.commands.indexer.IndexerStopperRun;
 import team.gif.robot.commands.shooter.Fire;
+import team.gif.robot.commands.shooter.MoveHoodPos;
 import team.gif.robot.commands.shooter.RevFlywheel;
 
 public class OI {
@@ -71,9 +72,12 @@ public class OI {
          *
          */
 
-        dX.whileHeld(new IndexerRun(0.3));
+        dX.whileHeld(new IndexerRun());
         //dY.whileHeld(new IndexerStopperRun(0.5));
-        dLB.whileHeld(new RevFlywheel(2500));
+        dLB.whileHeld(new RevFlywheel(4500, 0.75)); // 2500 0.45
         dRT.whileHeld(new Fire());
+
+        dA.whenPressed(new MoveHoodPos(8180));
+        dB.whenPressed(new MoveHoodPos(3700));
     }
 }

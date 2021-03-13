@@ -16,8 +16,9 @@ public class Fire extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Indexer.getInstance().setSpeedIndexer(0.3);
+    Indexer.getInstance().setSpeedIndexer(0.5);
     Indexer.getInstance().setSpeedIndexerStopper(1.0);
+    Indexer.getInstance().setSpeedIntake(0.5);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -30,6 +31,7 @@ public class Fire extends CommandBase {
   public void end(boolean interrupted) {
     Indexer.getInstance().setSpeedIndexer(0);
     Indexer.getInstance().setSpeedIndexerStopper(0);
+    Indexer.getInstance().setSpeedIntake(0);
   }
 
   // Returns true when the command should end.

@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.drivetrain.ResetEncoders;
 import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.Hood;
 import team.gif.robot.subsystems.Shooter;
 
 /**
@@ -29,6 +30,8 @@ public class Robot extends TimedRobot {
 
   public static OI oi;
 
+  private final Hood hood = Hood.getInstance();
+
   /**
    * This function is run when the robot is first started up and should be used for any
    * initialization code.
@@ -42,6 +45,8 @@ public class Robot extends TimedRobot {
     driveCommand = new Drive(Drivetrain.getInstance());
 
     SmartDashboard.putData("Reset Module Encoders", new ResetEncoders());
+
+    Hood.getInstance().resetHoodEncoder();
   }
 
   /**
@@ -71,6 +76,12 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Front Left Velocity", Drivetrain.getInstance().getVelocity());
 
     SmartDashboard.putString("RPM", Shooter.getInstance().getVelocity_Shuffleboard());
+
+    SmartDashboard.putNumber("Flywheel Percent", Shooter.getInstance().getPercentOutput());
+
+    SmartDashboard.putNumber("Hood Position", Hood.getInstance().getHoodPos());
+    //System.out.println(Hood.getInstance().getHoodPos());
+    System.out.println(Hood.getInstance().getPercentOutput());
 
     CommandScheduler.getInstance().run();
   }

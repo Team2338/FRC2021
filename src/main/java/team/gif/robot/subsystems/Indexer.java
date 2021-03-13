@@ -16,6 +16,7 @@ public class Indexer extends SubsystemBase {
 
   private static CANSparkMax indexerMotor;
   public static WPI_TalonSRX indexerStopperMotor = new WPI_TalonSRX(RobotMap.INDEXER_STOPPER_MOTOR);
+  private static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(RobotMap.INTAKE_MOTOR);
 
   public static Indexer getInstance() {
     if (instance == null) {
@@ -57,5 +58,9 @@ public class Indexer extends SubsystemBase {
 
   public void setSpeedIndexerStopper(double percent) {
     indexerStopperMotor.set(percent);
+  }
+
+  public void setSpeedIntake(double percent) {
+    intakeMotor.set(percent);
   }
 }

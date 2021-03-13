@@ -10,15 +10,18 @@ import team.gif.robot.subsystems.Shooter;
 public class RevFlywheel extends CommandBase {
 
   double setpointRPM = 0.0;
+  double ff = 0;
 
-  public RevFlywheel(double rpm) {
+  public RevFlywheel(double rpm, double feedforward) {
     setpointRPM = rpm;
+    ff = feedforward;
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
     Shooter.getInstance().setRPM(setpointRPM);
+    Shooter.getInstance().setFlywheel2(ff);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
