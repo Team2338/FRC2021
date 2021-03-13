@@ -6,9 +6,15 @@ package team.gif.robot;
 
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import team.gif.lib.autoMode;
 import team.gif.robot.commands.autos.MobilityFwd;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.drivetrain.ResetEncoders;
@@ -26,9 +32,15 @@ import team.gif.robot.subsystems.drivers.Pigeon;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand = null;
 
+    private SendableChooser<autoMode> autoModeChooser = new SendableChooser<>();
+
+  private autoMode chosenAuto;
+
   private Command driveCommand = null;
 
   private RobotContainer m_robotContainer;
+
+  public static ShuffleboardTab autoTab = Shuffleboard.getTab("PreMatch");
 
   public static OI oi;
 
@@ -44,7 +56,7 @@ public class Robot extends TimedRobot {
 
     driveCommand = new Drive(Drivetrain.getInstance());
 
-
+      tabsetup();
     SmartDashboard.putData("Reset Module Encoders", new ResetEncoders());
   }
 
@@ -99,9 +111,7 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    //m_autonomousCommand = m_robotContainer.getAutonomousCommand();
-    m_autonomousCommand = new MobilityFwd();
-
+    updateauto();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
@@ -141,4 +151,34 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
+
+
+    public void tabsetup(){
+
+        autoTab = Shuffleboard.getTab("PreMatch");
+
+        autoModeChooser.setDefaultOption("Mobility", autoMode.MOBILITY_FWD);
+        autoModeChooser.addOption("Barrel Racing", autoMode.BARREL_RACING);
+        autoModeChooser.addOption("Slalom", autoMode.SLALOM);
+        autoModeChooser.addOption("Bounce", autoMode.BOUNCE);
+
+        autoTab.add("Auto Select",autoModeChooser)
+            .withWidget(BuiltInWidgets.kComboBoxChooser)
+            .withPosition(1,0)
+            .withSize(2,1);
+    }
+
+    public void updateauto(){
+        if(chosenAuto == autoMode.MOBILITY_FWD){
+            m_autonomousCommand = new MobilityFwd();
+    /*    } else if (chosenAuto == autoMode.BARREL_RACING){
+            m_autonomousCommand = new BarrelRacing();
+        } else if(chosenAuto == autoMode.SLALOM) {
+            m_autonomousCommand = new Slalom();
+        } else if(chosenAuto == autoMode.BOUNCE){
+            m_autonomousCommand = new Bounce(); */
+        } else if(chosenAuto ==null) {
+            System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
+        }
+    }
 }
