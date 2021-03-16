@@ -73,8 +73,8 @@ public final class Constants {
     }
 
     public static class ModuleConstants {
-        public static final double kMaxModuleAngularSpeedRadiansPerSecond = 2 * (2 * Math.PI);
-        public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 2 * (2 * Math.PI);
+        public static final double kMaxModuleAngularSpeedRadiansPerSecond = 5 * (2 * Math.PI);
+        public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 5 * (2 * Math.PI);
 
         public static final double kEncoderCPR = 4096.0; //1024
         public static final double kWheelDiameterMeters = 0.10338;

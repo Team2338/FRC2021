@@ -13,8 +13,8 @@ import java.util.List;
 
 public class Bounce extends SequentialCommandGroup {
 
-    private final double xInit = 2.5;
-    private final double yInit = 7.5;
+    private final double xInit = 3.6;
+    private final double yInit = 7.55;
 
     /**
      *     x
@@ -25,17 +25,12 @@ public class Bounce extends SequentialCommandGroup {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
                     new Pose2dFeet().set(0, 0, 0),
-                    new Pose2dFeet().set(7.5 - xInit, 7.5 - yInit, 0),
-                    new Pose2dFeet().set(7.5 - xInit, 12.5 - yInit, 0),
+                    new Pose2dFeet().set(7.0- xInit, 7.5 - yInit, 0),
+                    new Pose2dFeet().set(7.0 - xInit, 12.5 - yInit, 0),
                     new Pose2dFeet().set(7.5 - xInit, 7.5 - yInit, 0),
                     new Pose2dFeet().set(12.5 - xInit, 2.5 - yInit, 0),
-                    new Pose2dFeet().set(15 - xInit, 2.5 - yInit, 0),
-                    new Pose2dFeet().set(15 - xInit, 12.5 - yInit, 0),
-                    new Pose2dFeet().set(15 - xInit, 2.5 - yInit, 0),
-                    new Pose2dFeet().set(22.5 - xInit, 2.5 - yInit, 0),
-                    new Pose2dFeet().set(22.5 - xInit, 12.5 - yInit, 0),
-                    new Pose2dFeet().set(22.5 - xInit, 7.5 - yInit, 0),
-                    new Pose2dFeet().set(27.5 - xInit, 7.5 - yInit, 0)
+                    new Pose2dFeet().set(14.5 - xInit, 2.5 - yInit, 0),
+                    new Pose2dFeet().set(16.25 - xInit, 13 - yInit, 0)
             ),
             RobotTrajectory.getInstance().configForward
         );
@@ -45,9 +40,42 @@ public class Bounce extends SequentialCommandGroup {
         return scc.andThen(() -> Drivetrain.getInstance().setVoltage(0));
     }
 
+    public Command reverseMid () {
+        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+                List.of(
+                        new Pose2dFeet().set(16.25 - xInit, 13 - yInit, 0),
+                        new Pose2dFeet().set(15.0 - xInit, 2.5 - yInit, 0)
+                ),
+                RobotTrajectory.getInstance().configReverse
+        );
+        // create the command using the trajectory
+        SwerveControllerCommand scc = RobotTrajectory.getInstance().createSwerveControllerCommand(trajectory);
+        // Run path following command, then stop at the end.
+        return scc.andThen(() -> Drivetrain.getInstance().setVoltage(0));
+    }
+
+    public Command forwardFinal () {
+        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+                List.of(
+                        new Pose2dFeet().set(15.0 - xInit, 2.5 - yInit, 0),
+                        new Pose2dFeet().set(22.5 - xInit, 2.5 - yInit, 0),
+                        new Pose2dFeet().set(23.25 - xInit, 13 - yInit, 0),
+                        new Pose2dFeet().set(23.25 - xInit, 8 - yInit, 0),
+                        new Pose2dFeet().set(27.5 - xInit, 8 - yInit, 0)
+                ),
+                RobotTrajectory.getInstance().configForward
+        );
+        // create the command using the trajectory
+        SwerveControllerCommand scc = RobotTrajectory.getInstance().createSwerveControllerCommand(trajectory);
+        // Run path following command, then stop at the end.
+        return scc.andThen(() -> Drivetrain.getInstance().setVoltage(0));
+    }
+
     public Bounce() {
         addCommands(
-                forward()
+                forward(),
+                reverseMid(),
+                forwardFinal()
         );
     }
 }

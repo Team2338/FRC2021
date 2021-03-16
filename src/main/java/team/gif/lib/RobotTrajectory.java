@@ -46,6 +46,26 @@ public class RobotTrajectory {
     //.addConstraint(autoVoltageConstraint)
     //.addConstraint( new CentripetalAccelerationConstraint(1));
 
+    public TrajectoryConfig configForwardBounce = new TrajectoryConfig(
+            Constants.Drivetrain.kMaxSpeedMetersPerSecond,
+            Constants.Drivetrain.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.Drivetrain.kDriveKinematics)
+            .setReversed(false)
+    // Apply the voltage constraint
+    //.addConstraint(autoVoltageConstraint)
+    .addConstraint( new CentripetalAccelerationConstraint(1.25));
+
+    public TrajectoryConfig configReverseBounce = new TrajectoryConfig(
+            Constants.Drivetrain.kMaxSpeedMetersPerSecond,
+            Constants.Drivetrain.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.Drivetrain.kDriveKinematics)
+            .setReversed(true)
+            // Apply the voltage constraint
+            //.addConstraint(autoVoltageConstraint)
+            .addConstraint( new CentripetalAccelerationConstraint(1.25));
+
     /**
      * End Configs
      * */

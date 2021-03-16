@@ -21,18 +21,18 @@ public class Slalom extends SequentialCommandGroup {
     public Command forward () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
-                    /* E1 */new Pose2dFeet().set(2.5 - 2.5, 2.5 - 2.5, 0),
+                    new Pose2dFeet().set(2.5 - 2.5, 2.5 - 2.5, 0), // E1
                     new Pose2dFeet().set(7.0 - 2.5, 2.5 - 2.5, 0),
                     new Pose2dFeet().set(7.0 - 2.5, 8.5 - 2.5, 0),
                     new Pose2dFeet().set(20.5 - 2.5, 8.5 - 2.5, 0),
                     new Pose2dFeet().set(25.0 - 2.5, 2.333 - 2.5, 0),
                     new Pose2dFeet().set(27.0 - 2.5, 3.0 - 2.5, -90),
                     new Pose2dFeet().set(27.0 - 2.5, 7.0 - 2.5, 180),
-                    new Pose2dFeet().set(23.0 - 2.5, 7.5 - 2.5, 180),
+                    new Pose2dFeet().set(22.5 - 2.5, 7.5 - 2.5, 180),
                     new Pose2dFeet().set(20.5 - 2.5, 1.5 - 2.5, 180),
                     new Pose2dFeet().set(8.0 - 2.5, 1.5 - 2.5, 180),
-                    new Pose2dFeet().set(6.0 - 2.5, 6.0 - 2.5, 180),
-                    new Pose2dFeet().set(2.5 - 2.5, 6.0 - 2.5, 180)
+                    new Pose2dFeet().set(6.0 - 2.5, 7.5 - 2.5, 180),
+                    new Pose2dFeet().set(2.5 - 2.5, 7.5 - 2.5, 180)
 
             ),
             RobotTrajectory.getInstance().configForward
