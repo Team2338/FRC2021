@@ -235,4 +235,14 @@ public class Drivetrain extends SubsystemBase {
         };
         return headings;
     }
+
+    public double[] getTurningOutputs() {
+        double[] percents = {
+                m_frontLeft.getTurningOuput(),
+                m_rearLeft.getTurningOuput(),
+                m_frontRight.getTurningOuput(),
+                m_rearRight.getTurningOuput()
+        };
+        return percents;
+    }
 }

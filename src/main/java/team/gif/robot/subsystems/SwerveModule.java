@@ -176,4 +176,8 @@ public class SwerveModule {
     public double getDrivePercent() {
         return m_driveMotor.get();
     }
+
+    public double getTurningOuput() {
+        return m_turningMotor.get();
+    }
 }

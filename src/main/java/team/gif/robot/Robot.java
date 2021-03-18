@@ -94,6 +94,8 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Front Left Velocity", Drivetrain.getInstance().getVelocity());
 
+    SmartDashboard.putNumber("Turning FL", Drivetrain.getInstance().getTurningOutputs()[0]);
+
     //System.out.println(Drivetrain.getInstance().getModulePercents()[0]);
     //System.out.println(Drivetrain.getInstance().getModulePercents()[1]);
     //System.out.println(Drivetrain.getInstance().getModulePercents()[2]);

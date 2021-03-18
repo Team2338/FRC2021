@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
+import team.gif.lib.Pose2dFeet;
 import team.gif.lib.RobotTrajectory;
 import team.gif.robot.subsystems.Drivetrain;
 
@@ -38,12 +39,18 @@ public class MobilityFwd extends SequentialCommandGroup {
         return scc.andThen(() -> Drivetrain.getInstance().setVoltage(0));
     }
 
+    /**
+     * Pose2dFeet
+     *
+     *     x
+     *  y [] +90
+     */
+
     public Command forward2() {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of( // S path
-                        new Pose2d(0, 0, new Rotation2d(0)),
-                        new Pose2d(2, 0, new Rotation2d(Units.degreesToRadians(90))),
-                        new Pose2d(4, 0, new Rotation2d(0))
+                        new Pose2dFeet().set(0, 0, 0),
+                        new Pose2dFeet().set(0, -8, 0)
                 ),
                 RobotTrajectory.getInstance().configForward
         );

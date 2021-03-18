@@ -44,7 +44,7 @@ public class Bounce extends SequentialCommandGroup {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
                         new Pose2dFeet().set(16.25 - xInit, 13 - yInit, 0),
-                        new Pose2dFeet().set(15.0 - xInit, 2.5 - yInit, 0)
+                        new Pose2dFeet().set(16.25 - xInit, 2.5 - yInit, 0) //15.0
                 ),
                 RobotTrajectory.getInstance().configReverse
         );
@@ -57,7 +57,7 @@ public class Bounce extends SequentialCommandGroup {
     public Command forwardFinal () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
                 List.of(
-                        new Pose2dFeet().set(15.0 - xInit, 2.5 - yInit, 0),
+                        new Pose2dFeet().set(16.25 - xInit, 2.5 - yInit, 0),
                         new Pose2dFeet().set(22.5 - xInit, 2.5 - yInit, 0),
                         new Pose2dFeet().set(23.25 - xInit, 13 - yInit, 0),
                         new Pose2dFeet().set(23.25 - xInit, 8 - yInit, 0),
