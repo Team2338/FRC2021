@@ -4,9 +4,7 @@ import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
-import edu.wpi.first.wpilibj.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RamseteCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import team.gif.lib.Pose2dFeet;
@@ -48,10 +46,17 @@ public class MobilityFwd extends SequentialCommandGroup {
 
     public Command forward2() {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
-                List.of( // S path
-                        new Pose2dFeet().set(0, 0, 0),
-                        new Pose2dFeet().set(0, -8, 0)
+                /*new Pose2d(0, 0, new Rotation2d(0)),
+                List.of(
+                        new Translation2d(2, 0)
                 ),
+                new Pose2d(0, 0, new Rotation2d(Units.degreesToRadians(0.5))),*/
+                List.of(
+                        new Pose2dFeet().set(0, 0, 0),
+                        new Pose2dFeet().set(6, 0, 0.1),
+                        new Pose2dFeet().set(0, 0, 0.1)
+                ),
+
                 RobotTrajectory.getInstance().configForward
         );
         // create the command using the trajectory
