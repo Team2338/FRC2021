@@ -10,6 +10,7 @@ import team.gif.robot.commands.indexer.IndexerStopperRun;
 import team.gif.robot.commands.shooter.Fire;
 import team.gif.robot.commands.shooter.MoveHoodPos;
 import team.gif.robot.commands.shooter.RevFlywheel;
+import team.gif.robot.commands.shooter.SelectRange;
 
 public class OI {
     private static OI instance = null;
@@ -72,12 +73,18 @@ public class OI {
          *
          */
 
-        dX.whileHeld(new IndexerRun());
+        dRT.whileHeld(new IndexerRun());
         //dY.whileHeld(new IndexerStopperRun(0.5));
-        dLB.whileHeld(new RevFlywheel(4500, 0.75)); // 2500 0.45
+        dLB.whileHeld(new RevFlywheel()); // 2500 0.45
         dRT.whileHeld(new Fire());
 
-        dA.whenPressed(new MoveHoodPos(8180));
-        dB.whenPressed(new MoveHoodPos(3700));
+        // Matches Color of Buttons
+        dA.whenPressed(new SelectRange(Globals.Range.GREEN));
+        dY.whenPressed(new SelectRange(Globals.Range.YELLOW));
+        dX.whenPressed(new SelectRange(Globals.Range.BLUE));
+        dB.whenPressed(new SelectRange(Globals.Range.RED));
+
+        //dA.whenPressed(new MoveHoodPos(8180));
+        //dB.whenPressed(new MoveHoodPos(3700));
     }
 }

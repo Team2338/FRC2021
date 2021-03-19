@@ -90,6 +90,22 @@ public final class Constants {
     public static class Shooter {
         public static final double kP = 0.0007;
         public static final double kF = 0.000175;
+
+        public static final int HOOD_POS_GREEN = 1000; //TODO: test for actual numbers
+        public static final int HOOD_POS_YELLOW = 1000;
+        public static final int HOOD_POS_BLUE = 1000;
+        public static final int HOOD_POS_RED = 1000;
+
+        public static final int RPM_GREEN = 4000;
+        public static final int RPM_YELLOW = 4000;
+        public static final int RPM_BLUE = 4000;
+        public static final int RPM_RED = 4000;
+
+        // feedforward of 2nd flywheel motor
+        public static final double FF_GREEN = 0.0;
+        public static final double FF_YELLOW = 0.0;
+        public static final double FF_BLUE = 0.0;
+        public static final double FF_RED = 0.0;
     }
 
     public static class Hood {

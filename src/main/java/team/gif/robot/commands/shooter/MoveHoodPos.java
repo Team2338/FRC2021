@@ -10,6 +10,10 @@ public class MoveHoodPos extends CommandBase {
     private double target;
     private double tolerance = 1000;
 
+    /**
+     * Obsolete - Replaced by SelectRange.java
+     */
+
     public MoveHoodPos(double position) {
         target = position;
     }
