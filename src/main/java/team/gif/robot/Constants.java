@@ -92,14 +92,14 @@ public final class Constants {
         public static final double kF = 0.000175;
 
         public static final int HOOD_POS_GREEN = 1000; //TODO: test for actual numbers
-        public static final int HOOD_POS_YELLOW = 1000;
-        public static final int HOOD_POS_BLUE = 1000;
-        public static final int HOOD_POS_RED = 1000;
+        public static final int HOOD_POS_YELLOW = 2000;
+        public static final int HOOD_POS_BLUE = 3000;
+        public static final int HOOD_POS_RED = 4000;
 
-        public static final int RPM_GREEN = 4000;
-        public static final int RPM_YELLOW = 4000;
-        public static final int RPM_BLUE = 4000;
-        public static final int RPM_RED = 4000;
+        public static final int RPM_GREEN = 3500;
+        public static final int RPM_YELLOW = 4500;
+        public static final int RPM_BLUE = 4500;
+        public static final int RPM_RED = 4500;
 
         // feedforward of 2nd flywheel motor
         public static final double FF_GREEN = 0.0;
