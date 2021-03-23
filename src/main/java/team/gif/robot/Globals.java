@@ -1,12 +1,6 @@
 package team.gif.robot;
 
 public abstract class Globals {
-    public enum Range {
-        GREEN,
-        YELLOW,
-        BLUE,
-        RED
-    }
-
-    public static Range range = Range.GREEN;
+    public static int currentRPM = 4000;
+    public static double currentFF = 0;
 }

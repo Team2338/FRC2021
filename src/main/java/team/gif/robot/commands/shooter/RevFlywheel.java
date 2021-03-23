@@ -15,7 +15,7 @@ public class RevFlywheel extends CommandBase {
   double ff = 0.0;
 
   public RevFlywheel() {
-    switch (Globals.range) {
+    /*switch (Globals.fieldZone) {
       case GREEN:
         setpointRPM = Constants.Shooter.RPM_GREEN;
         ff = Constants.Shooter.FF_GREEN;
@@ -32,14 +32,14 @@ public class RevFlywheel extends CommandBase {
         setpointRPM = Constants.Shooter.RPM_RED;
         ff = Constants.Shooter.FF_RED;
         break;
-    }
+    }*/
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    Shooter.getInstance().setRPM(setpointRPM);
-    Shooter.getInstance().setFlywheel2(ff);
+    Shooter.getInstance().setRPM(Globals.currentRPM);
+    Shooter.getInstance().setFlywheel2(Globals.currentFF);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

@@ -73,16 +73,16 @@ public class OI {
          *
          */
 
-        dRT.whileHeld(new IndexerRun());
+        dRB.whileHeld(new IndexerRun());
         //dY.whileHeld(new IndexerStopperRun(0.5));
         dLB.whileHeld(new RevFlywheel()); // 2500 0.45
         dRT.whileHeld(new Fire());
 
         // Matches Color of Buttons
-        dA.whenPressed(new SelectRange(Globals.Range.GREEN));
-        dY.whenPressed(new SelectRange(Globals.Range.YELLOW));
-        dX.whenPressed(new SelectRange(Globals.Range.BLUE));
-        dB.whenPressed(new SelectRange(Globals.Range.RED));
+        dA.whenPressed(new SelectRange(Constants.Shooter.HOOD_POS_GREEN));
+        dY.whenPressed(new SelectRange(Constants.Shooter.HOOD_POS_YELLOW));
+        dX.whenPressed(new SelectRange(Constants.Shooter.HOOD_POS_BLUE));
+        dB.whenPressed(new SelectRange(Constants.Shooter.HOOD_POS_RED));
 
         //dA.whenPressed(new MoveHoodPos(8180));
         //dB.whenPressed(new MoveHoodPos(3700));

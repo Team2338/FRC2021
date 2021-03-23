@@ -81,7 +81,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Hood Position", Hood.getInstance().getHoodPos());
     //System.out.println(Hood.getInstance().getHoodPos());
-    System.out.println(Hood.getInstance().getPercentOutput());
+    //System.out.println(Hood.getInstance().getPercentOutput());
 
     CommandScheduler.getInstance().run();
   }

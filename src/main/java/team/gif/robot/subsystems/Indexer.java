@@ -41,6 +41,8 @@ public class Indexer extends SubsystemBase {
     indexerStopperMotor.configFactoryDefault();
     indexerStopperMotor.setInverted(true);
     indexerStopperMotor.setNeutralMode(NeutralMode.Brake);
+
+    collectorMotor.setInverted(true);
   }
 
   @Override
