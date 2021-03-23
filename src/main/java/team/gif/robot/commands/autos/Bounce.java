@@ -21,6 +21,30 @@ public class Bounce extends SequentialCommandGroup {
      *  y [] +90
      */
 
+    public Command swerve () {
+        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
+                List.of(
+                        new Pose2dFeet().set(0, 0, 0),
+                        new Pose2dFeet().set(7.0- xInit, 7.5 - yInit, 0),
+                        new Pose2dFeet().set(7.0 - xInit, 12.5 - yInit, 0.1),
+                        new Pose2dFeet().set(7.5 - xInit, 7.5 - yInit, 0.1),
+                        new Pose2dFeet().set(12.5 - xInit, 2.5 - yInit, 0.1),
+                        new Pose2dFeet().set(14.5 - xInit, 2.5 - yInit, 0.1),
+                        new Pose2dFeet().set(16.25 - xInit, 13 - yInit, 0.1),
+                        new Pose2dFeet().set(16.25 - xInit, 2.5 - yInit, 0.1),
+                        new Pose2dFeet().set(22.5 - xInit, 2.5 - yInit, 0.1),
+                        new Pose2dFeet().set(23.25 - xInit, 13 - yInit, 0.1),
+                        new Pose2dFeet().set(23.25 - xInit, 8 - yInit, 0.1),
+                        new Pose2dFeet().set(27.5 - xInit, 8 - yInit, 0.1)
+                ),
+                RobotTrajectory.getInstance().configForward
+        );
+        // create the command using the trajectory
+        SwerveControllerCommand scc = RobotTrajectory.getInstance().createSwerveControllerCommand(trajectory);
+        // Run path following command, then stop at the end.
+        return scc.andThen(() -> Drivetrain.getInstance().setVoltage(0));
+    }
+
     public Command forward () {
         Trajectory trajectory = TrajectoryGenerator.generateTrajectory(
             List.of(
@@ -73,6 +97,7 @@ public class Bounce extends SequentialCommandGroup {
 
     public Bounce() {
         addCommands(
+                //swerve()
                 forward(),
                 reverseMid(),
                 forwardFinal()

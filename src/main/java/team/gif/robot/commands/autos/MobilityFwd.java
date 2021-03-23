@@ -54,7 +54,9 @@ public class MobilityFwd extends SequentialCommandGroup {
                 List.of(
                         new Pose2dFeet().set(0, 0, 0),
                         new Pose2dFeet().set(6, 0, 0.1),
-                        new Pose2dFeet().set(0, 0, 0.1)
+                        new Pose2dFeet().set(0, 0, 0.1),
+                        //new Pose2dFeet().set(-3, -3, 0.1),
+                        new Pose2dFeet().set(-6, -3, 0.1)
                 ),
 
                 RobotTrajectory.getInstance().configForward
