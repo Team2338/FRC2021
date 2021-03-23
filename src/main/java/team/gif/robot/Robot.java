@@ -15,6 +15,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.autoMode;
+import team.gif.robot.commands.autoAim;
 import team.gif.robot.commands.autos.BarrelRacing;
 import team.gif.robot.commands.autos.Bounce;
 import team.gif.robot.commands.autos.MobilityFwd;
@@ -112,14 +113,24 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledPeriodic() {}
-
+  
+  @Override
+  public void simulationPeriodic() {
+    //System.out.println("sim Periodic");
+  }
+  
+  @Override
+  public void simulationInit() {
+  
+  }
+  
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    chosenAuto = autoModeChooser.getSelected();
-
+    //chosenAuto = autoModeChooser.getSelected();
     updateauto();
-
+  
+    m_autonomousCommand = new autoAim();
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();

@@ -9,6 +9,8 @@ package team.gif.lib;
 
 public class VisionSim {
 
+    // +tx is a heading that is clockwise by convention
+    
     private double m_currentHeading;
     private boolean clockwiseDirection;
 
@@ -16,7 +18,6 @@ public class VisionSim {
         m_currentHeading = 0;
         clockwiseDirection = true;
     }
-
 
     /*
         Resets the current heading value to the function parameter
@@ -26,6 +27,7 @@ public class VisionSim {
     public void reset(double startHeading){
         m_currentHeading = startHeading;
         clockwiseDirection = m_currentHeading > 0 ? false : true;
+        System.out.println("clockwise: "+ clockwiseDirection);
     }
 
     /*
@@ -40,7 +42,7 @@ public class VisionSim {
     /*
         Returns the current delta between the target and the robot
      */
-    public double getHeading(double heading){
+    public double getHeading(){
         return m_currentHeading;
     }
 }
