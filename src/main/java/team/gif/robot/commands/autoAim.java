@@ -24,6 +24,7 @@ public class autoAim extends CommandBase {
     @Override
     public void initialize() {
         System.out.println("autoaim init");
+        Limelight.getInstance().setLEDMode(3);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -58,6 +59,7 @@ public class autoAim extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
+        Limelight.getInstance().setLEDMode(1);
         Drivetrain.getInstance().setVoltage(0);
     }
 }
