@@ -40,7 +40,7 @@ public class VisionSim {
     /*
         Returns the current delta between the target and the robot
      */
-    public double getHeading(double heading){
+    public double getHeading(){
         return m_currentHeading;
     }
 }
