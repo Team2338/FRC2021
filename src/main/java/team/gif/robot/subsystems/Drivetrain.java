@@ -150,10 +150,10 @@ public class Drivetrain extends SubsystemBase {
         m_rearLeft.setDesiredState(desiredStates[2]);
         m_rearRight.setDesiredState(desiredStates[3]);
 
-        System.out.println(desiredStates[0].speedMetersPerSecond);
-        System.out.println(desiredStates[1].speedMetersPerSecond);
-        System.out.println(desiredStates[2].speedMetersPerSecond);
-        System.out.println(desiredStates[3].speedMetersPerSecond);
+        //System.out.println(desiredStates[0].speedMetersPerSecond);
+        //System.out.println(desiredStates[1].speedMetersPerSecond);
+        //System.out.println(desiredStates[2].speedMetersPerSecond);
+        //System.out.println(desiredStates[3].speedMetersPerSecond);
     }
 
     /** Resets the drive encoders to currently read a position of 0. */
