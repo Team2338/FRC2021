@@ -34,6 +34,7 @@ public class AutoAim extends CommandBase {
             System.out.println("Target Acquired");
         } else {
             double offset = fakeLimelight.getHeading(); //TODO: get real limelight
+            // Use < Limelight.getInstance().getXOffset() >
             System.out.println(offset);
 
             if (offset > -1.0 && offset < 1.0) {
