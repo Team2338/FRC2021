@@ -45,6 +45,7 @@ public class Robot extends TimedRobot {
     driveCommand = new Drive(Drivetrain.getInstance());
 
     SmartDashboard.putData("Reset Module Encoders", new ResetEncoders());
+    SmartDashboard.putString("Zone", "N/A");
 
     Hood.getInstance().resetHoodEncoder();
   }
@@ -82,6 +83,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Hood Position", Hood.getInstance().getHoodPos());
     //System.out.println(Hood.getInstance().getHoodPos());
     //System.out.println(Hood.getInstance().getPercentOutput());
+    //System.out.println(Globals.currentRPM);
 
     CommandScheduler.getInstance().run();
   }

@@ -91,6 +91,11 @@ public final class Constants {
         public static final double kP = 0.0007;
         public static final double kF = 0.000175;
 
+        public static final int GREEN_ZONE = 1;
+        public static final int YELLOW_ZONE = 2;
+        public static final int BLUE_ZONE = 3;
+        public static final int RED_ZONE = 4;
+
         public static final int HOOD_POS_GREEN = 1000; //TODO: test for actual numbers
         public static final int HOOD_POS_YELLOW = 2000;
         public static final int HOOD_POS_BLUE = 3000;

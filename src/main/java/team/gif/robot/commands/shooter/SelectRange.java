@@ -1,5 +1,6 @@
 package team.gif.robot.commands.shooter;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.Constants;
 import team.gif.robot.Globals;
@@ -7,38 +8,41 @@ import team.gif.robot.subsystems.Hood;
 
 public class SelectRange extends CommandBase {
 
-    private int target;
+    private int position;
 
-    public SelectRange(int position) {
-        target = position;
+    public SelectRange(int zoneID) {
+        position = zoneID;
     }
 
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        System.out.println("Selector Init");
-        Hood.getInstance().setPosition(target);
+        //System.out.println("Selector Init");
 
-        switch (target) {
-            case Constants.Shooter.HOOD_POS_GREEN:
+        switch (position) {
+            case Constants.Shooter.GREEN_ZONE:
+                Hood.getInstance().setPosition(Constants.Shooter.HOOD_POS_GREEN);
                 Globals.currentRPM = Constants.Shooter.RPM_GREEN;
                 Globals.currentFF = Constants.Shooter.FF_GREEN;
-                System.out.println("Green");
+                SmartDashboard.putString("Zone", "Green");
                 break;
-            case Constants.Shooter.HOOD_POS_YELLOW:
+            case Constants.Shooter.YELLOW_ZONE:
+                Hood.getInstance().setPosition(Constants.Shooter.HOOD_POS_YELLOW);
                 Globals.currentRPM = Constants.Shooter.RPM_YELLOW;
                 Globals.currentFF = Constants.Shooter.FF_YELLOW;
-                System.out.println("Yellow");
+                SmartDashboard.putString("Zone", "Yellow");
                 break;
-            case Constants.Shooter.HOOD_POS_BLUE:
+            case Constants.Shooter.BLUE_ZONE:
+                Hood.getInstance().setPosition(Constants.Shooter.HOOD_POS_BLUE);
                 Globals.currentRPM = Constants.Shooter.RPM_BLUE;
                 Globals.currentFF = Constants.Shooter.FF_BLUE;
-                System.out.println("Blue");
+                SmartDashboard.putString("Zone", "Blue");
                 break;
-            case Constants.Shooter.HOOD_POS_RED:
+            case Constants.Shooter.RED_ZONE:
+                Hood.getInstance().setPosition(Constants.Shooter.HOOD_POS_RED);
                 Globals.currentRPM = Constants.Shooter.RPM_RED;
                 Globals.currentFF = Constants.Shooter.FF_RED;
-                System.out.println("Red");
+                SmartDashboard.putString("Zone", "Red");
                 break;
         }
     }
@@ -50,7 +54,7 @@ public class SelectRange extends CommandBase {
     // Called once the command ends or is interrupted.
     @Override
     public void end(boolean interrupted) {
-        System.out.println("Selector End");
+        //System.out.println("Selector End");
     }
 
     // Returns true when the command should end.

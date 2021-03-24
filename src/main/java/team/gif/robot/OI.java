@@ -79,10 +79,10 @@ public class OI {
         dRT.whileHeld(new Fire());
 
         // Matches Color of Buttons
-        dA.whenPressed(new SelectRange(Constants.Shooter.HOOD_POS_GREEN));
-        dY.whenPressed(new SelectRange(Constants.Shooter.HOOD_POS_YELLOW));
-        dX.whenPressed(new SelectRange(Constants.Shooter.HOOD_POS_BLUE));
-        dB.whenPressed(new SelectRange(Constants.Shooter.HOOD_POS_RED));
+        dA.whenPressed(new SelectRange(Constants.Shooter.GREEN_ZONE));
+        dY.whenPressed(new SelectRange(Constants.Shooter.YELLOW_ZONE));
+        dX.whenPressed(new SelectRange(Constants.Shooter.BLUE_ZONE));
+        dB.whenPressed(new SelectRange(Constants.Shooter.RED_ZONE));
 
         //dA.whenPressed(new MoveHoodPos(8180));
         //dB.whenPressed(new MoveHoodPos(3700));
