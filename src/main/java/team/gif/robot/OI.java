@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import team.gif.lib.AxisButton;
 import team.gif.robot.commands.drivetrain.ResetEncoders;
+import team.gif.robot.commands.indexer.DeployCollector;
 import team.gif.robot.commands.indexer.IndexerRun;
 import team.gif.robot.commands.indexer.IndexerStopperRun;
 import team.gif.robot.commands.shooter.Fire;
@@ -83,6 +84,8 @@ public class OI {
         dY.whenPressed(new SelectRange(Constants.Shooter.YELLOW_ZONE));
         dX.whenPressed(new SelectRange(Constants.Shooter.BLUE_ZONE));
         dB.whenPressed(new SelectRange(Constants.Shooter.RED_ZONE));
+        
+        dDPadDown.whileHeld(new DeployCollector());
 
         //dA.whenPressed(new MoveHoodPos(8180));
         //dB.whenPressed(new MoveHoodPos(3700));
