@@ -116,7 +116,13 @@ public class SwerveModule {
         heading *= turningInverted ? -1.0 : 1.0;
         heading *= (2.0 * Math.PI) / Constants.ModuleConstants.kEncoderCPR;
         heading -= turningOffset;
+        //heading %= (2.0 * Math.PI);
+        //System.out.println(heading);
         return heading;
+    }
+
+    public double getRawHeading() {
+        return m_turningMotor.getSelectedSensorPosition();
     }
 
     /**
@@ -125,13 +131,18 @@ public class SwerveModule {
      * @param state Desired state with speed and angle.
      */
     public void setDesiredState(SwerveModuleState state) {
+
+        // Modules will pick the closest equivalent angle, reversing drive motors if necessary
+        var stateOptimized = SwerveModuleState.optimize(state,
+                new Rotation2d(getTurningHeading()));
+
         // Calculate the drive output from the drive PID controller.
         final var driveOutput =
-                m_drivePIDController.calculate(m_driveEncoder.getVelocity(), state.speedMetersPerSecond);
+                m_drivePIDController.calculate(m_driveEncoder.getVelocity(), stateOptimized.speedMetersPerSecond);
 
         // Calculate the turning motor output from the turning PID controller.
         final var turnOutput =
-                m_turningPIDController.calculate(getTurningHeading(), state.angle.getRadians());
+                m_turningPIDController.calculate(getTurningHeading(), stateOptimized.angle.getRadians());
 
         // Calculate the turning motor output from the turning PID controller.
         m_driveMotor.set(driveOutput);
@@ -149,6 +160,11 @@ public class SwerveModule {
         m_turningMotor.set(turn);
     }
 
+    public void setVoltage(double drive, double turn) {
+        m_driveMotor.setVoltage(drive);
+        m_turningMotor.setVoltage(drive);
+    }
+
     /*public double getTurnDegrees() {
         return getTurningHeading();
     }*/
@@ -159,5 +175,9 @@ public class SwerveModule {
 
     public double getDrivePercent() {
         return m_driveMotor.get();
+    }
+
+    public double getTurningOuput() {
+        return m_turningMotor.get();
     }
 }

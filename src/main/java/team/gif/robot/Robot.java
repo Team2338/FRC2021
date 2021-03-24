@@ -6,12 +6,26 @@ package team.gif.robot;
 
 
 import edu.wpi.first.wpilibj.TimedRobot;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInWidgets;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import team.gif.lib.autoMode;
+import team.gif.robot.commands.autos.BarrelRacing;
+import team.gif.robot.commands.autos.Bounce;
+import team.gif.robot.commands.autos.MobilityFwd;
+import team.gif.robot.commands.autos.Slalom;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.drivetrain.ResetEncoders;
+import team.gif.robot.commands.drivetrain.ResetHeading;
+import team.gif.robot.commands.mobility;
 import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.drivers.Pigeon;
+
 import team.gif.robot.subsystems.Hood;
 import team.gif.robot.subsystems.Shooter;
 
@@ -24,9 +38,15 @@ import team.gif.robot.subsystems.Shooter;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand = null;
 
+    private SendableChooser<autoMode> autoModeChooser = new SendableChooser<>();
+
+  private autoMode chosenAuto;
+
   private Command driveCommand = null;
 
   private RobotContainer m_robotContainer;
+
+  public static ShuffleboardTab autoTab = Shuffleboard.getTab("PreMatch");
 
   public static OI oi;
 
@@ -44,6 +64,7 @@ public class Robot extends TimedRobot {
 
     driveCommand = new Drive(Drivetrain.getInstance());
 
+      tabsetup();
     SmartDashboard.putData("Reset Module Encoders", new ResetEncoders());
     SmartDashboard.putString("Zone", "N/A");
 
@@ -69,6 +90,11 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Front Right", Drivetrain.getInstance().getModuleHeadings()[2]);
     SmartDashboard.putNumber("Rear Right", Drivetrain.getInstance().getModuleHeadings()[3]);
 
+    SmartDashboard.putNumber("Raw FL", Drivetrain.getInstance().getRawModuleHeadings()[0]);
+    SmartDashboard.putNumber("Raw RL", Drivetrain.getInstance().getRawModuleHeadings()[1]);
+    SmartDashboard.putNumber("Raw FR", Drivetrain.getInstance().getRawModuleHeadings()[2]);
+    SmartDashboard.putNumber("Raw RR", Drivetrain.getInstance().getRawModuleHeadings()[3]);
+
     SmartDashboard.putNumber("Front Left Percent", Drivetrain.getInstance().getModulePercents()[0]);
     SmartDashboard.putNumber("Rear Left Percent", Drivetrain.getInstance().getModulePercents()[1]);
     SmartDashboard.putNumber("Front Right Percent", Drivetrain.getInstance().getModulePercents()[2]);
@@ -76,6 +102,7 @@ public class Robot extends TimedRobot {
 
     SmartDashboard.putNumber("Front Left Velocity", Drivetrain.getInstance().getVelocity());
 
+    SmartDashboard.putData("ResetHead", new ResetHeading());
     SmartDashboard.putString("RPM", Shooter.getInstance().getVelocity_Shuffleboard());
 
     SmartDashboard.putNumber("Flywheel Percent", Shooter.getInstance().getPercentOutput());
@@ -86,6 +113,7 @@ public class Robot extends TimedRobot {
     //System.out.println(Globals.currentRPM);
 
     CommandScheduler.getInstance().run();
+    SmartDashboard.putNumber("Turning FL", Drivetrain.getInstance().getTurningOutputs()[0]);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
@@ -98,11 +126,15 @@ public class Robot extends TimedRobot {
   /** This autonomous runs the autonomous command selected by your {@link RobotContainer} class. */
   @Override
   public void autonomousInit() {
-    m_autonomousCommand = m_robotContainer.getAutonomousCommand();
+    chosenAuto = autoModeChooser.getSelected();
+
+    updateauto();
 
     // schedule the autonomous command (example)
     if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
+    } else {
+      System.out.println("NOT SCHEDULING AUTO");
     }
   }
 
@@ -127,7 +159,8 @@ public class Robot extends TimedRobot {
 
   /** This function is called periodically during operator control. */
   @Override
-  public void teleopPeriodic() {}
+  public void teleopPeriodic() {
+  }
 
   @Override
   public void testInit() {
@@ -138,4 +171,37 @@ public class Robot extends TimedRobot {
   /** This function is called periodically during test mode. */
   @Override
   public void testPeriodic() {}
+
+
+    public void tabsetup(){
+
+        autoTab = Shuffleboard.getTab("PreMatch");
+
+        autoModeChooser.setDefaultOption("Mobility Forward", autoMode.MOBILITY_FWD);
+      autoModeChooser.addOption("Mobility", autoMode.MOBILITY);
+        autoModeChooser.addOption("Barrel Racing", autoMode.BARREL_RACING);
+        autoModeChooser.addOption("Slalom", autoMode.SLALOM);
+        autoModeChooser.addOption("Bounce", autoMode.BOUNCE);
+
+        autoTab.add("Auto Select",autoModeChooser)
+            .withWidget(BuiltInWidgets.kComboBoxChooser)
+            .withPosition(1,0)
+            .withSize(2,1);
+    }
+
+    public void updateauto(){
+        if(chosenAuto == autoMode.MOBILITY_FWD){
+            m_autonomousCommand = new MobilityFwd();
+        } else if (chosenAuto == autoMode.BARREL_RACING){
+            m_autonomousCommand = new BarrelRacing();
+        } else if(chosenAuto == autoMode.SLALOM) {
+            m_autonomousCommand = new Slalom();
+        } else if(chosenAuto == autoMode.BOUNCE){
+            m_autonomousCommand = new Bounce();
+        } else if (chosenAuto == autoMode.MOBILITY) {
+          m_autonomousCommand = new mobility();
+        } else if(chosenAuto ==null) {
+            System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
+        }
+    }
 }

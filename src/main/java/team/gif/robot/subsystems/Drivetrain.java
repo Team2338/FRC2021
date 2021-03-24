@@ -3,6 +3,8 @@ package team.gif.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.interfaces.Gyro;
+import edu.wpi.first.wpilibj.kinematics.*;
 import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
@@ -60,7 +62,7 @@ public class Drivetrain extends SubsystemBase {
 
     // Odometry class for tracking robot pose
     SwerveDriveOdometry m_odometry =
-            new SwerveDriveOdometry(Constants.Drivetrain.kDriveKinematics, m_gyro.getRotation2d());
+            new SwerveDriveOdometry(Constants.Drivetrain.kDriveKinematics, m_gyro.getRotation2d()); //m_gyro.getRotation2d()
 
     public static Drivetrain getInstance() {
         if (instance == null) {
@@ -80,11 +82,13 @@ public class Drivetrain extends SubsystemBase {
         //System.out.println("PIGEON: " + getHeading());
         // Update the odometry in the periodic block
         m_odometry.update(
-                new Rotation2d(getHeading()),
+                Rotation2d.fromDegrees(-m_gyro.get180Heading()),
                 m_frontLeft.getState(),
                 m_rearLeft.getState(),
                 m_frontRight.getState(),
                 m_rearRight.getState());
+
+        //System.out.println(getPose()); //Drivetrain.getInstance().getPose()
     }
 
     /**
@@ -105,6 +109,10 @@ public class Drivetrain extends SubsystemBase {
         m_odometry.resetPosition(pose, m_gyro.getRotation2d());
     }
 
+    public void resetPose(){
+        m_odometry.resetPosition(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), Rotation2d.fromDegrees(0));
+    }
+
     /**
      * Method to drive the robot using joystick info.
      *
@@ -122,6 +130,7 @@ public class Drivetrain extends SubsystemBase {
                                 : new ChassisSpeeds(xSpeed, ySpeed, rot));
         SwerveDriveKinematics.normalizeWheelSpeeds(
                 swerveModuleStates, Constants.Drivetrain.kMaxSpeedMetersPerSecond);
+
         m_frontLeft.setDesiredState(swerveModuleStates[0]);
         m_frontRight.setDesiredState(swerveModuleStates[1]);
         m_rearLeft.setDesiredState(swerveModuleStates[2]);
@@ -140,6 +149,11 @@ public class Drivetrain extends SubsystemBase {
         m_frontRight.setDesiredState(desiredStates[1]);
         m_rearLeft.setDesiredState(desiredStates[2]);
         m_rearRight.setDesiredState(desiredStates[3]);
+
+        System.out.println(desiredStates[0].speedMetersPerSecond);
+        System.out.println(desiredStates[1].speedMetersPerSecond);
+        System.out.println(desiredStates[2].speedMetersPerSecond);
+        System.out.println(desiredStates[3].speedMetersPerSecond);
     }
 
     /** Resets the drive encoders to currently read a position of 0. */
@@ -173,6 +187,13 @@ public class Drivetrain extends SubsystemBase {
         return m_gyro.getRate() * (Constants.Drivetrain.kGyroReversed ? -1.0 : 1.0);
     }*/
 
+    public void setVoltage(double voltage) {
+        m_frontLeft.setVoltage(voltage, voltage);
+        m_rearLeft.setVoltage(voltage, voltage);
+        m_frontRight.setVoltage(voltage, voltage);
+        m_rearRight.setVoltage(voltage, voltage);
+    }
+
     public void setSpeedFL (double drive, double turn) {
         m_frontLeft.setSpeed(drive, turn);
     }
@@ -195,6 +216,16 @@ public class Drivetrain extends SubsystemBase {
         return headings;
     }
 
+    public double[] getRawModuleHeadings() {
+        double[] headings = {
+                m_frontLeft.getRawHeading() % Constants.ModuleConstants.kEncoderCPR,
+                m_rearLeft.getRawHeading() % Constants.ModuleConstants.kEncoderCPR,
+                m_frontRight.getRawHeading() % Constants.ModuleConstants.kEncoderCPR,
+                m_rearRight.getRawHeading() % Constants.ModuleConstants.kEncoderCPR
+        };
+        return headings;
+    }
+
     public double[] getModulePercents() {
         double[] headings = {
                 m_frontLeft.getDrivePercent(),
@@ -203,5 +234,15 @@ public class Drivetrain extends SubsystemBase {
                 m_rearRight.getDrivePercent()
         };
         return headings;
+    }
+
+    public double[] getTurningOutputs() {
+        double[] percents = {
+                m_frontLeft.getTurningOuput(),
+                m_rearLeft.getTurningOuput(),
+                m_frontRight.getTurningOuput(),
+                m_rearRight.getTurningOuput()
+        };
+        return percents;
     }
 }

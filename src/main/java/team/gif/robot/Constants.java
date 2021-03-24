@@ -6,6 +6,7 @@ package team.gif.robot;
 
 import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import team.gif.lib.Gains;
 
 /**
@@ -36,10 +37,10 @@ public final class Constants {
         public static final boolean kFrontRightTurningMotorReversed = false;
         public static final boolean kRearRightTurningMotorReversed = false;
 
-        public static final double kFrontLeftOffset = 0.314466061516556 - 0.573;
-        public static final double kRearLeftOffset = -3.077165460498596;
-        public static final double kFrontRightOffset = 1.325359400733194 - 5.743;
-        public static final double kRearRightOffset = -3.830350027350446;
+        public static final double kFrontLeftOffset = 0.314 - 0.573;
+        public static final double kRearLeftOffset = -3.077;
+        public static final double kFrontRightOffset = 1.325 - 5.743;
+        public static final double kRearRightOffset = -3.830;
 
         public static final double kTrackWidth = 0.5588;
         // Distance between centers of right and left wheels on robot
@@ -59,16 +60,22 @@ public final class Constants {
         // for *your* robot's drive.
         // The RobotPy Characterization Toolsuite provides a convenient tool for obtaining these
         // values for your robot.
-        public static final double ksVolts = 1;
-        public static final double kvVoltSecondsPerMeter = 0.8;
-        public static final double kaVoltSecondsSquaredPerMeter = 0.15;
+        public static final double ksVolts = 0.126;
+        public static final double kvVoltSecondsPerMeter = 0.0185;
+        public static final double kaVoltSecondsSquaredPerMeter = 0.00227;
 
-        public static final double kMaxSpeedMetersPerSecond = 4;
+        public static final double kMaxDriveRPM = 4800;
+
+        public static final double kMaxSpeedMetersPerSecond = kMaxDriveRPM *
+                (Math.PI * Constants.ModuleConstants.kWheelDiameterMeters) /
+                (60.0 * Constants.ModuleConstants.kGearRatio);
+        public static double kMaxAccelerationMetersPerSecondSquared = 1;// needs real number
+
     }
 
     public static class ModuleConstants {
-        public static final double kMaxModuleAngularSpeedRadiansPerSecond = 2 * Math.PI;
-        public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 2 * Math.PI;
+        public static final double kMaxModuleAngularSpeedRadiansPerSecond = 6 * (2 * Math.PI);
+        public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 7 * (2 * Math.PI);
 
         public static final double kEncoderCPR = 4096.0; //1024
         public static final double kWheelDiameterMeters = 0.10338;
@@ -85,6 +92,22 @@ public final class Constants {
         public static final double kPModuleDriveController = 0.3; // 1
 
         public static final double kGearRatio = 46080.0 / 6720.0;
+        //public static final double kGearRatio = 6720.0 / 46080.0; // WRONG
+    }
+    public static final class AutoConstants {
+        public static final double kMaxSpeedMetersPerSecond = 3;
+        public static final double kMaxAccelerationMetersPerSecondSquared = 3;
+        public static final double kMaxAngularSpeedRadiansPerSecond = Math.PI;
+        public static final double kMaxAngularSpeedRadiansPerSecondSquared = Math.PI;
+
+        public static final double kPXController = 2;
+        public static final double kPYController = 2;
+        public static final double kPThetaController = 2.2;
+
+        // Constraint for the motion profilied robot angle controller
+        public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
+                new TrapezoidProfile.Constraints(
+                        kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);
     }
 
     public static class Shooter {

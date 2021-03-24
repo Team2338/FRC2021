@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.button.POVButton;
 import team.gif.lib.AxisButton;
+import team.gif.robot.commands.autoaim.AutoAim;
 import team.gif.robot.commands.drivetrain.ResetEncoders;
 import team.gif.robot.commands.indexer.DeployCollector;
 import team.gif.robot.commands.indexer.IndexerRun;
@@ -74,6 +75,8 @@ public class OI {
          *
          */
 
+        //dB.whenPressed(new ResetEncoders());
+        dX.whileHeld(new AutoAim());
         dRB.whileHeld(new IndexerRun());
         //dY.whileHeld(new IndexerStopperRun(0.5));
         dLB.whileHeld(new RevFlywheel()); // 2500 0.45
