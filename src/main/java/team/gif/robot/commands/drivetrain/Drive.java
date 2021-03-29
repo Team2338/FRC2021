@@ -39,9 +39,13 @@ public class Drive extends CommandBase {
   @Override
   public void execute() {
 
+    /**
+     * Note: Front in Teleop is different from "official" front!
+     * */
+
     if (!Globals.isAiming) {
-      x = -Robot.oi.driver.getY(GenericHID.Hand.kLeft);
-      y = Robot.oi.driver.getX(GenericHID.Hand.kLeft);
+      x = Robot.oi.driver.getY(GenericHID.Hand.kLeft);
+      y = -Robot.oi.driver.getX(GenericHID.Hand.kLeft);
       rot = Robot.oi.driver.getX(GenericHID.Hand.kRight);
 
       x = Math.abs(x) > 0.07 ? x : 0;
@@ -63,6 +67,7 @@ public class Drive extends CommandBase {
             -Robot.oi.driver.getY(GenericHID.Hand.kRight)
     );
     System.out.println("INPUT: " + -Robot.oi.driver.getY(GenericHID.Hand.kRight));*/
+      //System.out.println(rot);
     }
   }
 

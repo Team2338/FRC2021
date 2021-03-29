@@ -46,25 +46,55 @@ public class RobotTrajectory {
     //.addConstraint(autoVoltageConstraint)
     //.addConstraint( new CentripetalAccelerationConstraint(1));
 
-    public TrajectoryConfig configForwardBounce = new TrajectoryConfig(
+    public TrajectoryConfig configForwardStart = new TrajectoryConfig(
             Constants.Drivetrain.kMaxSpeedMetersPerSecond,
             Constants.Drivetrain.kMaxAccelerationMetersPerSecondSquared)
             // Add kinematics to ensure max speed is actually obeyed
             .setKinematics(Constants.Drivetrain.kDriveKinematics)
             .setReversed(false)
-    // Apply the voltage constraint
-    //.addConstraint(autoVoltageConstraint)
-    .addConstraint( new CentripetalAccelerationConstraint(1.25));
+            .setEndVelocity(Constants.Drivetrain.kMaxSpeedMetersPerSecond / 2);
 
-    public TrajectoryConfig configReverseBounce = new TrajectoryConfig(
+    public TrajectoryConfig configReverseStart = new TrajectoryConfig(
             Constants.Drivetrain.kMaxSpeedMetersPerSecond,
             Constants.Drivetrain.kMaxAccelerationMetersPerSecondSquared)
             // Add kinematics to ensure max speed is actually obeyed
             .setKinematics(Constants.Drivetrain.kDriveKinematics)
             .setReversed(true)
-            // Apply the voltage constraint
-            //.addConstraint(autoVoltageConstraint)
-            .addConstraint( new CentripetalAccelerationConstraint(1.25));
+            .setEndVelocity(Constants.Drivetrain.kMaxSpeedMetersPerSecond / 2);
+
+    public TrajectoryConfig configForwardMiddle = new TrajectoryConfig(
+            Constants.Drivetrain.kMaxSpeedMetersPerSecond,
+            Constants.Drivetrain.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.Drivetrain.kDriveKinematics)
+            .setReversed(false)
+            .setStartVelocity(Constants.Drivetrain.kMaxSpeedMetersPerSecond / 2)
+            .setEndVelocity(Constants.Drivetrain.kMaxSpeedMetersPerSecond / 2);
+
+    public TrajectoryConfig configReverseMiddle = new TrajectoryConfig(
+            Constants.Drivetrain.kMaxSpeedMetersPerSecond,
+            Constants.Drivetrain.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.Drivetrain.kDriveKinematics)
+            .setReversed(true)
+            .setStartVelocity(Constants.Drivetrain.kMaxSpeedMetersPerSecond / 2)
+            .setEndVelocity(Constants.Drivetrain.kMaxSpeedMetersPerSecond / 2);
+
+    public TrajectoryConfig configForwardEnd = new TrajectoryConfig(
+            Constants.Drivetrain.kMaxSpeedMetersPerSecond,
+            Constants.Drivetrain.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.Drivetrain.kDriveKinematics)
+            .setReversed(false)
+            .setStartVelocity(Constants.Drivetrain.kMaxSpeedMetersPerSecond / 2);
+
+    public TrajectoryConfig configReverseEnd = new TrajectoryConfig(
+            Constants.Drivetrain.kMaxSpeedMetersPerSecond,
+            Constants.Drivetrain.kMaxAccelerationMetersPerSecondSquared)
+            // Add kinematics to ensure max speed is actually obeyed
+            .setKinematics(Constants.Drivetrain.kDriveKinematics)
+            .setReversed(true)
+            .setStartVelocity(Constants.Drivetrain.kMaxSpeedMetersPerSecond / 2);
 
     /**
      * End Configs

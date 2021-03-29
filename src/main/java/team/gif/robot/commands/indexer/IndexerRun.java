@@ -20,7 +20,7 @@ public class IndexerRun extends CommandBase {
     Indexer.getInstance().setSpeedIndexer(0.3);
     Indexer.getInstance().setSpeedIndexerStopper(-0.2);
     Indexer.getInstance().setSpeedSingulator(0.5);
-    Indexer.getInstance().setSpeedCollector(0.5);
+    Indexer.getInstance().setSpeedCollector(0.6);
   }
 
   // Called every time the scheduler runs while the command is scheduled.

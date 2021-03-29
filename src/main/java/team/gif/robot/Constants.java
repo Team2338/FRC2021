@@ -27,24 +27,24 @@ public final class Constants {
         public static final boolean kFrontRightTurningEncoderReversed = true;
         public static final boolean kRearRightTurningEncoderReversed = true;
 
-        public static final boolean kFrontLeftDriveMotorReversed = false;
-        public static final boolean kRearLeftDriveMotorReversed = false;
+        public static final boolean kFrontLeftDriveMotorReversed = true;
+        public static final boolean kRearLeftDriveMotorReversed = true;
         public static final boolean kFrontRightDriveMotorReversed = false;
-        public static final boolean kRearRightDriveMotorReversed = true;
+        public static final boolean kRearRightDriveMotorReversed = false;
 
         public static final boolean kFrontLeftTurningMotorReversed = true;
         public static final boolean kRearLeftTurningMotorReversed = false;
         public static final boolean kFrontRightTurningMotorReversed = false;
         public static final boolean kRearRightTurningMotorReversed = false;
 
-        public static final double kFrontLeftOffset = 0.314 - 0.573;
-        public static final double kRearLeftOffset = -3.077;
-        public static final double kFrontRightOffset = 1.325 - 5.743;
-        public static final double kRearRightOffset = -3.830;
+        public static final double kFrontLeftOffset = -3.468330561409435;
+        public static final double kRearLeftOffset = -6.18347655596702;
+        public static final double kFrontRightOffset = -4.428602534625846;
+        public static final double kRearRightOffset = -0.739378739760879;
 
-        public static final double kTrackWidth = 0.5588;
+        public static final double kTrackWidth = 0.4699;
         // Distance between centers of right and left wheels on robot
-        public static final double kWheelBase = 0.5588;
+        public static final double kWheelBase = 0.4699;
         // Distance between front and back wheels on robot
         public static final SwerveDriveKinematics kDriveKinematics =
                 new SwerveDriveKinematics(
@@ -69,13 +69,13 @@ public final class Constants {
         public static final double kMaxSpeedMetersPerSecond = kMaxDriveRPM *
                 (Math.PI * Constants.ModuleConstants.kWheelDiameterMeters) /
                 (60.0 * Constants.ModuleConstants.kGearRatio);
-        public static double kMaxAccelerationMetersPerSecondSquared = 1;// needs real number
+        public static double kMaxAccelerationMetersPerSecondSquared = 2;// needs real number
 
     }
 
     public static class ModuleConstants {
-        public static final double kMaxModuleAngularSpeedRadiansPerSecond = 6 * (2 * Math.PI);
-        public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 7 * (2 * Math.PI);
+        public static final double kMaxModuleAngularSpeedRadiansPerSecond = 6 * (2 * Math.PI); //6
+        public static final double kMaxModuleAngularAccelerationRadiansPerSecondSquared = 6 * (2 * Math.PI); //7
 
         public static final double kEncoderCPR = 4096.0; //1024
         public static final double kWheelDiameterMeters = 0.10338;
@@ -87,7 +87,7 @@ public final class Constants {
                 // Assumes the encoders are on a 1:1 reduction with the module shaft.
                 (2 * Math.PI) / (double) kEncoderCPR;
 
-        public static final double kPModuleTurningController = 1.25; // 1
+        public static final double kPModuleTurningController = 1.0; // 1
 
         public static final double kPModuleDriveController = 0.3; // 1
 
@@ -119,21 +119,21 @@ public final class Constants {
         public static final int BLUE_ZONE = 3;
         public static final int RED_ZONE = 4;
 
-        public static final int HOOD_POS_GREEN = 1000; //TODO: test for actual numbers
-        public static final int HOOD_POS_YELLOW = 2000;
-        public static final int HOOD_POS_BLUE = 3000;
-        public static final int HOOD_POS_RED = 4000;
+        public static final int HOOD_POS_GREEN = 3020; //TODO: test for actual numbers
+        public static final int HOOD_POS_YELLOW = 10000;
+        public static final int HOOD_POS_BLUE = 11500;
+        public static final int HOOD_POS_RED = 12500;
 
-        public static final int RPM_GREEN = 3500;
+        public static final int RPM_GREEN = 3000;
         public static final int RPM_YELLOW = 4500;
         public static final int RPM_BLUE = 4500;
-        public static final int RPM_RED = 4500;
+        public static final int RPM_RED = 4900;
 
         // feedforward of 2nd flywheel motor
-        public static final double FF_GREEN = 0.0;
-        public static final double FF_YELLOW = 0.0;
-        public static final double FF_BLUE = 0.0;
-        public static final double FF_RED = 0.0;
+        public static final double FF_GREEN = 0.5;
+        public static final double FF_YELLOW = 0.8;
+        public static final double FF_BLUE = 0.8;
+        public static final double FF_RED = 1.0;
     }
 
     public static class Hood {

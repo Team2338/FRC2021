@@ -58,7 +58,7 @@ public class Drivetrain extends SubsystemBase {
                     Constants.Drivetrain.kRearRightOffset);
 
     // The gyro sensor
-    private static final Pigeon m_gyro = new Pigeon(Indexer.indexerStopperMotor);
+    private static final Pigeon m_gyro = new Pigeon(Indexer.singulatorMotor);
 
     // Odometry class for tracking robot pose
     SwerveDriveOdometry m_odometry =

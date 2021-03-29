@@ -15,8 +15,8 @@ public class Indexer extends SubsystemBase {
   private static Indexer instance = null;
 
   private static CANSparkMax indexerMotor;
-  public static WPI_TalonSRX indexerStopperMotor = new WPI_TalonSRX(RobotMap.INDEXER_STOPPER_MOTOR);
-  private static WPI_TalonSRX singulatorMotor = new WPI_TalonSRX(RobotMap.SINGULATOR_MOTOR);
+  private static WPI_TalonSRX indexerStopperMotor = new WPI_TalonSRX(RobotMap.INDEXER_STOPPER_MOTOR);
+  public static WPI_TalonSRX singulatorMotor = new WPI_TalonSRX(RobotMap.SINGULATOR_MOTOR);
   private static WPI_TalonSRX collectorMotor = new WPI_TalonSRX(RobotMap.COLLECTOR_MOTOR);
 
   public static Indexer getInstance() {

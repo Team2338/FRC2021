@@ -76,7 +76,7 @@ public class OI {
          */
 
         //dB.whenPressed(new ResetEncoders());
-        dX.whileHeld(new AutoAim());
+        dLT.whileHeld(new AutoAim());
         dRB.whileHeld(new IndexerRun());
         //dY.whileHeld(new IndexerStopperRun(0.5));
         dLB.whileHeld(new RevFlywheel()); // 2500 0.45

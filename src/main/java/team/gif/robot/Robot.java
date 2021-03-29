@@ -90,15 +90,15 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Front Right", Drivetrain.getInstance().getModuleHeadings()[2]);
     SmartDashboard.putNumber("Rear Right", Drivetrain.getInstance().getModuleHeadings()[3]);
 
-    SmartDashboard.putNumber("Raw FL", Drivetrain.getInstance().getRawModuleHeadings()[0]);
+    /*SmartDashboard.putNumber("Raw FL", Drivetrain.getInstance().getRawModuleHeadings()[0]);
     SmartDashboard.putNumber("Raw RL", Drivetrain.getInstance().getRawModuleHeadings()[1]);
     SmartDashboard.putNumber("Raw FR", Drivetrain.getInstance().getRawModuleHeadings()[2]);
-    SmartDashboard.putNumber("Raw RR", Drivetrain.getInstance().getRawModuleHeadings()[3]);
+    SmartDashboard.putNumber("Raw RR", Drivetrain.getInstance().getRawModuleHeadings()[3]);*/
 
-    SmartDashboard.putNumber("Front Left Percent", Drivetrain.getInstance().getModulePercents()[0]);
+    /*SmartDashboard.putNumber("Front Left Percent", Drivetrain.getInstance().getModulePercents()[0]);
     SmartDashboard.putNumber("Rear Left Percent", Drivetrain.getInstance().getModulePercents()[1]);
     SmartDashboard.putNumber("Front Right Percent", Drivetrain.getInstance().getModulePercents()[2]);
-    SmartDashboard.putNumber("Rear Right Percent", Drivetrain.getInstance().getModulePercents()[3]);
+    SmartDashboard.putNumber("Rear Right Percent", Drivetrain.getInstance().getModulePercents()[3]);*/
 
     SmartDashboard.putNumber("Front Left Velocity", Drivetrain.getInstance().getVelocity());
 
@@ -113,7 +113,10 @@ public class Robot extends TimedRobot {
     //System.out.println(Globals.currentRPM);
 
     CommandScheduler.getInstance().run();
-    SmartDashboard.putNumber("Turning FL", Drivetrain.getInstance().getTurningOutputs()[0]);
+    /*SmartDashboard.putNumber("Turning FL", Drivetrain.getInstance().getTurningOutputs()[0]);
+    SmartDashboard.putNumber("Turning RL", Drivetrain.getInstance().getTurningOutputs()[1]);
+    SmartDashboard.putNumber("Turning FR", Drivetrain.getInstance().getTurningOutputs()[2]);
+    SmartDashboard.putNumber("Turning RR", Drivetrain.getInstance().getTurningOutputs()[3]);*/
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
