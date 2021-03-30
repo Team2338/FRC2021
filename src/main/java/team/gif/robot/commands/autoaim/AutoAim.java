@@ -6,12 +6,14 @@ import team.gif.robot.Globals;
 import team.gif.robot.Robot;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 
 public class AutoAim extends CommandBase {
 
     private boolean targetLocked = false;
     private boolean robotHasSettled = false;
+    double offset;
     VisionSim fakeLimelight = new VisionSim();
 
     public AutoAim() {
@@ -32,21 +34,31 @@ public class AutoAim extends CommandBase {
 
         if (targetLocked) {
             System.out.println("Target Acquired");
+
+            offset = Limelight.getInstance().getXOffset();
+
+            if (offset > -1.0 && offset < 1.0) {
+                Drivetrain.getInstance().setVoltage(0);
+                // fire
+                System.out.println("* Fire *");
+            } else {
+                System.out.println("Re-Adjusting: " + offset);
+                targetLocked = false;
+            }
+
         } else {
-            double offset = fakeLimelight.getHeading(); //TODO: get real limelight
+            offset = Limelight.getInstance().getXOffset(); // fakeLimelight.getHeading()
             // Use < Limelight.getInstance().getXOffset() >
-            System.out.println(offset);
 
             if (offset > -1.0 && offset < 1.0) {
                 Drivetrain.getInstance().setVoltage(0);
                 targetLocked = true;
             } else {
-                fakeLimelight.turn(0.1);
 
                 if (offset < 0) {
-                    Drivetrain.drive(0, 0, 3, false);
+                    Drivetrain.drive(0, 0, -0.5, false);
                 } else {
-                    Drivetrain.drive(0, 0, -3, false);
+                    Drivetrain.drive(0, 0, 0.5, false);
                 }
                 targetLocked = false;
             }

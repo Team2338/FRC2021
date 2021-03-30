@@ -24,6 +24,7 @@ import team.gif.robot.commands.drivetrain.ResetEncoders;
 import team.gif.robot.commands.drivetrain.ResetHeading;
 import team.gif.robot.commands.mobility;
 import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 
 import team.gif.robot.subsystems.Hood;
@@ -111,6 +112,8 @@ public class Robot extends TimedRobot {
     //System.out.println(Hood.getInstance().getHoodPos());
     //System.out.println(Hood.getInstance().getPercentOutput());
     //System.out.println(Globals.currentRPM);
+
+    System.out.println(Limelight.getInstance().getXOffset());
 
     CommandScheduler.getInstance().run();
     /*SmartDashboard.putNumber("Turning FL", Drivetrain.getInstance().getTurningOutputs()[0]);

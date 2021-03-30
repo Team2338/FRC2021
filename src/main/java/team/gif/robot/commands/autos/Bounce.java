@@ -29,15 +29,21 @@ public class Bounce extends SequentialCommandGroup {
                         new Pose2dFeet().set(7.0 - xInit, 12.5 - yInit, 0),
                         new Pose2dFeet().set(7.5 - xInit, 7.5 - yInit, 0),
                         new Pose2dFeet().set(12.5 - xInit, 2.5 - yInit, 0),
+                        // Bounce #2
                         new Pose2dFeet().set(14.5 - xInit, 2.5 - yInit, 0),
-                        new Pose2dFeet().set(16.25 - xInit, 8 - yInit, 90),
-                        new Pose2dFeet().set(16.25 - xInit, 13 - yInit, 0),
+                        new Pose2dFeet().set(15.75 - xInit, 8 - yInit, 90),
+                        new Pose2dFeet().set(15.75 - xInit, 13 - yInit, 90),
+                        new Pose2dFeet().set(16 - xInit, 13.25 - yInit, 0),
+                        new Pose2dFeet().set(16.25 - xInit, 13 - yInit, -90),
                         new Pose2dFeet().set(16.25 - xInit, 8 - yInit, -90),
-                        new Pose2dFeet().set(16.25 - xInit, 2.5 - yInit, 0),
-                        new Pose2dFeet().set(22.5 - xInit, 2.5 - yInit, 0),
-                        new Pose2dFeet().set(23.25 - xInit, 13 - yInit, 0),
-                        new Pose2dFeet().set(23.25 - xInit, 8 - yInit, 0),
-                        new Pose2dFeet().set(27.5 - xInit, 8 - yInit, 0)
+                        new Pose2dFeet().set(16.5 - xInit, 2.5 - yInit, 0),
+                        // Bounce #3
+                        new Pose2dFeet().set(22 - xInit, 2.5 - yInit, 0),
+                        new Pose2dFeet().set(23 - xInit, 14 - yInit, 90),
+                        new Pose2dFeet().set(23.25 - xInit, 14.25 - yInit, 0),
+                        new Pose2dFeet().set(23 - xInit, 14 - yInit, -90),
+                        new Pose2dFeet().set(23 - xInit, 12 - yInit, -90),
+                        new Pose2dFeet().set(27.5 - xInit, 10 - yInit, 0)
                 ),
                 RobotTrajectory.getInstance().configForward
         );
