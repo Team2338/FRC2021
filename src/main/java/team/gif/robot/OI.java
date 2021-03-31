@@ -76,10 +76,11 @@ public class OI {
          */
 
         //dB.whenPressed(new ResetEncoders());
-        dLT.whileHeld(new AutoAim());
+        dLT.whileHeld(new AutoAim(true));
+        dLB.whileHeld(new AutoAim(false));
         dRB.whileHeld(new IndexerRun());
         //dY.whileHeld(new IndexerStopperRun(0.5));
-        dLB.whileHeld(new RevFlywheel()); // 2500 0.45
+        //dLB.whileHeld(new RevFlywheel()); // 2500 0.45
         dRT.whileHeld(new Fire());
 
         // Matches Color of Buttons

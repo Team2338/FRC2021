@@ -6,6 +6,8 @@ import team.gif.robot.Globals;
 import team.gif.robot.Robot;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.Indexer;
+import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 
@@ -13,10 +15,13 @@ public class AutoAim extends CommandBase {
 
     private boolean targetLocked = false;
     private boolean robotHasSettled = false;
+    private boolean isRunningFlywheel;
+    private boolean accuracyMode;
     double offset;
     VisionSim fakeLimelight = new VisionSim();
 
-    public AutoAim() {
+    public AutoAim(boolean accuracy) {
+        accuracyMode = accuracy;
         //addRequirements(Drivetrain.getInstance());
     }
 
@@ -25,7 +30,8 @@ public class AutoAim extends CommandBase {
     public void initialize() {
         Globals.isAiming = true;
         targetLocked = false;
-        fakeLimelight.reset(-20);
+        isRunningFlywheel = false;
+        //fakeLimelight.reset(-20);
     }
 
     // Called every time the scheduler runs while the command is scheduled.
@@ -33,7 +39,7 @@ public class AutoAim extends CommandBase {
     public void execute() {
 
         if (targetLocked) {
-            System.out.println("Target Acquired");
+            //System.out.println("Target Acquired");
 
             offset = Limelight.getInstance().getXOffset();
 
@@ -41,6 +47,21 @@ public class AutoAim extends CommandBase {
                 Drivetrain.getInstance().setVoltage(0);
                 // fire
                 System.out.println("* Fire *");
+
+                if (!accuracyMode) {
+                    if (Math.abs(Globals.currentRPM - Shooter.getInstance().getVelocity()) < 35) {
+                        Indexer.getInstance().setSpeedIndexer(0.5);
+                        Indexer.getInstance().setSpeedIndexerStopper(1.0);
+                        Indexer.getInstance().setSpeedSingulator(0.5);
+                        System.out.println("*** Loading ***");
+                    } else {
+                        Indexer.getInstance().setSpeedIndexer(0);
+                        Indexer.getInstance().setSpeedIndexerStopper(0);
+                        Indexer.getInstance().setSpeedSingulator(0);
+                        System.out.println("### Pause ###");
+                    }
+                }
+
             } else {
                 System.out.println("Re-Adjusting: " + offset);
                 targetLocked = false;
@@ -49,6 +70,12 @@ public class AutoAim extends CommandBase {
         } else {
             offset = Limelight.getInstance().getXOffset(); // fakeLimelight.getHeading()
             // Use < Limelight.getInstance().getXOffset() >
+
+            if (!isRunningFlywheel && offset > -5.0 && offset < 5.0) {
+                Shooter.getInstance().setRPM(Globals.currentRPM);
+                Shooter.getInstance().setFlywheel2(Globals.currentFF);
+                isRunningFlywheel = true;
+            }
 
             if (offset > -1.0 && offset < 1.0) {
                 Drivetrain.getInstance().setVoltage(0);
@@ -75,6 +102,12 @@ public class AutoAim extends CommandBase {
     @Override
     public void end(boolean interrupted) {
         Drivetrain.getInstance().setVoltage(0);
+
+        Indexer.getInstance().setSpeedIndexer(0);
+        Indexer.getInstance().setSpeedIndexerStopper(0);
+        Indexer.getInstance().setSpeedSingulator(0);
+        Shooter.getInstance().setVoltage(0);
+
         Globals.isAiming = false;
     }
 }

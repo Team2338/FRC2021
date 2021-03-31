@@ -119,20 +119,20 @@ public final class Constants {
         public static final int BLUE_ZONE = 3;
         public static final int RED_ZONE = 4;
 
-        public static final int HOOD_POS_GREEN = 3020; //TODO: test for actual numbers
-        public static final int HOOD_POS_YELLOW = 10000;
-        public static final int HOOD_POS_BLUE = 11500;
+        public static final int HOOD_POS_GREEN = 3020;
+        public static final int HOOD_POS_YELLOW = 8000;
+        public static final int HOOD_POS_BLUE = 10500;
         public static final int HOOD_POS_RED = 12500;
 
-        public static final int RPM_GREEN = 3000;
+        public static final int RPM_GREEN = 3400;
         public static final int RPM_YELLOW = 4500;
         public static final int RPM_BLUE = 4500;
         public static final int RPM_RED = 4900;
 
         // feedforward of 2nd flywheel motor
-        public static final double FF_GREEN = 0.5;
-        public static final double FF_YELLOW = 0.8;
-        public static final double FF_BLUE = 0.8;
+        public static final double FF_GREEN = 0.6;
+        public static final double FF_YELLOW = 0.78;
+        public static final double FF_BLUE = 0.79;
         public static final double FF_RED = 1.0;
     }
 

@@ -6,8 +6,8 @@ import team.gif.robot.commands.autoaim.AutoAim;
 public class AutoAimTest extends SequentialCommandGroup {
 
     public AutoAimTest() {
-        addCommands(
+        /*addCommands(
                 new AutoAim()
-        );
+        );*/
     }
 }

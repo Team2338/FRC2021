@@ -113,7 +113,7 @@ public class Robot extends TimedRobot {
     //System.out.println(Hood.getInstance().getPercentOutput());
     //System.out.println(Globals.currentRPM);
 
-    System.out.println(Limelight.getInstance().getXOffset());
+    //System.out.println(Limelight.getInstance().getYOffset());
 
     CommandScheduler.getInstance().run();
     /*SmartDashboard.putNumber("Turning FL", Drivetrain.getInstance().getTurningOutputs()[0]);
