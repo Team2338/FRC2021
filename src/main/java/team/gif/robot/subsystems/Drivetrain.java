@@ -202,8 +202,14 @@ public class Drivetrain extends SubsystemBase {
         m_rearRight.setSpeed(drive, turn);
     }
 
-    public double getVelocity() {
-        return m_frontLeft.getVelocity();
+    public double[] getVelocity() {
+        double[] velocities = {
+            m_frontLeft.getVelocity(),
+            m_rearLeft.getVelocity(),
+            m_frontRight.getVelocity(),
+            m_rearLeft.getVelocity()
+        };
+        return velocities;
     }
 
     public double[] getModuleHeadings() {

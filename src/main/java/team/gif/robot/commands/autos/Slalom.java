@@ -52,8 +52,8 @@ public class Slalom extends SequentialCommandGroup {
                     new Pose2dFeet().set(2.5 - 2.5, 2.5 - 2.5, 0), // E1
                     new Pose2dFeet().set(4.8 - 2.5, 2.5 - 2.5, 0),
                     new Pose2dFeet().set(8.8 - 2.5, 8.5 - 2.5, 0),
-                    new Pose2dFeet().set(22 - 2.5, 8.5 - 2.5, 0),
-                    new Pose2dFeet().set(25.5 - 2.5, 1.75 - 2.5, 0),
+                    new Pose2dFeet().set(23 - 2.5, 8.5 - 2.5, 0),
+                    new Pose2dFeet().set(26.5 - 2.5, 1.75 - 2.5, 0),
                     new Pose2dFeet().set(28 - 2.5, 1.75 - 2.5, 0),
                     new Pose2dFeet().set(28 - 2.5, 7.5 - 2.5, 0)
                     /*new Pose2dFeet().set(22.5 - 2.5, 7.5 - 2.5, 180),

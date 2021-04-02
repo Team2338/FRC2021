@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.RobotMap;
 
@@ -18,6 +19,9 @@ public class Indexer extends SubsystemBase {
   private static WPI_TalonSRX indexerStopperMotor = new WPI_TalonSRX(RobotMap.INDEXER_STOPPER_MOTOR);
   public static WPI_TalonSRX singulatorMotor = new WPI_TalonSRX(RobotMap.SINGULATOR_MOTOR);
   private static WPI_TalonSRX collectorMotor = new WPI_TalonSRX(RobotMap.COLLECTOR_MOTOR);
+
+  private static final DigitalInput sensor1 = new DigitalInput(RobotMap.SENSOR_ONE);
+  private static final DigitalInput sensor2 = new DigitalInput(RobotMap.SENSOR_TWO);
 
   public static Indexer getInstance() {
     if (instance == null) {
@@ -69,5 +73,13 @@ public class Indexer extends SubsystemBase {
 
   public void setSpeedCollector(double percent) {
     collectorMotor.set(percent);
+  }
+
+  public boolean getStateOne() {
+    return sensor1.get();
+  }
+
+  public boolean getStateTwo() {
+    return sensor2.get();
   }
 }

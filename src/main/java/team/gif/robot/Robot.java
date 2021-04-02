@@ -15,15 +15,13 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import team.gif.lib.autoMode;
-import team.gif.robot.commands.autos.BarrelRacing;
-import team.gif.robot.commands.autos.Bounce;
-import team.gif.robot.commands.autos.MobilityFwd;
-import team.gif.robot.commands.autos.Slalom;
+import team.gif.robot.commands.autos.*;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.drivetrain.ResetEncoders;
 import team.gif.robot.commands.drivetrain.ResetHeading;
 import team.gif.robot.commands.mobility;
 import team.gif.robot.subsystems.Drivetrain;
+import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.drivers.Limelight;
 import team.gif.robot.subsystems.drivers.Pigeon;
 
@@ -40,6 +38,11 @@ public class Robot extends TimedRobot {
   private Command m_autonomousCommand = null;
 
     private SendableChooser<autoMode> autoModeChooser = new SendableChooser<>();
+
+  private boolean _runAutoScheduler = true;
+  private boolean _runSecondAutoScheduler = false;
+  private boolean _runThirdAutoScheduler = false;
+  private boolean isRedPath = false;
 
   private autoMode chosenAuto;
 
@@ -101,7 +104,7 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Front Right Percent", Drivetrain.getInstance().getModulePercents()[2]);
     SmartDashboard.putNumber("Rear Right Percent", Drivetrain.getInstance().getModulePercents()[3]);*/
 
-    SmartDashboard.putNumber("Front Left Velocity", Drivetrain.getInstance().getVelocity());
+    SmartDashboard.putNumber("Front Left Velocity", Drivetrain.getInstance().getVelocity()[0]);
 
     SmartDashboard.putData("ResetHead", new ResetHeading());
     SmartDashboard.putString("RPM", Shooter.getInstance().getVelocity_Shuffleboard());
@@ -113,6 +116,8 @@ public class Robot extends TimedRobot {
     //System.out.println(Hood.getInstance().getPercentOutput());
     //System.out.println(Globals.currentRPM);
 
+    SmartDashboard.putBoolean("Sensor One", Indexer.getInstance().getStateOne());
+    SmartDashboard.putBoolean("Sensor Two", Indexer.getInstance().getStateTwo());
     //System.out.println(Limelight.getInstance().getYOffset());
 
     CommandScheduler.getInstance().run();
@@ -137,16 +142,78 @@ public class Robot extends TimedRobot {
     updateauto();
 
     // schedule the autonomous command (example)
-    if (m_autonomousCommand != null) {
+    /*if (m_autonomousCommand != null) {
       m_autonomousCommand.schedule();
     } else {
       System.out.println("NOT SCHEDULING AUTO");
-    }
+    }*/
+
+    _runAutoScheduler = true;
+    isRedPath = false;
+  }
+
+  public boolean anySensor() {
+    return (
+        Indexer.getInstance().getStateOne()
+        || Indexer.getInstance().getStateTwo()
+    );
   }
 
   /** This function is called periodically during autonomous. */
   @Override
-  public void autonomousPeriodic() {}
+  public void autonomousPeriodic() {
+    if (_runAutoScheduler) {
+      if (m_autonomousCommand != null) {
+        System.out.println("Delay over. Auto selection scheduler started.");
+        m_autonomousCommand.schedule();
+      }
+      _runAutoScheduler = false;
+    }
+
+    // code for second path
+    if (_runSecondAutoScheduler && !m_autonomousCommand.isScheduled() ) { // first auto is done
+      Pigeon.getInstance().resetPigeonPosition();
+      Drivetrain.getInstance().resetPose();
+
+      if (anySensor()) {
+        m_autonomousCommand = new GalacticSearchRed();
+        isRedPath = true;
+        System.out.println("Path is RED");
+      } else {
+        m_autonomousCommand = new GalacticSearchBlue();
+        System.out.println("Path is BLUE");
+      }
+      m_autonomousCommand.schedule();
+      _runSecondAutoScheduler = false;
+      _runThirdAutoScheduler = true;
+    }
+
+    // code for third path
+    if (_runThirdAutoScheduler && !m_autonomousCommand.isScheduled() ) { // second auto is done
+      Pigeon.getInstance().resetPigeonPosition();
+      Drivetrain.getInstance().resetPose();
+
+      if (isRedPath) {
+        if ( Indexer.getInstance().getStateTwo()) {
+          m_autonomousCommand = new GalacticSearchRedB();
+          System.out.println("Changing to Red B");
+        } else {
+          m_autonomousCommand = new GalacticSearchRedA();
+          System.out.println("Changing to Red A");
+        }
+      } else { // Blue Path
+        if ( anySensor()) {
+          m_autonomousCommand = new GalacticSearchBlueB();
+          System.out.println("Changing to Blue B");
+        } else {
+          m_autonomousCommand = new GalacticSearchBlueA();
+          System.out.println("Changing to Blue A");
+        }
+      }
+      m_autonomousCommand.schedule();
+      _runThirdAutoScheduler = false;
+    }
+  }
 
   @Override
   public void teleopInit() {
@@ -184,10 +251,11 @@ public class Robot extends TimedRobot {
         autoTab = Shuffleboard.getTab("PreMatch");
 
         autoModeChooser.setDefaultOption("Mobility Forward", autoMode.MOBILITY_FWD);
-      autoModeChooser.addOption("Mobility", autoMode.MOBILITY);
+        autoModeChooser.addOption("Mobility", autoMode.MOBILITY);
         autoModeChooser.addOption("Barrel Racing", autoMode.BARREL_RACING);
         autoModeChooser.addOption("Slalom", autoMode.SLALOM);
         autoModeChooser.addOption("Bounce", autoMode.BOUNCE);
+        autoModeChooser.addOption("Galactic Search", autoMode.GALACTIC_SEARCH);
 
         autoTab.add("Auto Select",autoModeChooser)
             .withWidget(BuiltInWidgets.kComboBoxChooser)
@@ -206,6 +274,10 @@ public class Robot extends TimedRobot {
             m_autonomousCommand = new Bounce();
         } else if (chosenAuto == autoMode.MOBILITY) {
           m_autonomousCommand = new mobility();
+        } else if(chosenAuto == autoMode.GALACTIC_SEARCH){
+          m_autonomousCommand = new GalacticSearchColor();
+          _runSecondAutoScheduler = true;
+          _runThirdAutoScheduler = false;
         } else if(chosenAuto ==null) {
             System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
         }

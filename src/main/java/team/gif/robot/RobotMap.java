@@ -31,6 +31,9 @@ public abstract class RobotMap {
     public static final int COLLECTOR_MOTOR = 4;
     public static final int SHOOTER_HOOD_MOTOR = 3;
 
+    public static final int SENSOR_ONE = 0;
+    public static final int SENSOR_TWO = 1;
+
     // Pigeon
     public static final int PIGEON = 4;
 
