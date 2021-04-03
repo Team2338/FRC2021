@@ -63,8 +63,8 @@ public class AutoAim extends CommandBase {
                     System.out.println("* Fire *");
 
                     if (!accuracyMode) {
-                        if (Math.abs(Globals.currentRPM - Shooter.getInstance().getVelocity()) < 35) {
-                            Indexer.getInstance().setSpeedIndexer(0.5);
+                        if (Math.abs(Globals.currentRPM - Shooter.getInstance().getVelocity()) < 25) {
+                            Indexer.getInstance().setSpeedIndexer(0.65);
                             Indexer.getInstance().setSpeedIndexerStopper(1.0);
                             Indexer.getInstance().setSpeedSingulator(0.5);
                             System.out.println("*** Loading ***");

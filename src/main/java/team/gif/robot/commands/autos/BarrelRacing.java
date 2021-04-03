@@ -33,7 +33,7 @@ public class BarrelRacing extends SequentialCommandGroup {
                         new Pose2dFeet().set(23.5 - xInit, 12 - yInit, 135),
                         new Pose2dFeet().set(14 - xInit, 12 - yInit, -90), //8
                         new Pose2dFeet().set(25 - xInit, 1 - yInit, 0),
-                        new Pose2dFeet().set(30 - xInit, 5 - yInit, 90),
+                        new Pose2dFeet().set(30.5 - xInit, 5 - yInit, 90),
                         new Pose2dFeet().set(25 - xInit, 9 - yInit, 180),
                         new Pose2dFeet().set(-4, 1, 180),
                         new Pose2dFeet().set(-4.5, 1, 90),

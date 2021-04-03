@@ -120,9 +120,9 @@ public final class Constants {
         public static final int RED_ZONE = 4;
 
         public static final int HOOD_POS_GREEN = 3020;
-        public static final int HOOD_POS_YELLOW = 8000;
+        public static final int HOOD_POS_YELLOW = 7500;
         public static final int HOOD_POS_BLUE = 10500;
-        public static final int HOOD_POS_RED = 12500;
+        public static final int HOOD_POS_RED = 11750;
 
         public static final int RPM_GREEN = 3400;
         public static final int RPM_YELLOW = 4500;
