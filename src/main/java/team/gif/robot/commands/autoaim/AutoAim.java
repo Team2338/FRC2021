@@ -57,7 +57,7 @@ public class AutoAim extends CommandBase {
 
                 offset = Limelight.getInstance().getXOffset();
 
-                if (offset > -1.0 && offset < 1.0) {
+                if (offset > -1.5 && offset < 0.5) {
                     Drivetrain.getInstance().setVoltage(0);
                     // fire
                     System.out.println("* Fire *");
@@ -93,7 +93,7 @@ public class AutoAim extends CommandBase {
                     isRunningFlywheel = true;
                 }
 
-                if (offset > -1.0 && offset < 1.0) {
+                if (offset > -1.5 && offset < 0.5) {
                     Drivetrain.getInstance().setVoltage(0);
                     targetLocked = true;
                 } else {
