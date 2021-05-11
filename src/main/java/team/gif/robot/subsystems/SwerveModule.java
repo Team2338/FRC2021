@@ -3,6 +3,7 @@ package team.gif.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
@@ -19,13 +20,13 @@ import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import team.gif.robot.Constants;
 
 public class SwerveModule {
-    private final CANSparkMax m_driveMotor;
+    private final WPI_TalonFX m_driveMotor;
     private final WPI_TalonSRX m_turningMotor;
 
     private boolean turningInverted;
     private double turningOffset;
 
-    private final CANEncoder m_driveEncoder;
+    //private final CANEncoder m_driveEncoder;
     //private final AnalogPotentiometer m_turningEncoder;
 
     private final PIDController m_drivePIDController =
@@ -55,14 +56,14 @@ public class SwerveModule {
             boolean turningEncoderReversed,
             double turningMotorOffset) {
 
-        m_driveMotor = new CANSparkMax(driveMotorChannel, CANSparkMaxLowLevel.MotorType.kBrushless);
+        m_driveMotor = new WPI_TalonFX(driveMotorChannel);
         m_turningMotor = new WPI_TalonSRX(turningMotorChannel);
 
-        m_driveMotor.restoreFactoryDefaults();
-        m_driveMotor.setIdleMode(CANSparkMax.IdleMode.kBrake);
+        m_driveMotor.configFactoryDefault();
+        m_driveMotor.setNeutralMode(NeutralMode.Brake);
         m_driveMotor.setInverted(driveMotorReversed);
 
-        m_driveEncoder = m_driveMotor.getEncoder();
+        //m_driveEncoder = m_driveMotor.getEncoder();
 
         m_turningMotor.configFactoryDefault();
         m_turningMotor.setNeutralMode(NeutralMode.Brake);
@@ -74,7 +75,7 @@ public class SwerveModule {
         // distance traveled for one rotation of the wheel divided by the encoder
         // resolution.
         //m_driveEncoder.setDistancePerPulse(Constants.ModuleConstants.kDriveEncoderDistancePerPulse);
-        m_driveEncoder.setVelocityConversionFactor((Math.PI * Constants.ModuleConstants.kWheelDiameterMeters) / (60.0 * Constants.ModuleConstants.kGearRatio));
+        //m_driveEncoder.setVelocityConversionFactor((Math.PI * Constants.ModuleConstants.kWheelDiameterMeters) / (60.0 * Constants.ModuleConstants.kGearRatio));
         //2.0 * Math.PI * Constants.Drivetrain.DRIVE_WHEEL_RADIUS
 
         // Set whether drive encoder should be reversed or not
@@ -104,7 +105,12 @@ public class SwerveModule {
      * @return The current state of the module.
      */
     public SwerveModuleState getState() {
-        return new SwerveModuleState(m_driveEncoder.getVelocity(), new Rotation2d(getTurningHeading()));
+        return new SwerveModuleState(getDriveVelocity(), new Rotation2d(getTurningHeading()));
+    }
+
+    private double getDriveVelocity() {
+        return (m_driveMotor.getSelectedSensorVelocity() * 1000 * Math.PI * Constants.ModuleConstants.kWheelDiameterMeters) /
+            (Constants.ModuleConstants.kFalconEncoderCPR * Constants.ModuleConstants.kGearRatio);
     }
 
     /**
@@ -138,7 +144,7 @@ public class SwerveModule {
 
         // Calculate the drive output from the drive PID controller.
         final var driveOutput =
-                m_drivePIDController.calculate(m_driveEncoder.getVelocity(), stateOptimized.speedMetersPerSecond);
+                m_drivePIDController.calculate(getDriveVelocity(), stateOptimized.speedMetersPerSecond);
 
         // Calculate the turning motor output from the turning PID controller.
         final var turnOutput =
@@ -151,7 +157,7 @@ public class SwerveModule {
 
     /** Zeros all the SwerveModule encoders. */
     public void resetEncoders() {
-        m_driveEncoder.setPosition(0.0);
+        m_driveMotor.setSelectedSensorPosition(0);
         m_turningMotor.setSelectedSensorPosition(0.0, 0, 0);
     }
 
@@ -169,9 +175,9 @@ public class SwerveModule {
         return getTurningHeading();
     }*/
 
-    public double getVelocity() {
-        return m_driveEncoder.getVelocity();
-    }
+    //public double getVelocity() {
+    //    return m_driveEncoder.getVelocity();
+    //}
 
     public double getDrivePercent() {
         return m_driveMotor.get();
