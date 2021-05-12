@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.kinematics.ChassisSpeeds;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.wpilibj.kinematics.SwerveDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.SwerveModuleState;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import team.gif.robot.Constants;
 import team.gif.robot.RobotMap;
@@ -77,6 +78,9 @@ public class Drivetrain extends SubsystemBase {
 
     @Override
     public void periodic() {
+
+        //Shuffleboard.put
+
         //System.out.println("TURN: " + m_rearRight.getTurnDegrees());
         //System.out.println("DRIVE: " + m_frontLeft.getVelocity());
         //System.out.println("PIGEON: " + getHeading());
@@ -204,10 +208,10 @@ public class Drivetrain extends SubsystemBase {
 
     public double[] getVelocity() {
         double[] velocities = {
-            m_frontLeft.getVelocity(),
-            m_rearLeft.getVelocity(),
-            m_frontRight.getVelocity(),
-            m_rearLeft.getVelocity()
+            m_frontLeft.getDriveVelocity(),
+            m_rearLeft.getDriveVelocity(),
+            m_frontRight.getDriveVelocity(),
+            m_rearRight.getDriveVelocity()
         };
         return velocities;
     }

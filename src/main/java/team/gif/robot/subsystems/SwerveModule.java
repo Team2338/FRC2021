@@ -62,6 +62,7 @@ public class SwerveModule {
         m_driveMotor.configFactoryDefault();
         m_driveMotor.setNeutralMode(NeutralMode.Brake);
         m_driveMotor.setInverted(driveMotorReversed);
+        m_driveMotor.configSelectedFeedbackSensor(FeedbackDevice.IntegratedSensor);
 
         //m_driveEncoder = m_driveMotor.getEncoder();
 
@@ -108,8 +109,8 @@ public class SwerveModule {
         return new SwerveModuleState(getDriveVelocity(), new Rotation2d(getTurningHeading()));
     }
 
-    private double getDriveVelocity() {
-        return (m_driveMotor.getSelectedSensorVelocity() * 1000 * Math.PI * Constants.ModuleConstants.kWheelDiameterMeters) /
+    public double getDriveVelocity() {
+        return (m_driveMotor.getSelectedSensorVelocity() * 10 * Math.PI * Constants.ModuleConstants.kWheelDiameterMeters) /
             (Constants.ModuleConstants.kFalconEncoderCPR * Constants.ModuleConstants.kGearRatio);
     }
 

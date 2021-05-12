@@ -51,10 +51,12 @@ public class Drive extends CommandBase {
       x = Math.abs(x) > 0.07 ? x : 0;
       y = Math.abs(y) > 0.07 ? y : 0;
       rot = Math.abs(rot) > 0.07 ? rot : 0;
+
+      //System.out.println(x + "  ,  " + y);
       // A split-stick arcade command, with forward/backward controlled by the left
       // hand, and turning controlled by the right.
       Drivetrain.drive(
-              6.0 * x,
+              6.0 * x, //was 6
               6.0 * y,
               4.0 * rot,
               false);

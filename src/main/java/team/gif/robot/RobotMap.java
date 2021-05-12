@@ -2,10 +2,10 @@ package team.gif.robot;
 
 public abstract class RobotMap {
 
-    public static final int kFrontLeftDriveMotorPort = 11;
-    public static final int kRearLeftDriveMotorPort = 6;
-    public static final int kFrontRightDriveMotorPort = 10;
-    public static final int kRearRightDriveMotorPort = 9;
+    public static final int kFrontLeftDriveMotorPort = 23;
+    public static final int kRearLeftDriveMotorPort = 22;
+    public static final int kFrontRightDriveMotorPort = 20;
+    public static final int kRearRightDriveMotorPort = 21;
 
     public static final int kFrontLeftTurningMotorPort = 12;
     public static final int kRearLeftTurningMotorPort = 8;
