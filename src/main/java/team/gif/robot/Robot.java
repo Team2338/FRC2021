@@ -125,6 +125,8 @@ public class Robot extends TimedRobot {
     SmartDashboard.putNumber("Turning RL", Drivetrain.getInstance().getTurningOutputs()[1]);
     SmartDashboard.putNumber("Turning FR", Drivetrain.getInstance().getTurningOutputs()[2]);
     SmartDashboard.putNumber("Turning RR", Drivetrain.getInstance().getTurningOutputs()[3]);*/
+
+    System.out.println(Drivetrain.getInstance().getVelocity()[3]);
   }
 
   /** This function is called once each time the robot enters Disabled mode. */
