@@ -2,15 +2,8 @@ package team.gif.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.revrobotics.CANEncoder;
-import com.revrobotics.CANSparkMax;
-import com.revrobotics.CANSparkMaxLowLevel;
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.Encoder;
-import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -42,10 +35,11 @@ public class SwerveModule {
                             Constants.ModuleConstants.kMaxModuleAngularSpeedRadiansPerSecond,
                             Constants.ModuleConstants.kMaxModuleAngularAccelerationRadiansPerSecondSquared));
 
+
     /**
      * Constructs a SwerveModule.
      *
-     * @param driveMotorChannel ID for the drive motor.
+     * @param driveMotorChannel   ID for the drive motor.
      * @param turningMotorChannel ID for the turning motor.
      */
     public SwerveModule(
@@ -54,7 +48,8 @@ public class SwerveModule {
             boolean turningMotorReversed,
             boolean driveMotorReversed,
             boolean turningEncoderReversed,
-            double turningMotorOffset) {
+            double turningMotorOffset
+    ) {
 
         m_driveMotor = new WPI_TalonFX(driveMotorChannel);
         m_turningMotor = new WPI_TalonSRX(turningMotorChannel);
@@ -70,7 +65,7 @@ public class SwerveModule {
         m_turningMotor.setNeutralMode(NeutralMode.Brake);
         m_turningMotor.setInverted(turningMotorReversed);
 
-        m_turningMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute,0 ,0);
+        m_turningMotor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Absolute, 0, 0);
 
         // Set the distance per pulse for the drive encoder. We can simply use the
         // distance traveled for one rotation of the wheel divided by the encoder
@@ -100,6 +95,7 @@ public class SwerveModule {
         m_turningPIDController.enableContinuousInput(-Math.PI, Math.PI);
     }
 
+
     /**
      * Returns the current state of the module.
      *
@@ -109,13 +105,14 @@ public class SwerveModule {
         return new SwerveModuleState(getDriveVelocity(), new Rotation2d(getTurningHeading()));
     }
 
+
     public double getDriveVelocity() {
         return (m_driveMotor.getSelectedSensorVelocity() * 10 * Math.PI * Constants.ModuleConstants.kWheelDiameterMeters) /
-            (Constants.ModuleConstants.kFalconEncoderCPR * Constants.ModuleConstants.kGearRatio);
+                (Constants.ModuleConstants.kFalconEncoderCPR * Constants.ModuleConstants.kGearRatio);
     }
 
+
     /**
-     *
      * @return heading of module in degrees
      */
     public double getTurningHeading() {
@@ -128,9 +125,11 @@ public class SwerveModule {
         return heading;
     }
 
+
     public double getRawHeading() {
         return m_turningMotor.getSelectedSensorPosition();
     }
+
 
     /**
      * Sets the desired state for the module.
@@ -156,33 +155,32 @@ public class SwerveModule {
         m_turningMotor.set(turnOutput);
     }
 
-    /** Zeros all the SwerveModule encoders. */
+
+    /**
+     * Zeros all the SwerveModule encoders.
+     */
     public void resetEncoders() {
         m_driveMotor.setSelectedSensorPosition(0);
         m_turningMotor.setSelectedSensorPosition(0.0, 0, 0);
     }
+
 
     public void setSpeed(double drive, double turn) {
         m_driveMotor.set(drive);
         m_turningMotor.set(turn);
     }
 
+
     public void setVoltage(double drive, double turn) {
         m_driveMotor.setVoltage(drive);
         m_turningMotor.setVoltage(drive);
     }
 
-    /*public double getTurnDegrees() {
-        return getTurningHeading();
-    }*/
-
-    //public double getVelocity() {
-    //    return m_driveEncoder.getVelocity();
-    //}
 
     public double getDrivePercent() {
         return m_driveMotor.get();
     }
+
 
     public double getTurningOuput() {
         return m_turningMotor.get();

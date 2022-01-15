@@ -14,8 +14,6 @@ import team.gif.robot.subsystems.drivers.Pigeon;
 public class Drivetrain extends SubsystemBase {
     private static Drivetrain instance = null;
 
-    //private static WPI_TalonSRX pigeonTalon = new WPI_TalonSRX(RobotMap.INDEXER_STOPPER_MOTOR);
-
     // Robot swerve modules
     private static final SwerveModule m_frontLeft =
             new SwerveModule(
@@ -24,7 +22,8 @@ public class Drivetrain extends SubsystemBase {
                     Constants.Drivetrain.kFrontLeftTurningMotorReversed,
                     Constants.Drivetrain.kFrontLeftDriveMotorReversed,
                     Constants.Drivetrain.kFrontLeftTurningEncoderReversed,
-                    Constants.Drivetrain.kFrontLeftOffset);
+                    Constants.Drivetrain.kFrontLeftOffset
+            );
 
     private static final SwerveModule m_rearLeft =
             new SwerveModule(
@@ -33,7 +32,8 @@ public class Drivetrain extends SubsystemBase {
                     Constants.Drivetrain.kRearLeftTurningMotorReversed,
                     Constants.Drivetrain.kRearLeftDriveMotorReversed,
                     Constants.Drivetrain.kRearLeftTurningEncoderReversed,
-                    Constants.Drivetrain.kRearLeftOffset);
+                    Constants.Drivetrain.kRearLeftOffset
+            );
 
     private static final SwerveModule m_frontRight =
             new SwerveModule(
@@ -42,7 +42,8 @@ public class Drivetrain extends SubsystemBase {
                     Constants.Drivetrain.kFrontRightTurningMotorReversed,
                     Constants.Drivetrain.kFrontRightDriveMotorReversed,
                     Constants.Drivetrain.kFrontRightTurningEncoderReversed,
-                    Constants.Drivetrain.kFrontRightOffset);
+                    Constants.Drivetrain.kFrontRightOffset
+            );
 
     private static final SwerveModule m_rearRight =
             new SwerveModule(
@@ -51,7 +52,8 @@ public class Drivetrain extends SubsystemBase {
                     Constants.Drivetrain.kRearRightTurningMotorReversed,
                     Constants.Drivetrain.kRearRightDriveMotorReversed,
                     Constants.Drivetrain.kRearRightTurningEncoderReversed,
-                    Constants.Drivetrain.kRearRightOffset);
+                    Constants.Drivetrain.kRearRightOffset
+            );
 
     // The gyro sensor
     private static final Pigeon m_gyro = new Pigeon(Indexer.singulatorMotor);
@@ -68,8 +70,10 @@ public class Drivetrain extends SubsystemBase {
         return instance;
     }
 
-    /** Creates a new DriveSubsystem. */
-    public Drivetrain() {}
+    /**
+     * Creates a new DriveSubsystem.
+     */
+    private Drivetrain() {}
 
     @Override
     public void periodic() {
@@ -85,9 +89,8 @@ public class Drivetrain extends SubsystemBase {
                 m_frontLeft.getState(),
                 m_rearLeft.getState(),
                 m_frontRight.getState(),
-                m_rearRight.getState());
-
-        //System.out.println(getPose()); //Drivetrain.getInstance().getPose()
+                m_rearRight.getState()
+        );
     }
 
     /**
@@ -108,19 +111,18 @@ public class Drivetrain extends SubsystemBase {
         m_odometry.resetPosition(pose, m_gyro.getRotation2d());
     }
 
-    public void resetPose(){
+    public void resetPose() {
         m_odometry.resetPosition(new Pose2d(0, 0, Rotation2d.fromDegrees(0)), Rotation2d.fromDegrees(0));
     }
 
     /**
      * Method to drive the robot using joystick info.
      *
-     * @param xSpeed Speed of the robot in the x direction (forward).
-     * @param ySpeed Speed of the robot in the y direction (sideways).
-     * @param rot Angular rate of the robot.
+     * @param xSpeed        Speed of the robot in the x direction (forward).
+     * @param ySpeed        Speed of the robot in the y direction (sideways).
+     * @param rot           Angular rate of the robot.
      * @param fieldRelative Whether the provided x and y speeds are relative to the field.
      */
-    @SuppressWarnings("ParameterName")
     public static void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
         var swerveModuleStates =
                 Constants.Drivetrain.kDriveKinematics.toSwerveModuleStates(
@@ -148,14 +150,11 @@ public class Drivetrain extends SubsystemBase {
         m_frontRight.setDesiredState(desiredStates[1]);
         m_rearLeft.setDesiredState(desiredStates[2]);
         m_rearRight.setDesiredState(desiredStates[3]);
-
-        //System.out.println(desiredStates[0].speedMetersPerSecond);
-        //System.out.println(desiredStates[1].speedMetersPerSecond);
-        //System.out.println(desiredStates[2].speedMetersPerSecond);
-        //System.out.println(desiredStates[3].speedMetersPerSecond);
     }
 
-    /** Resets the drive encoders to currently read a position of 0. */
+    /**
+     * Resets the drive encoders to currently read a position of 0.
+     */
     public void resetEncoders() {
         m_frontLeft.resetEncoders();
         m_rearLeft.resetEncoders();
@@ -163,7 +162,9 @@ public class Drivetrain extends SubsystemBase {
         m_rearRight.resetEncoders();
     }
 
-    /** Zeroes the heading of the robot. */
+    /**
+     * Zeroes the heading of the robot.
+     */
     public void zeroHeading() {
         m_gyro.resetPigeonPosition();
     }
@@ -177,15 +178,6 @@ public class Drivetrain extends SubsystemBase {
         return m_gyro.getRotation2d().getDegrees();
     }
 
-    /**
-     * Returns the turn rate of the robot.
-     *
-     * @return The turn rate of the robot, in degrees per second
-     */
-    /*public double getTurnRate() {
-        return m_gyro.getRate() * (Constants.Drivetrain.kGyroReversed ? -1.0 : 1.0);
-    }*/
-
     public void setVoltage(double voltage) {
         m_frontLeft.setVoltage(voltage, voltage);
         m_rearLeft.setVoltage(voltage, voltage);
@@ -193,61 +185,56 @@ public class Drivetrain extends SubsystemBase {
         m_rearRight.setVoltage(voltage, voltage);
     }
 
-    public void setSpeedFL (double drive, double turn) {
+    public void setSpeedFL(double drive, double turn) {
         m_frontLeft.setSpeed(drive, turn);
     }
 
-    public void setSpeedRR (double drive, double turn) {
+    public void setSpeedRR(double drive, double turn) {
         m_rearRight.setSpeed(drive, turn);
     }
 
     public double[] getVelocity() {
-        double[] velocities = {
-            m_frontLeft.getDriveVelocity(),
-            m_rearLeft.getDriveVelocity(),
-            m_frontRight.getDriveVelocity(),
-            m_rearRight.getDriveVelocity()
+        return new double[] {
+                m_frontLeft.getDriveVelocity(),
+                m_rearLeft.getDriveVelocity(),
+                m_frontRight.getDriveVelocity(),
+                m_rearRight.getDriveVelocity()
         };
-        return velocities;
     }
 
     public double[] getModuleHeadings() {
-        double[] headings = {
+        return new double[] {
                 m_frontLeft.getTurningHeading() % (2.0 * Math.PI),
                 m_rearLeft.getTurningHeading() % (2.0 * Math.PI),
                 m_frontRight.getTurningHeading() % (2.0 * Math.PI),
                 m_rearRight.getTurningHeading() % (2.0 * Math.PI)
         };
-        return headings;
     }
 
     public double[] getRawModuleHeadings() {
-        double[] headings = {
+        return new double[] {
                 m_frontLeft.getRawHeading() % Constants.ModuleConstants.kEncoderCPR,
                 m_rearLeft.getRawHeading() % Constants.ModuleConstants.kEncoderCPR,
                 m_frontRight.getRawHeading() % Constants.ModuleConstants.kEncoderCPR,
                 m_rearRight.getRawHeading() % Constants.ModuleConstants.kEncoderCPR
         };
-        return headings;
     }
 
     public double[] getModulePercents() {
-        double[] headings = {
+        return new double[] {
                 m_frontLeft.getDrivePercent(),
                 m_rearLeft.getDrivePercent(),
                 m_frontRight.getDrivePercent(),
                 m_rearRight.getDrivePercent()
         };
-        return headings;
     }
 
     public double[] getTurningOutputs() {
-        double[] percents = {
+        return new double[] {
                 m_frontLeft.getTurningOuput(),
                 m_rearLeft.getTurningOuput(),
                 m_frontRight.getTurningOuput(),
                 m_rearRight.getTurningOuput()
         };
-        return percents;
     }
 }

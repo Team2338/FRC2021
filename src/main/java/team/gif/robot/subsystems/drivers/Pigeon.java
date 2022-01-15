@@ -22,19 +22,22 @@ public class Pigeon {
         return instance;
     }
 
-    public Pigeon(){
+    public Pigeon() {
         _pigeon = new PigeonIMU(RobotMap.PIGEON);
         instance = this;
     }
 
-    public Pigeon(TalonSRX talon){
+    public Pigeon(TalonSRX talon) {
         _pigeon = new PigeonIMU(talon);
         instance = this;
 
         // Puts a Gyro type widget on dashboard and assigns
         // the function getHeading_Shuffleboard
         ShuffleboardTab   tab  = Shuffleboard.getTab("SmartDashboard"); //gets a reference to the shuffleboard tab
-        tab.add("BotHead",(x)->{x.setSmartDashboardType("Gyro");x.addDoubleProperty("Value", ()-> getCompassHeading(),null);});
+        tab.add("BotHead",(x) -> {
+            x.setSmartDashboardType("Gyro");
+            x.addDoubleProperty("Value", this::getCompassHeading,null);
+        });
     }
 
     /**
@@ -42,8 +45,7 @@ public class Pigeon {
      * Added by Josh, 2/6/2021
      */
     public Rotation2d getRotation2d() {
-        Rotation2d rotation = new Rotation2d(getHeading() * 0.0174533);
-        return rotation;
+        return new Rotation2d(getHeading() * 0.0174533);
     }
 
     /**
@@ -123,7 +125,6 @@ public class Pigeon {
     public double[] getYPR(){
         double[] ypr = new double[3];
         _pigeon.getYawPitchRoll(ypr);
-        System.out.format("YPR %.1f %.1f %.1f",ypr[0],ypr[1],ypr[2]);
         return ypr;
     }
 

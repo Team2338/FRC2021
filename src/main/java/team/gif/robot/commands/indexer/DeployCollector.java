@@ -5,9 +5,6 @@ import team.gif.robot.subsystems.Indexer;
 
 public class DeployCollector extends CommandBase {
 
-    public DeployCollector() {
-    }
-
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {

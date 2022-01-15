@@ -1,9 +1,7 @@
 package team.gif.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
-import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -12,6 +10,13 @@ import team.gif.robot.RobotMap;
 
 public class Hood extends SubsystemBase {
     private static Hood instance;
+
+    public static Hood getInstance() {
+        if (instance == null) {
+            instance = new Hood();
+        }
+        return instance;
+    }
 
     private TalonSRX hoodMotor = new WPI_TalonSRX(RobotMap.SHOOTER_HOOD_MOTOR);
 
@@ -29,7 +34,7 @@ public class Hood extends SubsystemBase {
         /* Ensure sensor is positive when output is positive */
         hoodMotor.setSensorPhase(Constants.Hood.kSensorPhase);
 
-        /**
+        /*
          * Set based on what direction you want forward/positive to be.
          * This does not affect sensor phase. 
          */
@@ -41,7 +46,7 @@ public class Hood extends SubsystemBase {
         hoodMotor.configPeakOutputForward(0.25, Constants.Hood.kTimeoutMs);
         hoodMotor.configPeakOutputReverse(-0.25, Constants.Hood.kTimeoutMs);
 
-        /**
+        /*
          * Config the allowable closed-loop error, Closed-Loop output will be
          * neutral within this range. See Table in Section 17.2.1 for native
          * units per rotation.
@@ -54,7 +59,7 @@ public class Hood extends SubsystemBase {
         hoodMotor.config_kI(Constants.Hood.kPIDLoopIdx, Constants.Hood.kGains.kI, Constants.Hood.kTimeoutMs);
         hoodMotor.config_kD(Constants.Hood.kPIDLoopIdx, Constants.Hood.kGains.kD, Constants.Hood.kTimeoutMs);
 
-        /**
+        /*
          * Grab the 360 degree position of the MagEncoder's absolute
          * position, and intitally set the relative sensor to match.
          */
@@ -62,8 +67,12 @@ public class Hood extends SubsystemBase {
 
         /* Mask out overflows, keep bottom 12 bits */
         absolutePosition &= 0xFFF;
-        if (Constants.Hood.kSensorPhase) { absolutePosition *= -1; }
-        if (Constants.Hood.kMotorInvert) { absolutePosition *= -1; }
+        if (Constants.Hood.kSensorPhase) {
+            absolutePosition *= -1;
+        }
+        if (Constants.Hood.kMotorInvert) {
+            absolutePosition *= -1;
+        }
 
         /* Set the quadrature (relative) sensor to match absolute */
         hoodMotor.setSelectedSensorPosition(absolutePosition, Constants.Hood.kPIDLoopIdx, Constants.Hood.kTimeoutMs);
@@ -197,10 +206,4 @@ public class Hood extends SubsystemBase {
         hoodMotor.setSelectedSensorPosition(0);
     }
 
-    public static Hood getInstance() {
-        if (instance == null) {
-            instance = new Hood();
-        }
-        return instance;
-    }
 }

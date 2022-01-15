@@ -2,17 +2,11 @@ package team.gif.robot.commands.drivetrain;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.subsystems.Drivetrain;
-import team.gif.robot.subsystems.ExampleSubsystem;
 
-/** An example command that uses an example subsystem. */
 public class ResetEncoders extends CommandBase {
-    @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-    //private final Drivetrain m_subsystem;
 
     /**
      * Creates a new ExampleCommand.
-     *
-     * @param subsystem The subsystem used by this command.
      */
     public ResetEncoders() {
         //m_subsystem = subsystem;
@@ -24,7 +18,6 @@ public class ResetEncoders extends CommandBase {
     @Override
     public void initialize() {
         Drivetrain.getInstance().resetEncoders();
-        System.out.println("Working");
     }
 
     // Called every time the scheduler runs while the command is scheduled.
