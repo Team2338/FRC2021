@@ -4,18 +4,15 @@
 
 package team.gif.robot.commands.drivetrain;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.robot.Globals;
 import team.gif.robot.Robot;
 import team.gif.robot.subsystems.Drivetrain;
-import team.gif.robot.subsystems.ExampleSubsystem;
 
 /** An example command that uses an example subsystem. */
 public class Drive extends CommandBase {
-  @SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-  //private final Drivetrain m_subsystem;
 
+  private static final double JOYSTICK_DEADZONE = 0.05;
   double x;
   double y;
   double rot;
@@ -39,20 +36,23 @@ public class Drive extends CommandBase {
   @Override
   public void execute() {
 
-    /**
+    /*
      * Note: Front in Teleop is different from "official" front!
      * */
 
     if (!Globals.isAiming) {
-      x = Robot.oi.driver.getY(GenericHID.Hand.kLeft);
-      y = -Robot.oi.driver.getX(GenericHID.Hand.kLeft);
-      rot = Robot.oi.driver.getX(GenericHID.Hand.kRight);
+      x = Robot.oi.leftStick.getX();
+      y = -Robot.oi.leftStick.getY();
+      rot = Robot.oi.rightStick.getX();
+      
+//      x = Robot.oi.driver.getY(GenericHID.Hand.kLeft);
+//      y = -Robot.oi.driver.getX(GenericHID.Hand.kLeft);
+//      rot = Robot.oi.driver.getX(GenericHID.Hand.kRight);
 
-      x = Math.abs(x) > 0.07 ? x : 0;
-      y = Math.abs(y) > 0.07 ? y : 0;
-      rot = Math.abs(rot) > 0.07 ? rot : 0;
+      x = Math.abs(x) > JOYSTICK_DEADZONE ? x : 0;
+      y = Math.abs(y) > JOYSTICK_DEADZONE ? y : 0;
+      rot = Math.abs(rot) > JOYSTICK_DEADZONE ? rot : 0;
 
-      //System.out.println(x + "  ,  " + y);
       // A split-stick arcade command, with forward/backward controlled by the left
       // hand, and turning controlled by the right.
       Drivetrain.drive(
@@ -60,16 +60,6 @@ public class Drive extends CommandBase {
               6.0 * y,
               4.0 * rot,
               false);
-    /*Drivetrain.getInstance().setSpeedRR(
-            -Robot.oi.driver.getY(GenericHID.Hand.kLeft),
-            -Robot.oi.driver.getY(GenericHID.Hand.kRight)
-    );
-    Drivetrain.getInstance().setSpeedFL(
-            -Robot.oi.driver.getY(GenericHID.Hand.kLeft),
-            -Robot.oi.driver.getY(GenericHID.Hand.kRight)
-    );
-    System.out.println("INPUT: " + -Robot.oi.driver.getY(GenericHID.Hand.kRight));*/
-      //System.out.println(rot);
     }
   }
 

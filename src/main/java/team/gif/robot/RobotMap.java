@@ -40,4 +40,6 @@ public abstract class RobotMap {
     // Controllers
     public static final int DRIVER_CONTROLLER_ID = 0;
     public static final int AUX_CONTROLLER_ID = 1;
+    public static final int LEFT_STICK_PORT = 0;
+    public static final int RIGHT_STICK_PORT = 1;
 }
