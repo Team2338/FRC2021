@@ -17,8 +17,8 @@ import team.gif.lib.autoMode;
 import team.gif.robot.commands.autos.*;
 import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.commands.drivetrain.ResetEncoders;
-import team.gif.robot.commands.drivetrain.ResetHeading;
 import team.gif.robot.commands.Mobility;
+import team.gif.robot.commands.drivetrain.ResetHeading;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.drivers.Pigeon;
@@ -61,8 +61,9 @@ public class Robot extends TimedRobot {
 
         driveCommand = new Drive();
 
-        tabsetup();
+        setupTabs();
         SmartDashboard.putData("Reset Module Encoders", new ResetEncoders());
+        SmartDashboard.putData("ResetHead", new ResetHeading());
         SmartDashboard.putString("Zone", "N/A");
 
         hood.resetHoodEncoder();
@@ -98,12 +99,8 @@ public class Robot extends TimedRobot {
         SmartDashboard.putNumber("Rear Right Percent", Drivetrain.getInstance().getModulePercents()[3]);*/
 
         SmartDashboard.putNumber("Front Left Velocity", Drivetrain.getInstance().getVelocity()[0]);
-
-        SmartDashboard.putData("ResetHead", new ResetHeading());
         SmartDashboard.putString("RPM", Shooter.getInstance().getVelocity_Shuffleboard());
-
         SmartDashboard.putNumber("Flywheel Percent", Shooter.getInstance().getPercentOutput());
-
         SmartDashboard.putNumber("Hood Position", Hood.getInstance().getHoodPos());
         //System.out.println(Hood.getInstance().getHoodPos());
         //System.out.println(Hood.getInstance().getPercentOutput());
@@ -237,7 +234,7 @@ public class Robot extends TimedRobot {
     public void testPeriodic() {}
 
 
-    public void tabSetup() {
+    public void setupTabs() {
 
         autoTab = Shuffleboard.getTab("PreMatch");
 
