@@ -8,7 +8,7 @@ import team.gif.robot.subsystems.Hood;
 
 public class SelectRange extends CommandBase {
 
-    private int position;
+    private final int position;
 
     public SelectRange(int zoneID) {
         position = zoneID;
@@ -17,8 +17,6 @@ public class SelectRange extends CommandBase {
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {
-        //System.out.println("Selector Init");
-
         switch (position) {
             case Constants.Shooter.GREEN_ZONE:
                 Hood.getInstance().setPosition(Constants.Shooter.HOOD_POS_GREEN);
@@ -53,9 +51,7 @@ public class SelectRange extends CommandBase {
 
     // Called once the command ends or is interrupted.
     @Override
-    public void end(boolean interrupted) {
-        //System.out.println("Selector End");
-    }
+    public void end(boolean interrupted) {}
 
     // Returns true when the command should end.
     @Override

@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.ProfiledPIDController;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.geometry.Translation2d;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
@@ -14,14 +13,12 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.SwerveControllerCommand;
 import team.gif.robot.Constants;
 import team.gif.robot.subsystems.Drivetrain;
-import team.gif.robot.subsystems.drivers.Pigeon;
 
 import java.util.List;
 
-public class mobility extends SequentialCommandGroup {
+public class Mobility extends SequentialCommandGroup {
 
-    public mobility(){
-        //System.out.println("mobility constructed");
+    public Mobility(){
         addCommands(new PrintCommand("mobility Started -------------------------------------------------------------------------->>>>>>>>>>>>>>>>>>>"));
         addCommands(forward());
         addCommands(new PrintCommand("mobility ended----------------------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>"));

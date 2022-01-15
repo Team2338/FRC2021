@@ -5,11 +5,6 @@ import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.drivers.Pigeon;
 
 public class ResetHeading extends CommandBase {
-    //@SuppressWarnings({"PMD.UnusedPrivateField", "PMD.SingularField"})
-
-    public ResetHeading() {
-        // Use addRequirements() here to declare subsystem dependencies.
-    }
 
     // Called when the command is initially scheduled.
     @Override
@@ -20,8 +15,7 @@ public class ResetHeading extends CommandBase {
 
     // Called every time the scheduler runs while the command is scheduled.
     @Override
-    public void execute() {
-    }
+    public void execute() {}
 
     // Returns true when the command should end.
     @Override

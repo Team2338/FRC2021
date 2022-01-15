@@ -1,16 +1,12 @@
 package team.gif.robot.commands.autoaim;
 
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import team.gif.lib.VisionSim;
 import team.gif.robot.Globals;
-import team.gif.robot.Robot;
-import team.gif.robot.commands.drivetrain.Drive;
 import team.gif.robot.subsystems.Drivetrain;
 import team.gif.robot.subsystems.Indexer;
 import team.gif.robot.subsystems.Shooter;
 import team.gif.robot.subsystems.drivers.Limelight;
-import team.gif.robot.subsystems.drivers.Pigeon;
 
 public class AutoAim extends CommandBase {
 
