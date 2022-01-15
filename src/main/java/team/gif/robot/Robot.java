@@ -37,7 +37,7 @@ import team.gif.robot.subsystems.Shooter;
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand = null;
 
-    private SendableChooser<autoMode> autoModeChooser = new SendableChooser<>();
+  private SendableChooser<autoMode> autoModeChooser = new SendableChooser<>();
 
   private boolean _runAutoScheduler = true;
   private boolean _runSecondAutoScheduler = false;
@@ -266,7 +266,7 @@ public class Robot extends TimedRobot {
     }
 
     public void updateauto(){
-        if(chosenAuto == autoMode.MOBILITY_FWD){
+        if (chosenAuto == autoMode.MOBILITY_FWD){
             m_autonomousCommand = new MobilityFwd();
         } else if (chosenAuto == autoMode.BARREL_RACING){
             m_autonomousCommand = new BarrelRacing();
@@ -276,11 +276,11 @@ public class Robot extends TimedRobot {
             m_autonomousCommand = new Bounce();
         } else if (chosenAuto == autoMode.MOBILITY) {
           m_autonomousCommand = new mobility();
-        } else if(chosenAuto == autoMode.GALACTIC_SEARCH){
+        } else if (chosenAuto == autoMode.GALACTIC_SEARCH){
           m_autonomousCommand = new GalacticSearchColor();
           _runSecondAutoScheduler = true;
           _runThirdAutoScheduler = false;
-        } else if(chosenAuto ==null) {
+        } else if (chosenAuto == null) {
             System.out.println("Autonomous selection is null. Robot will do nothing in auto :(");
         }
     }
