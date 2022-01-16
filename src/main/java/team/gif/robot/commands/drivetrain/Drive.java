@@ -40,9 +40,9 @@ public class Drive extends CommandBase {
             y = -Robot.oi.leftStick.getX();
             rot = Robot.oi.rightStick.getTwist();
 
-//      x = Robot.oi.driver.getY(GenericHID.Hand.kLeft);
-//      y = -Robot.oi.driver.getX(GenericHID.Hand.kLeft);
-//      rot = Robot.oi.driver.getX(GenericHID.Hand.kRight);
+    //      x = Robot.oi.driver.getY(GenericHID.Hand.kLeft);
+    //      y = -Robot.oi.driver.getX(GenericHID.Hand.kLeft);
+    //      rot = Robot.oi.driver.getX(GenericHID.Hand.kRight);
 
             x = Math.abs(x) > JOYSTICK_DEADZONE ? x : 0;
             y = Math.abs(y) > JOYSTICK_DEADZONE ? y : 0;
@@ -54,7 +54,8 @@ public class Drive extends CommandBase {
                     6.0 * (x * Math.abs(x)), //was 6
                     6.0 * (y * Math.abs(y)),
                     4.0 * rot,
-                    false);
+                    false
+            );
         }
     }
 

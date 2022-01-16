@@ -34,7 +34,7 @@ public class Indexer extends SubsystemBase {
     /**
      * Creates a new Indexer.
      */
-    public Indexer() {
+    private Indexer() {
         super();
 
         indexerMotor = new CANSparkMax(RobotMap.INDEXER_MOTOR, CANSparkMaxLowLevel.MotorType.kBrushless);

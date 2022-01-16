@@ -55,15 +55,6 @@ public final class Constants {
 
         public static final boolean kGyroReversed = false;
 
-        // These are example values only - DO NOT USE THESE FOR YOUR OWN ROBOT!
-        // These characterization values MUST be determined either experimentally or theoretically
-        // for *your* robot's drive.
-        // The RobotPy Characterization Toolsuite provides a convenient tool for obtaining these
-        // values for your robot.
-        public static final double ksVolts = 0.126;
-        public static final double kvVoltSecondsPerMeter = 0.0185;
-        public static final double kaVoltSecondsSquaredPerMeter = 0.00227;
-
         public static final double kMaxDriveRPM = 4800;
 
         public static final double kMaxSpeedMetersPerSecond = kMaxDriveRPM *
@@ -105,7 +96,7 @@ public final class Constants {
         public static final double kPYController = 2;
         public static final double kPThetaController = 2.2;
 
-        // Constraint for the motion profilied robot angle controller
+        // Constraint for the motion profiled robot angle controller
         public static final TrapezoidProfile.Constraints kThetaControllerConstraints =
                 new TrapezoidProfile.Constraints(
                         kMaxAngularSpeedRadiansPerSecond, kMaxAngularSpeedRadiansPerSecondSquared);

@@ -78,8 +78,6 @@ public class Drivetrain extends SubsystemBase {
     @Override
     public void periodic() {
 
-        //Shuffleboard.put
-
         //System.out.println("TURN: " + m_rearRight.getTurnDegrees());
         //System.out.println("DRIVE: " + m_frontLeft.getVelocity());
         //System.out.println("PIGEON: " + getHeading());
@@ -124,7 +122,7 @@ public class Drivetrain extends SubsystemBase {
      * @param fieldRelative Whether the provided x and y speeds are relative to the field.
      */
     public static void drive(double xSpeed, double ySpeed, double rot, boolean fieldRelative) {
-        var swerveModuleStates =
+        SwerveModuleState[] swerveModuleStates =
                 Constants.Drivetrain.kDriveKinematics.toSwerveModuleStates(
                         fieldRelative
                                 ? ChassisSpeeds.fromFieldRelativeSpeeds(xSpeed, ySpeed, rot, m_gyro.getRotation2d())
