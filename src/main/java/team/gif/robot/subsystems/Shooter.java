@@ -30,7 +30,7 @@ public class Shooter extends SubsystemBase {
     /**
      * Creates a new Shooter.
      */
-    public Shooter() {
+    private Shooter() {
         super();
 
         flywheelMotor = new CANSparkMax(RobotMap.FLYWHEEL_MOTOR, CANSparkMaxLowLevel.MotorType.kBrushless);

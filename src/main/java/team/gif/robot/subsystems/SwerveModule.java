@@ -42,7 +42,7 @@ public class SwerveModule {
      * @param driveMotorChannel   ID for the drive motor.
      * @param turningMotorChannel ID for the turning motor.
      */
-    public SwerveModule(
+    SwerveModule(
             int driveMotorChannel,
             int turningMotorChannel,
             boolean turningMotorReversed,

@@ -9,11 +9,6 @@ import team.gif.robot.subsystems.Indexer;
 
 public class IndexerRun extends CommandBase {
 
-    public IndexerRun() {
-        // Use addRequirements() here to declare subsystem dependencies.
-        //addRequirements(Indexer.getInstance());
-    }
-
     // Called when the command is initially scheduled.
     @Override
     public void initialize() {

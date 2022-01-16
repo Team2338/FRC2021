@@ -20,7 +20,7 @@ public class Hood extends SubsystemBase {
 
     private TalonSRX hoodMotor = new WPI_TalonSRX(RobotMap.SHOOTER_HOOD_MOTOR);
 
-    public Hood() {
+    private Hood() {
         super();
 
         /* Factory Default all hardware to prevent unexpected behaviour */
